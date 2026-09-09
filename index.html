@@ -3,29 +3,589 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Eduardo Chiara | Analista de Sistemas</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+            line-height: 1.6;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.9);
+            border-bottom: 1px solid #e5eaf2;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1769aa;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #45546a;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #1769aa;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 80vh;
+            padding: 100px 8%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+            background:
+                radial-gradient(circle at 85% 20%, #d8efff 0, transparent 28%),
+                #f4f7fb;
+        }
+
+        .hero-text {
+            max-width: 650px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 7px 14px;
+            border-radius: 20px;
+            background: #e2f2ff;
+            color: #1769aa;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: clamp(42px, 6vw, 70px);
+            line-height: 1.05;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: #1769aa;
+        }
+
+        .hero p {
+            color: #5b687a;
+            font-size: 18px;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 13px 22px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: #1769aa;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #1769aa;
+            border: 1px solid #d5dfeb;
+        }
+
+        /* DATA CARD */
+
+        .data-card {
+            width: 320px;
+            padding: 28px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(30, 60, 90, 0.10);
+        }
+
+        .data-card h3 {
+            margin-bottom: 20px;
+        }
+
+        .bar {
+            height: 10px;
+            background: #e8eef5;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .bar span {
+            display: block;
+            height: 100%;
+            background: linear-gradient(90deg, #1769aa, #36a9e1);
+            border-radius: 10px;
+        }
+
+        .bar-1 {
+            width: 90%;
+        }
+
+        .bar-2 {
+            width: 80%;
+        }
+
+        .bar-3 {
+            width: 70%;
+        }
+
+        /* SECTIONS */
+
+        section {
+            padding: 90px 8%;
+        }
+
+        .section-title {
+            margin-bottom: 45px;
+        }
+
+        .section-title span {
+            color: #1769aa;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            margin-top: 8px;
+        }
+
+        .section-title p {
+            color: #68768a;
+            max-width: 650px;
+            margin-top: 10px;
+        }
+
+        /* ABOUT */
+
+        .about {
+            background: white;
+        }
+
+        .about-content {
+            max-width: 850px;
+            color: #536174;
+            font-size: 17px;
+        }
+
+        /* PROJECTS */
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .project {
+            background: white;
+            border: 1px solid #e4eaf1;
+            border-radius: 18px;
+            padding: 28px;
+            transition: 0.25s;
+        }
+
+        .project:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(30,60,90,0.10);
+        }
+
+        .project-icon {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .project h3 {
+            margin-bottom: 10px;
+        }
+
+        .project p {
+            color: #68768a;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .tech {
+            font-size: 12px;
+            color: #1769aa;
+            font-weight: bold;
+        }
+
+        /* SKILLS */
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill {
+            background: white;
+            border: 1px solid #dfe6ee;
+            padding: 10px 15px;
+            border-radius: 9px;
+            font-size: 14px;
+        }
+
+        /* CONTACT */
+
+        .contact {
+            background: #172033;
+            color: white;
+            text-align: center;
+        }
+
+        .contact p {
+            color: #c7d0dc;
+            margin: 15px auto 25px;
+            max-width: 600px;
+        }
+
+        .contact .btn-secondary {
+            background: transparent;
+            color: white;
+            border-color: #536174;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #101827;
+            color: #8e9aaa;
+            font-size: 13px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            nav ul {
+                display: none;
+            }
+
+            .hero {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .data-card {
+                width: 100%;
+            }
+
+            section {
+                padding: 70px 6%;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <h1>Eduardo Chiara</h1>
+    <!-- NAVBAR -->
 
-    <h2>Analista de Sistemas | Business Intelligence</h2>
+    <nav>
+        <div class="logo">EC.</div>
 
-    <p>
-        SQL Server · Power BI · DAX · Power Query
-    </p>
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#sobre-mi">Sobre mí</a></li>
+            <li><a href="#proyectos">Proyectos</a></li>
+            <li><a href="#habilidades">Habilidades</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
 
-    <h2>Sobre mí</h2>
 
-    <p>
-        Analista de Sistemas con experiencia en soporte TI,
-        SQL Server y Business Intelligence.
-    </p>
+    <!-- HERO -->
 
-    <h2>Proyectos</h2>
+    <section class="hero" id="inicio">
 
-    <p>Próximamente...</p>
+        <div class="hero-text">
+
+            <span class="tag">ANALISTA DE SISTEMAS · BUSINESS INTELLIGENCE</span>
+
+            <h1>
+                Eduardo <span class="highlight">Chiara</span>
+            </h1>
+
+            <p>
+                Transformo información operativa en soluciones de datos
+                que permiten analizar, visualizar y tomar mejores decisiones.
+            </p>
+
+            <div class="buttons">
+
+                <a href="#proyectos" class="btn btn-primary">
+                    Ver proyectos
+                </a>
+
+                <a href="#" class="btn btn-secondary">
+                    Descargar CV
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="data-card">
+
+            <h3>Mi enfoque</h3>
+
+            <p>SQL Server</p>
+            <div class="bar">
+                <span class="bar-1"></span>
+            </div>
+
+            <p>Power BI</p>
+            <div class="bar">
+                <span class="bar-2"></span>
+            </div>
+
+            <p>Business Intelligence</p>
+            <div class="bar">
+                <span class="bar-3"></span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SOBRE MI -->
+
+    <section class="about" id="sobre-mi">
+
+        <div class="section-title">
+            <span>01 · Sobre mí</span>
+            <h2>De los sistemas a los datos</h2>
+        </div>
+
+        <div class="about-content">
+
+            <p>
+                Soy Analista de Sistemas con experiencia en soporte TI,
+                SQL Server y Business Intelligence.
+            </p>
+
+            <br>
+
+            <p>
+                Mi experiencia me ha permitido trabajar con información
+                proveniente de sistemas empresariales y participar en la
+                construcción de soluciones orientadas al análisis de datos.
+            </p>
+
+            <br>
+
+            <p>
+                Actualmente estoy enfocado en seguir desarrollándome en
+                Business Intelligence, fortaleciendo mis conocimientos en
+                SQL, Power BI, Power Query, DAX y modelado de datos.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- PROYECTOS -->
+
+    <section id="proyectos">
+
+        <div class="section-title">
+
+            <span>02 · Proyectos</span>
+
+            <h2>Trabajo que he desarrollado</h2>
+
+            <p>
+                Una selección de proyectos y soluciones en los que he
+                trabajado utilizando datos, SQL y herramientas de Business Intelligence.
+            </p>
+
+        </div>
+
+
+        <div class="projects">
+
+            <div class="project">
+
+                <div class="project-icon">📊</div>
+
+                <h3>Dashboard de Cobranzas</h3>
+
+                <p>
+                    Dashboard orientado al seguimiento y análisis
+                    de información de cobranzas mediante indicadores
+                    y visualizaciones interactivas.
+                </p>
+
+                <div class="tech">
+                    POWER BI · SQL SERVER · DAX
+                </div>
+
+            </div>
+
+
+            <div class="project">
+
+                <div class="project-icon">📈</div>
+
+                <h3>Dashboard de Ventas</h3>
+
+                <p>
+                    Análisis de información comercial mediante
+                    indicadores, filtros y visualizaciones interactivas.
+                </p>
+
+                <div class="tech">
+                    POWER BI · POWER QUERY · DAX
+                </div>
+
+            </div>
+
+
+            <div class="project">
+
+                <div class="project-icon">📋</div>
+
+                <h3>Dashboard de Cotizaciones</h3>
+
+                <p>
+                    Visualización y análisis de información de
+                    cotizaciones para facilitar el seguimiento.
+                </p>
+
+                <div class="tech">
+                    POWER BI · DAX · MODELADO
+                </div>
+
+            </div>
+
+
+            <div class="project">
+
+                <div class="project-icon">🗄️</div>
+
+                <h3>SQL Server</h3>
+
+                <p>
+                    Desarrollo de Views y Stored Procedures para
+                    facilitar la ejecución y reutilización de consultas
+                    utilizadas de manera recurrente.
+                </p>
+
+                <div class="tech">
+                    SQL SERVER · T-SQL
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- HABILIDADES -->
+
+    <section id="habilidades">
+
+        <div class="section-title">
+
+            <span>03 · Skills</span>
+
+            <h2>Herramientas</h2>
+
+        </div>
+
+
+        <div class="skills">
+
+            <div class="skill">Power BI</div>
+            <div class="skill">DAX</div>
+            <div class="skill">Power Query</div>
+            <div class="skill">SQL Server</div>
+            <div class="skill">T-SQL</div>
+            <div class="skill">MySQL</div>
+            <div class="skill">Python</div>
+            <div class="skill">Git</div>
+            <div class="skill">Microsoft 365</div>
+            <div class="skill">Active Directory</div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTACTO -->
+
+    <section class="contact" id="contacto">
+
+        <h2>¿Hablamos?</h2>
+
+        <p>
+            Estoy interesado en seguir creciendo profesionalmente
+            en áreas de Sistemas, Business Intelligence y análisis de datos.
+        </p>
+
+        <a href="#" class="btn btn-secondary">
+            LinkedIn
+        </a>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        © 2026 Eduardo Chiara · Analista de Sistemas
+
+    </footer>
 
 </body>
 </html>
