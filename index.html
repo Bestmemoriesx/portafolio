@@ -1,13 +1,19 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Eduardo Chiara | Analista de Sistemas</title>
 
     <style>
+
+        /* =========================
+           RESET
+        ========================= */
 
         * {
             margin: 0;
@@ -51,13 +57,11 @@
             backdrop-filter: blur(10px);
         }
 
-
         .logo {
             font-size: 20px;
             font-weight: bold;
             color: #38bdf8;
         }
-
 
         nav ul {
             display: flex;
@@ -65,14 +69,12 @@
             list-style: none;
         }
 
-
         nav a {
             text-decoration: none;
             color: #94a3b8;
             font-size: 14px;
             transition: 0.2s;
         }
-
 
         nav a:hover {
             color: #38bdf8;
@@ -112,11 +114,9 @@
                 #0b1120;
         }
 
-
         .hero-text {
             max-width: 680px;
         }
-
 
         .tag {
 
@@ -139,7 +139,6 @@
             margin-bottom: 20px;
         }
 
-
         h1 {
 
             font-size: clamp(42px, 6vw, 70px);
@@ -151,11 +150,9 @@
             color: #f8fafc;
         }
 
-
         .highlight {
             color: #38bdf8;
         }
-
 
         .hero p {
 
@@ -168,7 +165,6 @@
             margin-bottom: 30px;
         }
 
-
         .buttons {
 
             display: flex;
@@ -177,7 +173,6 @@
 
             flex-wrap: wrap;
         }
-
 
         .btn {
 
@@ -196,7 +191,6 @@
             transition: 0.2s;
         }
 
-
         .btn-primary {
 
             background: #0284c7;
@@ -204,14 +198,12 @@
             color: white;
         }
 
-
         .btn-primary:hover {
 
             background: #0369a1;
 
             transform: translateY(-2px);
         }
-
 
         .btn-secondary {
 
@@ -222,142 +214,146 @@
             border: 1px solid #334155;
         }
 
-
         .btn-secondary:hover {
 
             background: #172033;
         }
 
 
-        ```css
-/* =========================
-   PROFILE CARD
-========================= */
+        /* =========================
+           PROFILE CARD
+        ========================= */
 
-.profile-card-top {
+        .data-card {
 
-    display: flex;
+            width: 360px;
 
-    align-items: center;
+            padding: 30px;
 
-    gap: 8px;
+            background: #111827;
 
-    color: #38bdf8;
+            border: 1px solid #1e293b;
 
-    font-size: 11px;
+            border-radius: 20px;
 
-    font-weight: bold;
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.35);
+        }
 
-    letter-spacing: 1px;
+        .profile-card-top {
 
-    margin-bottom: 20px;
-}
+            display: flex;
 
+            align-items: center;
 
-.status-dot {
+            gap: 8px;
 
-    width: 7px;
+            color: #38bdf8;
 
-    height: 7px;
+            font-size: 11px;
 
-    background: #38bdf8;
+            font-weight: bold;
 
-    border-radius: 50%;
+            letter-spacing: 1px;
 
-    box-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
-}
+            margin-bottom: 20px;
+        }
 
+        .status-dot {
 
-.data-card h3 {
+            width: 7px;
 
-    font-size: 23px;
+            height: 7px;
 
-    margin-bottom: 12px;
+            background: #38bdf8;
 
-    color: #f8fafc;
-}
+            border-radius: 50%;
 
+            box-shadow:
+                0 0 10px rgba(56, 189, 248, 0.7);
+        }
 
-.profile-description {
+        .data-card h3 {
 
-    font-size: 14px;
+            font-size: 23px;
 
-    line-height: 1.6;
+            margin-bottom: 12px;
 
-    margin-bottom: 25px;
+            color: #f8fafc;
+        }
 
-    color: #94a3b8;
-}
+        .profile-description {
 
+            font-size: 14px;
 
-.profile-items {
+            line-height: 1.6;
 
-    display: flex;
+            margin-bottom: 25px;
 
-    flex-direction: column;
+            color: #94a3b8;
+        }
 
-    gap: 16px;
-}
+        .profile-items {
 
+            display: flex;
 
-.profile-item {
+            flex-direction: column;
 
-    display: flex;
+            gap: 16px;
+        }
 
-    align-items: flex-start;
+        .profile-item {
 
-    gap: 12px;
+            display: flex;
 
-    padding-bottom: 15px;
+            align-items: flex-start;
 
-    border-bottom: 1px solid #1e293b;
-}
+            gap: 12px;
 
+            padding-bottom: 15px;
 
-.profile-item:last-child {
+            border-bottom: 1px solid #1e293b;
+        }
 
-    border-bottom: none;
+        .profile-item:last-child {
 
-    padding-bottom: 0;
-}
+            border-bottom: none;
 
+            padding-bottom: 0;
+        }
 
-.profile-number {
+        .profile-number {
 
-    color: #38bdf8;
+            color: #38bdf8;
 
-    font-size: 12px;
+            font-size: 12px;
 
-    font-weight: bold;
+            font-weight: bold;
 
-    padding-top: 2px;
-}
+            padding-top: 2px;
+        }
 
+        .profile-item strong {
 
-.profile-item strong {
+            display: block;
 
-    display: block;
+            color: #e2e8f0;
 
-    color: #e2e8f0;
+            font-size: 14px;
 
-    font-size: 14px;
+            margin-bottom: 2px;
+        }
 
-    margin-bottom: 2px;
-}
+        .profile-item small {
 
+            display: block;
 
-.profile-item small {
+            color: #64748b;
 
-    display: block;
+            font-size: 11px;
 
-    color: #64748b;
-
-    font-size: 11px;
-
-    line-height: 1.4;
-}
-
-
+            line-height: 1.4;
+        }
 
 
         /* =========================
@@ -365,16 +361,12 @@
         ========================= */
 
         section {
-
             padding: 90px 8%;
         }
 
-
         .section-title {
-
             margin-bottom: 45px;
         }
-
 
         .section-title span {
 
@@ -387,7 +379,6 @@
             text-transform: uppercase;
         }
 
-
         .section-title h2 {
 
             font-size: 36px;
@@ -396,7 +387,6 @@
 
             color: #f8fafc;
         }
-
 
         .section-title p {
 
@@ -421,7 +411,6 @@
             border-bottom: 1px solid #1e293b;
         }
 
-
         .about-content {
 
             max-width: 850px;
@@ -431,9 +420,7 @@
             font-size: 17px;
         }
 
-
         .about-content strong {
-
             color: #e2e8f0;
         }
 
@@ -451,7 +438,6 @@
 
             gap: 25px;
         }
-
 
         .project {
 
@@ -472,7 +458,6 @@
             display: block;
         }
 
-
         .project:hover {
 
             transform: translateY(-5px);
@@ -483,7 +468,6 @@
                 0 15px 35px rgba(0, 0, 0, 0.35);
         }
 
-
         .project-icon {
 
             font-size: 32px;
@@ -491,14 +475,12 @@
             margin-bottom: 20px;
         }
 
-
         .project h3 {
 
             margin-bottom: 10px;
 
             color: #f8fafc;
         }
-
 
         .project p {
 
@@ -508,7 +490,6 @@
 
             margin-bottom: 20px;
         }
-
 
         .tech {
 
@@ -533,7 +514,6 @@
             gap: 12px;
         }
 
-
         .skill {
 
             background: #111827;
@@ -550,7 +530,6 @@
 
             transition: 0.2s;
         }
-
 
         .skill:hover {
 
@@ -583,12 +562,9 @@
             border-top: 1px solid #1e293b;
         }
 
-
         .contact h2 {
-
             font-size: 32px;
         }
-
 
         .contact p {
 
@@ -598,7 +574,6 @@
 
             max-width: 600px;
         }
-
 
         .contact .btn-secondary {
 
@@ -640,7 +615,6 @@
                 display: none;
             }
 
-
             .hero {
 
                 flex-direction: column;
@@ -650,19 +624,16 @@
                 padding-top: 70px;
             }
 
-
             .data-card {
 
                 width: 100%;
             }
-
 
             section {
 
                 padding: 70px 6%;
             }
         }
-
 
         @media (max-width: 500px) {
 
@@ -683,14 +654,15 @@
 <body>
 
 
-    <!-- NAVBAR -->
+    <!-- =========================
+         NAVBAR
+    ========================= -->
 
     <nav>
 
         <div class="logo">
             EC.
         </div>
-
 
         <ul>
 
@@ -729,8 +701,9 @@
     </nav>
 
 
-
-    <!-- HERO -->
+    <!-- =========================
+         HERO
+    ========================= -->
 
     <section class="hero" id="inicio">
 
@@ -740,20 +713,21 @@
                 ANALISTA DE SISTEMAS · BUSINESS INTELLIGENCE
             </span>
 
-
             <h1>
+
                 Eduardo
                 <span class="highlight">
                     Chiara
                 </span>
+
             </h1>
 
-
             <p>
+
                 Transformo información operativa en soluciones de datos
                 que permiten analizar, visualizar y tomar mejores decisiones.
-            </p>
 
+            </p>
 
             <div class="buttons">
 
@@ -763,7 +737,6 @@
                 >
                     Ver proyectos
                 </a>
-
 
                 <a
                     href="#contacto"
@@ -777,60 +750,110 @@
         </div>
 
 
+        <!-- PROFILE CARD -->
 
-        ```html
-<!-- PROFILE CARD -->
+        <div class="data-card">
 
-<div class="data-card">
+            <div class="profile-card-top">
 
-    <div class="profile-card-top">
-        <span class="status-dot"></span>
-        <span>ENFOQUE PROFESIONAL</span>
-    </div>
+                <span class="status-dot"></span>
 
-    <h3>
-        Sistemas · Datos · BI
-    </h3>
+                <span>
+                    ENFOQUE PROFESIONAL
+                </span>
 
-    <p class="profile-description">
-        Desarrollo soluciones orientadas al análisis de información
-        empresarial, combinando sistemas, SQL y visualización de datos.
-    </p>
-
-    <div class="profile-items">
-
-        <div class="profile-item">
-            <span class="profile-number">01</span>
-            <div>
-                <strong>SQL Server</strong>
-                <small>Consultas y transformación de datos</small>
             </div>
+
+
+            <h3>
+                Sistemas · Datos · BI
+            </h3>
+
+
+            <p class="profile-description">
+
+                Desarrollo soluciones orientadas al análisis de información
+                empresarial, combinando sistemas, SQL y visualización de datos.
+
+            </p>
+
+
+            <div class="profile-items">
+
+
+                <div class="profile-item">
+
+                    <span class="profile-number">
+                        01
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            SQL Server
+                        </strong>
+
+                        <small>
+                            Consultas y transformación de datos
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <span class="profile-number">
+                        02
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Power BI
+                        </strong>
+
+                        <small>
+                            Modelado, DAX y visualización
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <span class="profile-number">
+                        03
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Business Intelligence
+                        </strong>
+
+                        <small>
+                            Información para apoyar decisiones
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
         </div>
 
-        <div class="profile-item">
-            <span class="profile-number">02</span>
-            <div>
-                <strong>Power BI</strong>
-                <small>Modelado, DAX y visualización</small>
-            </div>
-        </div>
-
-        <div class="profile-item">
-            <span class="profile-number">03</span>
-            <div>
-                <strong>Business Intelligence</strong>
-                <small>Información para apoyar decisiones</small>
-            </div>
-        </div>
-
-    </div>
-
-</div>
+    </section>
 
 
-
-
-    <!-- SOBRE MI -->
+    <!-- =========================
+         SOBRE MI
+    ========================= -->
 
     <section
         class="about"
@@ -843,7 +866,6 @@
                 01 · Sobre mí
             </span>
 
-
             <h2>
                 De los sistemas a los datos
             </h2>
@@ -854,10 +876,13 @@
         <div class="about-content">
 
             <p>
+
                 Soy Analista de Sistemas con experiencia en
+
                 <strong>
                     soporte TI, SQL Server y Business Intelligence.
                 </strong>
+
             </p>
 
 
@@ -865,9 +890,11 @@
 
 
             <p>
+
                 Mi experiencia me ha permitido trabajar con información
                 proveniente de sistemas empresariales y participar en la
                 construcción de soluciones orientadas al análisis de datos.
+
             </p>
 
 
@@ -875,9 +902,11 @@
 
 
             <p>
+
                 Actualmente estoy enfocado en seguir desarrollándome en
                 Business Intelligence, fortaleciendo mis conocimientos en
                 SQL, Power BI, Power Query, DAX y modelado de datos.
+
             </p>
 
         </div>
@@ -885,8 +914,9 @@
     </section>
 
 
-
-    <!-- PROYECTOS -->
+    <!-- =========================
+         PROYECTOS
+    ========================= -->
 
     <section id="proyectos">
 
@@ -896,20 +926,19 @@
                 02 · Proyectos
             </span>
 
-
             <h2>
                 Trabajo que he desarrollado
             </h2>
 
-
             <p>
+
                 Una selección de proyectos y soluciones en los que he
                 trabajado utilizando datos, SQL y herramientas de
                 Business Intelligence.
+
             </p>
 
         </div>
-
 
 
         <div class="projects">
@@ -926,25 +955,23 @@
                     📊
                 </div>
 
-
                 <h3>
                     Dashboard de Cobranzas
                 </h3>
 
-
                 <p>
+
                     Dashboard orientado al seguimiento y análisis
                     de información de cobranzas mediante indicadores
                     y visualizaciones interactivas.
-                </p>
 
+                </p>
 
                 <div class="tech">
                     POWER BI · SQL SERVER · DAX
                 </div>
 
             </a>
-
 
 
             <!-- VENTAS -->
@@ -955,24 +982,22 @@
                     📈
                 </div>
 
-
                 <h3>
                     Dashboard de Ventas
                 </h3>
 
-
                 <p>
+
                     Análisis de información comercial mediante
                     indicadores, filtros y visualizaciones interactivas.
-                </p>
 
+                </p>
 
                 <div class="tech">
                     POWER BI · POWER QUERY · DAX
                 </div>
 
             </div>
-
 
 
             <!-- COTIZACIONES -->
@@ -983,24 +1008,22 @@
                     📋
                 </div>
 
-
                 <h3>
                     Dashboard de Cotizaciones
                 </h3>
 
-
                 <p>
+
                     Visualización y análisis de información de
                     cotizaciones para facilitar el seguimiento.
-                </p>
 
+                </p>
 
                 <div class="tech">
                     POWER BI · DAX · MODELADO
                 </div>
 
             </div>
-
 
 
             <!-- SQL -->
@@ -1011,18 +1034,17 @@
                     🗄️
                 </div>
 
-
                 <h3>
                     SQL Server
                 </h3>
 
-
                 <p>
+
                     Desarrollo de Views y Stored Procedures para
                     facilitar la ejecución y reutilización de consultas
                     utilizadas de manera recurrente.
-                </p>
 
+                </p>
 
                 <div class="tech">
                     SQL SERVER · T-SQL
@@ -1030,13 +1052,15 @@
 
             </div>
 
+
         </div>
 
     </section>
 
 
-
-    <!-- HABILIDADES -->
+    <!-- =========================
+         HABILIDADES
+    ========================= -->
 
     <section id="habilidades">
 
@@ -1046,13 +1070,11 @@
                 03 · Skills
             </span>
 
-
             <h2>
                 Herramientas
             </h2>
 
         </div>
-
 
 
         <div class="skills">
@@ -1082,6 +1104,10 @@
             </div>
 
             <div class="skill">
+                Python
+            </div>
+
+            <div class="skill">
                 Git
             </div>
 
@@ -1098,8 +1124,9 @@
     </section>
 
 
-
-    <!-- CONTACTO -->
+    <!-- =========================
+         CONTACTO
+    ========================= -->
 
     <section
         class="contact"
@@ -1110,12 +1137,12 @@
             ¿Hablamos?
         </h2>
 
-
         <p>
+
             Estoy interesado en seguir creciendo profesionalmente
             en áreas de Sistemas, Business Intelligence y análisis de datos.
-        </p>
 
+        </p>
 
         <a
             href="#"
@@ -1127,8 +1154,9 @@
     </section>
 
 
-
-    <!-- FOOTER -->
+    <!-- =========================
+         FOOTER
+    ========================= -->
 
     <footer>
 
@@ -1140,3 +1168,5 @@
 </body>
 
 </html>
+```
+
