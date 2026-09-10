@@ -40,7 +40,7 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(7,17,31,.94);
+      background: rgba(7, 17, 31, 0.95);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(255,255,255,.06);
     }
@@ -48,8 +48,8 @@
     .nav-content {
       height: 64px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
     }
 
     .logo {
@@ -75,7 +75,7 @@
     /* HERO */
 
     .hero {
-      padding: 48px 0 24px;
+      padding: 45px 0 20px;
     }
 
     .tag {
@@ -92,7 +92,7 @@
     }
 
     .hero h1 {
-      font-size: clamp(36px,5vw,56px);
+      font-size: clamp(36px, 5vw, 56px);
       line-height: 1.05;
       margin-bottom: 12px;
     }
@@ -103,14 +103,14 @@
 
     .hero p {
       color: #98a9bc;
-      max-width: 760px;
+      max-width: 780px;
       font-size: 15px;
     }
 
-    /* DASHBOARD */
+    /* CARRUSEL */
 
     .dashboard-section {
-      padding: 10px 0 42px;
+      padding: 8px 0 35px;
     }
 
     .dashboard-top {
@@ -118,6 +118,15 @@
       justify-content: space-between;
       align-items: end;
       margin-bottom: 13px;
+    }
+
+    .section-label {
+      color: #42a5ff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
     }
 
     .dashboard-top h2 {
@@ -168,7 +177,7 @@
       position: absolute;
       left: 18px;
       bottom: 18px;
-      background: rgba(5,12,22,.85);
+      background: rgba(5,12,22,.86);
       padding: 7px 11px;
       border-radius: 7px;
       font-size: 11px;
@@ -223,20 +232,11 @@
       background: #42a5ff;
     }
 
-    /* GENERAL */
+    /* SECCIONES */
 
     .section {
-      padding: 42px 0;
+      padding: 34px 0;
       border-top: 1px solid rgba(255,255,255,.055);
-    }
-
-    .section-label {
-      color: #42a5ff;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-bottom: 6px;
     }
 
     .section-title {
@@ -244,132 +244,98 @@
       margin-bottom: 10px;
     }
 
-    .section-description {
-      color: #8fa0b4;
-      max-width: 800px;
+    /* CONTEXTO */
+
+    .context {
+      max-width: 920px;
+      color: #9aabbd;
       font-size: 14px;
-      margin-bottom: 22px;
     }
 
-    /* WHAT I DID */
+    .context p {
+      margin-bottom: 13px;
+    }
 
-    .skills-work {
+    .highlight {
+      color: #dce7f2;
+    }
+
+    /* DESARROLLO */
+
+    .development {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 13px;
     }
 
-    .work-card {
-      background: #0b192b;
-      border: 1px solid rgba(255,255,255,.07);
-      border-radius: 12px;
-      padding: 20px;
-    }
-
-    .work-card h3 {
-      font-size: 16px;
-      margin-bottom: 11px;
-    }
-
-    .work-card ul {
-      list-style: none;
-    }
-
-    .work-card li {
-      position: relative;
-      padding-left: 17px;
-      margin-bottom: 8px;
-      color: #a7b6c7;
-      font-size: 13px;
-    }
-
-    .work-card li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 9px;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: #42a5ff;
-    }
-
-    /* TECHNICAL FLOW */
-
-    .flow {
-      display: grid;
-      grid-template-columns: repeat(4,1fr);
-      gap: 12px;
-    }
-
-    .flow-card {
-      position: relative;
+    .development-card {
       background: #0b192b;
       border: 1px solid rgba(255,255,255,.07);
       border-radius: 12px;
       padding: 19px;
     }
 
-    .flow-number {
+    .number {
       color: #42a5ff;
       font-size: 11px;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 9px;
     }
 
-    .flow-card h3 {
-      font-size: 15px;
-      margin-bottom: 7px;
+    .development-card h3 {
+      font-size: 16px;
+      margin-bottom: 9px;
     }
 
-    .flow-card p {
-      color: #899bad;
+    .development-card p {
+      color: #8fa0b3;
       font-size: 12px;
     }
 
-    /* CONTEXT / IMPACT */
+    /* SOLUCIÓN */
+
+    .solution {
+      background: linear-gradient(
+        135deg,
+        rgba(18,87,145,.16),
+        rgba(11,25,43,.85)
+      );
+      border: 1px solid rgba(66,165,255,.14);
+      border-radius: 14px;
+      padding: 23px;
+    }
+
+    .solution p {
+      color: #9eafc0;
+      font-size: 14px;
+      max-width: 930px;
+    }
 
     .impact {
       display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 15px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 18px;
     }
 
-    .impact-main,
-    .impact-side {
-      background: #0b192b;
-      border: 1px solid rgba(255,255,255,.07);
-      border-radius: 12px;
-      padding: 22px;
+    .impact-card {
+      background: rgba(0,0,0,.18);
+      border-radius: 9px;
+      padding: 14px;
     }
 
-    .impact-main h3,
-    .impact-side h3 {
-      font-size: 17px;
-      margin-bottom: 10px;
-    }
-
-    .impact-main p {
-      color: #9aabbd;
+    .impact-card strong {
+      display: block;
       font-size: 13px;
+      margin-bottom: 4px;
     }
 
-    .impact-side ul {
-      list-style: none;
+    .impact-card span {
+      color: #8497aa;
+      font-size: 12px;
     }
 
-    .impact-side li {
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(255,255,255,.05);
-      color: #a8b7c8;
-      font-size: 13px;
-    }
-
-    .impact-side li:last-child {
-      border-bottom: none;
-    }
-
-    /* TECHNOLOGIES */
+    /* TECNOLOGIAS */
 
     .technologies {
       display: flex;
@@ -391,7 +357,7 @@
     footer {
       border-top: 1px solid rgba(255,255,255,.06);
       text-align: center;
-      padding: 28px 0;
+      padding: 27px 0;
       color: #718398;
       font-size: 12px;
     }
@@ -410,13 +376,12 @@
         display: none;
       }
 
-      .skills-work,
-      .impact {
-        grid-template-columns: 1fr;
+      .development {
+        grid-template-columns: 1fr 1fr;
       }
 
-      .flow {
-        grid-template-columns: 1fr 1fr;
+      .impact {
+        grid-template-columns: 1fr;
       }
 
       .dashboard-top {
@@ -430,11 +395,7 @@
 
     @media (max-width: 550px) {
 
-      .hero {
-        padding-top: 35px;
-      }
-
-      .flow {
+      .development {
         grid-template-columns: 1fr;
       }
 
@@ -460,7 +421,7 @@
 
 <body>
 
-  <!-- NAV -->
+  <!-- NAVBAR -->
 
   <nav>
     <div class="container nav-content">
@@ -496,9 +457,9 @@
       </h1>
 
       <p>
-        Desarrollo de una solución de Business Intelligence para integrar,
-        transformar y analizar información de cobranzas, desde la extracción
-        de datos hasta su visualización y actualización automática.
+        Solución desarrollada para centralizar la información de cobranzas,
+        facilitar su análisis y optimizar el acceso a información actualizada
+        para las áreas involucradas.
       </p>
 
     </div>
@@ -515,11 +476,11 @@
       <div class="dashboard-top">
 
         <div>
-          <div class="section-label">Trabajo realizado</div>
+          <div class="section-label">Proyecto</div>
           <h2>Dashboard y desarrollo técnico</h2>
         </div>
 
-        <p>6 vistas del proyecto</p>
+        <p>Power BI · SQL Server · Power Query</p>
 
       </div>
 
@@ -529,80 +490,33 @@
         <div class="slides">
 
           <div class="slide active">
-
-            <img
-              src="img/cobranzas-01.png"
-              alt="Dashboard de cobranzas">
-
-            <div class="slide-label">
-              01 · Dashboard
-            </div>
-
+            <img src="img/cobranzas-01.png" alt="Dashboard de cobranzas">
+            <div class="slide-label">01 · Dashboard</div>
           </div>
 
-
           <div class="slide">
-
-            <img
-              src="img/cobranzas-02.png"
-              alt="Dashboard de cobranzas - análisis">
-
-            <div class="slide-label">
-              02 · Dashboard
-            </div>
-
+            <img src="img/cobranzas-02.png" alt="Dashboard de cobranzas">
+            <div class="slide-label">02 · Dashboard</div>
           </div>
 
-
           <div class="slide">
-
-            <img
-              src="img/cobranzas-03.png"
-              alt="Dashboard de cobranzas - detalle">
-
-            <div class="slide-label">
-              03 · Dashboard
-            </div>
-
+            <img src="img/cobranzas-03.png" alt="Dashboard de cobranzas">
+            <div class="slide-label">03 · Dashboard</div>
           </div>
 
-
           <div class="slide">
-
-            <img
-              src="img/cobranzas-04.png"
-              alt="SQL Server utilizado en el proyecto">
-
-            <div class="slide-label">
-              04 · SQL Server
-            </div>
-
+            <img src="img/cobranzas-04.png" alt="SQL Server del proyecto">
+            <div class="slide-label">04 · SQL Server</div>
           </div>
 
-
           <div class="slide">
-
-            <img
-              src="img/cobranzas-05.png"
-              alt="Consultas SQL del proyecto">
-
-            <div class="slide-label">
-              05 · SQL / Preparación de datos
-            </div>
-
+            <img src="img/cobranzas-05.png" alt="SQL Server del proyecto">
+            <div class="slide-label">05 · SQL Server</div>
           </div>
 
-
           <div class="slide">
-
-            <img
-              src="img/cobranzas-06.png"
-              alt="Código M de Power Query">
-
-            <div class="slide-label">
-              06 · Power Query / M
-            </div>
-
+            <img src="img/cobranzas-06.png" alt="Código M de Power Query">
+            <div class="slide-label">06 · Power Query / M</div>
           </div>
 
 
@@ -635,7 +549,47 @@
   </section>
 
 
-  <!-- QUÉ HICE -->
+  <!-- CONTEXTO -->
+
+  <section class="section">
+
+    <div class="container">
+
+      <div class="section-label">
+        Contexto
+      </div>
+
+      <h2 class="section-title">
+        Necesidad identificada
+      </h2>
+
+      <div class="context">
+
+        <p>
+          La información relacionada con las cobranzas se encontraba
+          distribuida en diferentes fuentes y consultas, por lo que se
+          requería una revisión manual en Excel para obtener una visión
+          general de la situación.
+        </p>
+
+        <p>
+          Esta distribución dificultaba disponer rápidamente de una visión
+          consolidada de <span class="highlight">montos pendientes,
+          vencimientos, clientes y diferentes situaciones de cobranza</span>.
+          Por este motivo, se centralizó la información de facturación,
+          se realizó la limpieza de los datos y se crearon columnas
+          adicionales para englobar los diferentes reportes en una sola
+          solución.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- DESARROLLO -->
 
   <section class="section">
 
@@ -646,47 +600,83 @@
       </div>
 
       <h2 class="section-title">
-        ¿Qué hice?
+        Lo que se desarrolló
       </h2>
 
-      <p class="section-description">
-        Participé en el desarrollo de la solución desde la preparación de
-        información hasta la construcción y publicación del dashboard.
-      </p>
+      <div class="development">
 
 
-      <div class="skills-work">
+        <div class="development-card">
 
-        <div class="work-card">
+          <div class="number">
+            01 · DATOS
+          </div>
 
-          <h3>Datos y SQL Server</h3>
+          <h3>Fuentes</h3>
 
-          <ul>
-            <li>Integración de información proveniente de diferentes tablas y fuentes.</li>
-            <li>Construcción y optimización de consultas mediante múltiples JOIN.</li>
-            <li>Uso de CTE y tablas temporales para organizar y procesar información.</li>
-            <li>Tratamiento de valores nulos, tipos de datos y campos inconsistentes.</li>
-            <li>Extracción y transformación de información mediante funciones SQL.</li>
-            <li>Centralización de información que anteriormente se encontraba distribuida en Excel y diferentes consultas.</li>
-          </ul>
+          <p>
+            Se trabajó con información proveniente de Excel y SQL Server.
+            La información de Excel fue llevada a la base de datos para
+            mantenerla centralizada y evitar pérdida o dispersión de
+            información.
+          </p>
 
         </div>
 
 
-        <div class="work-card">
+        <div class="development-card">
 
-          <h3>Power BI y análisis</h3>
+          <div class="number">
+            02 · SQL
+          </div>
 
-          <ul>
-            <li>Preparación y transformación de datos mediante Power Query y lenguaje M.</li>
-            <li>Creación de medidas DAX e indicadores según requerimientos del negocio.</li>
-            <li>Construcción de filtros y visualizaciones orientadas al análisis de cobranzas.</li>
-            <li>Organización de información para diferentes jefaturas y gerencias.</li>
-            <li>Desarrollo de una herramienta interactiva para consulta y seguimiento.</li>
-            <li>Implementación de actualización automática mediante Power BI Gateway.</li>
-          </ul>
+          <h3>Preparación</h3>
+
+          <p>
+            Se utilizaron tablas temporales para agilizar las actualizaciones.
+            Se realizó limpieza de filas nulas, diferencias de tipos de datos
+            y extracción de cadenas de texto. Finalmente, se generó una vista
+            optimizada mediante JOIN entre una cantidad considerable de tablas.
+          </p>
 
         </div>
+
+
+        <div class="development-card">
+
+          <div class="number">
+            03 · ORGANIZACIÓN
+          </div>
+
+          <h3>Información consolidada</h3>
+
+          <p>
+            Se integraron diferentes vistas utilizadas por jefaturas y
+            gerencia en un sistema común, de manera que la información pueda
+            utilizarse tanto en reuniones como para las consultas de los
+            usuarios.
+          </p>
+
+        </div>
+
+
+        <div class="development-card">
+
+          <div class="number">
+            04 · BI
+          </div>
+
+          <h3>Visualización</h3>
+
+          <p>
+            Se desarrollaron medidas e indicadores considerando las
+            necesidades de los usuarios, además de filtros y permisos por
+            gerencia para compartir la información correspondiente sin
+            exponer información de otras áreas.
+          </p>
+
+        </div>
+
 
       </div>
 
@@ -695,161 +685,70 @@
   </section>
 
 
-  <!-- FLUJO TÉCNICO -->
+  <!-- SOLUCIÓN E IMPACTO -->
 
   <section class="section">
 
     <div class="container">
 
       <div class="section-label">
-        Flujo de trabajo
+        Solución e impacto
       </div>
 
       <h2 class="section-title">
-        De los datos al dashboard
+        Centralizar el análisis
       </h2>
 
-      <p class="section-description">
-        El proyecto involucró diferentes etapas de trabajo con datos, no
-        únicamente la construcción de visualizaciones.
-      </p>
+      <div class="solution">
+
+        <p>
+          Se construyó una herramienta de análisis que permite visualizar la
+          situación de las cobranzas de manera clara, interactiva y
+          actualizable. El dashboard reúne KPIs gerenciales y el detalle
+          necesario para la consulta de cada jefatura o gerencia.
+          <br><br>
+          La solución permite manejar la información de manera precisa y
+          mantenerla actualizada automáticamente desde la base de datos hacia
+          la nube mediante Power BI Gateway. Esto reduce el tiempo de consulta
+          de los usuarios y facilita el acceso a la información a través de
+          Teams.
+        </p>
 
 
-      <div class="flow">
+        <div class="impact">
 
-        <div class="flow-card">
+          <div class="impact-card">
 
-          <div class="flow-number">
-            01 · EXTRACCIÓN
+            <strong>Información centralizada</strong>
+
+            <span>
+              Reportes de facturación consolidados en una única herramienta.
+            </span>
+
           </div>
 
-          <h3>Integración</h3>
 
-          <p>
-            Se consolidó información proveniente de SQL Server y Excel,
-            incorporándola a un flujo centralizado.
-          </p>
+          <div class="impact-card">
 
-        </div>
+            <strong>Información actualizada</strong>
 
+            <span>
+              Actualización automática desde la base de datos mediante Gateway.
+            </span>
 
-        <div class="flow-card">
-
-          <div class="flow-number">
-            02 · TRANSFORMACIÓN
           </div>
 
-          <h3>Limpieza</h3>
 
-          <p>
-            Se corrigieron estructuras, tipos de datos, valores nulos y
-            campos necesarios para el análisis.
-          </p>
+          <div class="impact-card">
 
-        </div>
+            <strong>Acceso optimizado</strong>
 
+            <span>
+              Información disponible para los usuarios y áreas correspondientes
+              desde Teams.
+            </span>
 
-        <div class="flow-card">
-
-          <div class="flow-number">
-            03 · MODELADO
           </div>
-
-          <h3>Organización</h3>
-
-          <p>
-            Se estructuró la información para generar indicadores y diferentes
-            niveles de consulta.
-          </p>
-
-        </div>
-
-
-        <div class="flow-card">
-
-          <div class="flow-number">
-            04 · VISUALIZACIÓN
-          </div>
-
-          <h3>Power BI</h3>
-
-          <p>
-            Se desarrollaron medidas, KPIs, filtros y vistas orientadas a
-            las necesidades de análisis.
-          </p>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- SOLUCIÓN / IMPACTO -->
-
-  <section class="section">
-
-    <div class="container">
-
-      <div class="section-label">
-        Solución
-      </div>
-
-      <h2 class="section-title">
-        Centralización y mejora del análisis
-      </h2>
-
-
-      <div class="impact">
-
-        <div class="impact-main">
-
-          <h3>Necesidad y solución</h3>
-
-          <p>
-            La información de cobranzas se encontraba distribuida entre
-            diferentes fuentes, consultas y archivos Excel, lo que generaba
-            dependencia de revisiones manuales para obtener una visión
-            consolidada.
-            <br><br>
-            La solución permitió centralizar esta información y convertirla
-            en una herramienta interactiva y actualizable, facilitando la
-            consulta de montos pendientes, vencimientos, clientes y diferentes
-            situaciones de cobranza.
-          </p>
-
-        </div>
-
-
-        <div class="impact-side">
-
-          <h3>Resultado</h3>
-
-          <ul>
-
-            <li>
-              ✓ Información centralizada
-            </li>
-
-            <li>
-              ✓ Menor dependencia de revisiones manuales
-            </li>
-
-            <li>
-              ✓ Consultas y análisis más ágiles
-            </li>
-
-            <li>
-              ✓ Actualización automática desde la base de datos
-            </li>
-
-            <li>
-              ✓ Información disponible para las áreas involucradas
-            </li>
-
-          </ul>
 
         </div>
 
@@ -867,11 +766,11 @@
     <div class="container">
 
       <div class="section-label">
-        Stack técnico
+        Tecnologías
       </div>
 
       <h2 class="section-title">
-        Tecnologías y herramientas
+        Herramientas utilizadas
       </h2>
 
       <div class="technologies">
@@ -884,6 +783,7 @@
         <span class="tech">DAX</span>
         <span class="tech">Power BI Gateway</span>
         <span class="tech">Excel</span>
+        <span class="tech">Microsoft Teams</span>
 
       </div>
 
@@ -923,24 +823,34 @@
 
       if (index >= slides.length) {
         currentSlide = 0;
-      } else if (index < 0) {
+      }
+
+      else if (index < 0) {
         currentSlide = slides.length - 1;
-      } else {
+      }
+
+      else {
         currentSlide = index;
       }
 
+
       slides.forEach((slide, i) => {
+
         slide.classList.toggle(
           "active",
           i === currentSlide
         );
+
       });
 
+
       dots.forEach((dot, i) => {
+
         dot.classList.toggle(
           "active",
           i === currentSlide
         );
+
       });
 
     }
