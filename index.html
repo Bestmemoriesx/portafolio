@@ -6,7 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Eduardo Chiara | Analista de Sistemas</title>
+    <meta name="description"
+        content="Portafolio profesional de Eduardo Chiara, Analista de Sistemas especializado en SQL Server, Power BI y Business Intelligence.">
+
+    <title>Eduardo Chiara | Analista de Sistemas · Business Intelligence</title>
 
     <style>
 
@@ -22,34 +25,46 @@
 
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background: #0b1120;
+            background: #080f1c;
             color: #e5e7eb;
             line-height: 1.6;
         }
 
+        a {
+            color: inherit;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
         nav {
             width: 100%;
-            padding: 20px 8%;
+            padding: 18px 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(11, 17, 32, 0.92);
+
+            background: rgba(8, 15, 28, 0.92);
             border-bottom: 1px solid #1e293b;
+
             position: sticky;
             top: 0;
             z-index: 100;
-            backdrop-filter: blur(10px);
+
+            backdrop-filter: blur(12px);
         }
 
         .logo {
             font-size: 20px;
             font-weight: bold;
             color: #38bdf8;
+            letter-spacing: -1px;
         }
 
         nav ul {
             display: flex;
-            gap: 28px;
+            gap: 30px;
             list-style: none;
         }
 
@@ -64,75 +79,104 @@
             color: #38bdf8;
         }
 
+        /* =========================
+           HERO
+        ========================= */
+
         .hero {
-            min-height: 82vh;
+            min-height: 86vh;
             padding: 100px 8%;
+
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 60px;
+
+            gap: 70px;
 
             background:
                 radial-gradient(
-                    circle at 80% 20%,
-                    rgba(14, 165, 233, 0.12),
-                    transparent 30%
+                    circle at 82% 20%,
+                    rgba(14, 165, 233, 0.13),
+                    transparent 32%
                 ),
                 radial-gradient(
-                    circle at 20% 80%,
+                    circle at 15% 80%,
                     rgba(37, 99, 235, 0.08),
                     transparent 30%
                 ),
-                #0b1120;
+                #080f1c;
         }
 
         .hero-text {
-            max-width: 680px;
+            max-width: 700px;
         }
 
         .tag {
             display: inline-block;
+
             padding: 7px 14px;
+            margin-bottom: 22px;
+
             border-radius: 20px;
-            background: #102a43;
+
+            background: #0d253c;
             color: #38bdf8;
+
             border: 1px solid #164e63;
-            font-size: 13px;
+
+            font-size: 12px;
             font-weight: bold;
-            margin-bottom: 20px;
+            letter-spacing: 0.5px;
         }
 
         h1 {
-            font-size: clamp(42px, 6vw, 70px);
-            line-height: 1.05;
-            margin-bottom: 20px;
+            font-size: clamp(46px, 6vw, 76px);
+            line-height: 1.02;
+
+            margin-bottom: 24px;
+
             color: #f8fafc;
+            letter-spacing: -2px;
         }
 
         .highlight {
             color: #38bdf8;
         }
 
+        .hero-subtitle {
+            font-size: 21px;
+            font-weight: bold;
+            color: #cbd5e1;
+
+            margin-bottom: 15px;
+        }
+
         .hero p {
             color: #94a3b8;
-            font-size: 18px;
-            max-width: 600px;
-            margin-bottom: 30px;
+            font-size: 17px;
+
+            max-width: 650px;
+            margin-bottom: 32px;
         }
 
         .buttons {
             display: flex;
-            gap: 15px;
+            gap: 14px;
             flex-wrap: wrap;
         }
 
         .btn {
             display: inline-block;
+
             padding: 13px 22px;
+
             border-radius: 10px;
+
             text-decoration: none;
+
             font-weight: bold;
             font-size: 14px;
+
             transition: 0.2s;
         }
 
@@ -154,46 +198,73 @@
 
         .btn-secondary:hover {
             background: #172033;
+            transform: translateY(-2px);
         }
 
+        /* =========================
+           PROFILE CARD
+        ========================= */
+
         .data-card {
-            width: 360px;
+            width: 380px;
+            flex-shrink: 0;
+
             padding: 30px;
-            background: #111827;
-            border: 1px solid #1e293b;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #111c2d,
+                    #0d1726
+                );
+
+            border: 1px solid #263449;
             border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.40);
         }
 
         .profile-card-top {
             display: flex;
             align-items: center;
             gap: 8px;
+
             color: #38bdf8;
+
             font-size: 11px;
             font-weight: bold;
             letter-spacing: 1px;
-            margin-bottom: 20px;
+
+            margin-bottom: 22px;
         }
 
         .status-dot {
             width: 7px;
             height: 7px;
+
             background: #38bdf8;
+
             border-radius: 50%;
-            box-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+
+            box-shadow:
+                0 0 12px rgba(56, 189, 248, 0.8);
         }
 
         .data-card h3 {
-            font-size: 23px;
+            font-size: 24px;
+
             margin-bottom: 12px;
+
             color: #f8fafc;
         }
 
         .profile-description {
             font-size: 14px;
             line-height: 1.6;
+
             margin-bottom: 25px;
+
             color: #94a3b8;
         }
 
@@ -206,8 +277,11 @@
         .profile-item {
             display: flex;
             align-items: flex-start;
+
             gap: 12px;
+
             padding-bottom: 15px;
+
             border-bottom: 1px solid #1e293b;
         }
 
@@ -218,27 +292,38 @@
 
         .profile-number {
             color: #38bdf8;
+
             font-size: 12px;
             font-weight: bold;
+
             padding-top: 2px;
         }
 
         .profile-item strong {
             display: block;
+
             color: #e2e8f0;
+
             font-size: 14px;
+
             margin-bottom: 2px;
         }
 
         .profile-item small {
             display: block;
+
             color: #64748b;
+
             font-size: 11px;
             line-height: 1.4;
         }
 
+        /* =========================
+           GENERAL SECTIONS
+        ========================= */
+
         section {
-            padding: 90px 8%;
+            padding: 95px 8%;
         }
 
         .section-title {
@@ -247,170 +332,380 @@
 
         .section-title span {
             color: #38bdf8;
-            font-size: 13px;
+
+            font-size: 12px;
             font-weight: bold;
+
             text-transform: uppercase;
+            letter-spacing: 0.8px;
         }
 
         .section-title h2 {
-            font-size: 36px;
+            font-size: 38px;
+
             margin-top: 8px;
+
             color: #f8fafc;
+
+            letter-spacing: -1px;
         }
 
         .section-title p {
             color: #94a3b8;
-            max-width: 650px;
-            margin-top: 10px;
+
+            max-width: 700px;
+
+            margin-top: 12px;
         }
 
+        /* =========================
+           SOBRE MI
+        ========================= */
+
         .about {
-            background: #0f172a;
+            background: #0d1726;
+
             border-top: 1px solid #1e293b;
             border-bottom: 1px solid #1e293b;
         }
 
         .about-content {
-            max-width: 850px;
+            max-width: 900px;
+
             color: #94a3b8;
+
             font-size: 17px;
+            line-height: 1.8;
         }
 
         .about-content strong {
             color: #e2e8f0;
         }
 
+        .about-name {
+            color: #38bdf8 !important;
+        }
+
+        /* =========================
+           QUE HAGO
+        ========================= */
+
+        .what-i-do {
+            background: #080f1c;
+        }
+
+        .services {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(230px, 1fr));
+
+            gap: 20px;
+        }
+
+        .service {
+            padding: 26px;
+
+            background: #101a2a;
+
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+
+            transition: 0.25s;
+        }
+
+        .service:hover {
+            transform: translateY(-4px);
+
+            border-color: #0ea5e9;
+
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.30);
+        }
+
+        .service-number {
+            display: block;
+
+            color: #38bdf8;
+
+            font-size: 12px;
+            font-weight: bold;
+
+            margin-bottom: 15px;
+        }
+
+        .service h3 {
+            color: #f8fafc;
+
+            font-size: 18px;
+
+            margin-bottom: 10px;
+        }
+
+        .service p {
+            color: #94a3b8;
+
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           PROYECTOS
+        ========================= */
+
         .projects {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(280px, 1fr));
+
             gap: 25px;
         }
 
         .project {
             background: #111827;
+
             border: 1px solid #1e293b;
             border-radius: 18px;
+
             padding: 28px;
+
             transition: 0.25s;
+
             text-decoration: none;
             color: inherit;
+
             display: block;
         }
 
         .project:hover {
             transform: translateY(-5px);
+
             border-color: #0ea5e9;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.35);
         }
 
         .project-icon {
             font-size: 32px;
+
             margin-bottom: 20px;
         }
 
         .project h3 {
             margin-bottom: 10px;
+
             color: #f8fafc;
+
+            font-size: 20px;
         }
 
         .project p {
             color: #94a3b8;
+
             font-size: 15px;
+
             margin-bottom: 20px;
         }
 
         .tech {
-            font-size: 12px;
+            font-size: 11px;
+
             color: #38bdf8;
+
             font-weight: bold;
+
+            letter-spacing: 0.4px;
         }
 
         /* =========================
-           PROYECTOS EN DESARROLLO
+           PROJECTS DISABLED
         ========================= */
 
         .project-disabled {
-            opacity: 0.72;
+            opacity: 0.65;
             cursor: default;
         }
 
         .project-disabled:hover {
             transform: none;
+
             border-color: #1e293b;
+
             box-shadow: none;
         }
 
         .status-label {
             display: inline-block;
+
             margin-bottom: 16px;
+
             padding: 5px 10px;
+
             border-radius: 20px;
+
             background: #172033;
+
             border: 1px solid #334155;
+
             color: #64748b;
+
             font-size: 10px;
             font-weight: bold;
+
             letter-spacing: 0.5px;
+        }
+
+        /* =========================
+           SKILLS
+        ========================= */
+
+        .skills-section {
+            background: #0d1726;
+
+            border-top: 1px solid #1e293b;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .skill-groups {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(280px, 1fr));
+
+            gap: 25px;
+        }
+
+        .skill-group {
+            background: #111827;
+
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+
+            padding: 25px;
+        }
+
+        .skill-group h3 {
+            color: #f8fafc;
+
+            font-size: 17px;
+
+            margin-bottom: 18px;
         }
 
         .skills {
             display: flex;
+
             flex-wrap: wrap;
-            gap: 12px;
+
+            gap: 9px;
         }
 
         .skill {
-            background: #111827;
+            background: #0d1726;
+
             border: 1px solid #263449;
-            padding: 10px 15px;
-            border-radius: 9px;
-            font-size: 14px;
+
+            padding: 8px 12px;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+
             color: #cbd5e1;
+
             transition: 0.2s;
         }
 
         .skill:hover {
             border-color: #38bdf8;
+
             color: #38bdf8;
         }
+
+        /* =========================
+           CONTACTO
+        ========================= */
 
         .contact {
             background:
                 radial-gradient(
                     circle at center,
                     rgba(14, 165, 233, 0.10),
-                    transparent 40%
+                    transparent 42%
                 ),
-                #0f172a;
+                #080f1c;
 
             color: white;
+
             text-align: center;
+
             border-top: 1px solid #1e293b;
         }
 
         .contact h2 {
-            font-size: 32px;
+            font-size: 36px;
+
+            color: #f8fafc;
         }
 
         .contact p {
             color: #94a3b8;
-            margin: 15px auto 25px;
-            max-width: 600px;
+
+            margin: 15px auto 28px;
+
+            max-width: 620px;
         }
 
-        .contact .btn-secondary {
-            background: #111827;
-            color: #38bdf8;
-            border-color: #334155;
+        .contact-buttons {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
         }
+
+        /* =========================
+           FOOTER
+        ========================= */
 
         footer {
             text-align: center;
+
             padding: 25px;
-            background: #080d18;
+
+            background: #060b14;
+
             color: #64748b;
+
             font-size: 13px;
+
             border-top: 1px solid #172033;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .hero {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                padding-top: 75px;
+            }
+
+            .data-card {
+                width: 100%;
+
+                max-width: 500px;
+            }
+
         }
 
         @media (max-width: 800px) {
@@ -419,30 +714,30 @@
                 display: none;
             }
 
-            .hero {
-                flex-direction: column;
-                align-items: flex-start;
-                padding-top: 70px;
-            }
-
-            .data-card {
-                width: 100%;
-            }
-
             section {
-                padding: 70px 6%;
+                padding: 75px 6%;
             }
+
         }
 
         @media (max-width: 500px) {
 
             h1 {
-                font-size: 42px;
+                font-size: 44px;
+            }
+
+            .hero-subtitle {
+                font-size: 18px;
             }
 
             .section-title h2 {
                 font-size: 30px;
             }
+
+            .about-content {
+                font-size: 16px;
+            }
+
         }
 
     </style>
@@ -504,7 +799,10 @@
          HERO
     ========================= -->
 
-    <section class="hero" id="inicio">
+    <section
+        class="hero"
+        id="inicio"
+    >
 
         <div class="hero-text">
 
@@ -521,10 +819,16 @@
 
             </h1>
 
+            <div class="hero-subtitle">
+                SQL Server · Power BI · Business Intelligence
+            </div>
+
             <p>
 
-                Transformo información operativa en soluciones de datos
-                que permiten analizar, visualizar y tomar mejores decisiones.
+                Desarrollo soluciones de datos a partir de información
+                empresarial, integrando SQL Server, Power BI y procesos
+                de transformación para convertir información operativa
+                en herramientas de análisis.
 
             </p>
 
@@ -558,7 +862,7 @@
                 <span class="status-dot"></span>
 
                 <span>
-                    ENFOQUE PROFESIONAL
+                    PERFIL TÉCNICO
                 </span>
 
             </div>
@@ -569,12 +873,14 @@
 
             <p class="profile-description">
 
-                Desarrollo soluciones orientadas al análisis de información
-                empresarial, combinando sistemas, SQL y visualización de datos.
+                Perfil orientado a conectar sistemas, datos y necesidades
+                del negocio mediante soluciones de análisis y visualización.
 
             </p>
 
+
             <div class="profile-items">
+
 
                 <div class="profile-item">
 
@@ -589,7 +895,7 @@
                         </strong>
 
                         <small>
-                            Consultas y transformación de datos
+                            Consultas, Views, CTE, SP e integración de datos
                         </small>
 
                     </div>
@@ -610,7 +916,7 @@
                         </strong>
 
                         <small>
-                            Modelado, DAX y visualización
+                            DAX, Power Query, modelado y dashboards
                         </small>
 
                     </div>
@@ -631,12 +937,13 @@
                         </strong>
 
                         <small>
-                            Información para apoyar decisiones
+                            KPIs, análisis y soluciones para el negocio
                         </small>
 
                     </div>
 
                 </div>
+
 
             </div>
 
@@ -671,8 +978,14 @@
 
             <p>
 
-                Soy <strong>Eduardo Chiara</strong>, Analista de Sistemas con experiencia en
-                <strong>soporte TI, SQL Server y Business Intelligence.</strong>
+                Soy
+                <strong class="about-name">
+                    Eduardo Chiara
+                </strong>,
+                Analista de Sistemas con experiencia en
+                <strong>
+                    soporte TI, SQL Server y Business Intelligence.
+                </strong>
 
             </p>
 
@@ -680,9 +993,13 @@
 
             <p>
 
-                He trabajado con información proveniente de sistemas empresariales,
-                desarrollando consultas, integrando datos y construyendo soluciones
-                en <strong>Power BI</strong> orientadas a necesidades reales de usuarios,
+                He trabajado con información proveniente de sistemas
+                empresariales, desarrollando consultas, integrando datos
+                y construyendo soluciones en
+                <strong>
+                    Power BI
+                </strong>
+                orientadas a necesidades reales de usuarios,
                 jefaturas y gerencia.
 
             </p>
@@ -691,13 +1008,135 @@
 
             <p>
 
-                Mi enfoque profesional está orientado hacia
-                <strong>Business Intelligence y análisis de datos</strong>,
-                combinando conocimientos de <strong>SQL, Power Query, DAX y modelado de datos</strong>
-                para transformar información operativa en herramientas útiles
-                para el negocio.
+                Mi perfil profesional combina
+                <strong>
+                    Sistemas, SQL y Business Intelligence
+                </strong>,
+                utilizando SQL, Power Query, DAX y modelado de datos
+                para transformar información operativa en herramientas
+                útiles para el análisis y el negocio.
 
             </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         QUE HAGO
+    ========================= -->
+
+    <section
+        class="what-i-do"
+        id="que-hago"
+    >
+
+        <div class="section-title">
+
+            <span>
+                02 · Qué hago
+            </span>
+
+            <h2>
+                De la información a la solución
+            </h2>
+
+            <p>
+
+                Combino conocimientos de sistemas, bases de datos y
+                Business Intelligence para desarrollar soluciones
+                orientadas a necesidades reales.
+
+            </p>
+
+        </div>
+
+
+        <div class="services">
+
+
+            <div class="service">
+
+                <span class="service-number">
+                    01
+                </span>
+
+                <h3>
+                    Integración de datos
+                </h3>
+
+                <p>
+
+                    Trabajo con información proveniente de diferentes
+                    fuentes y estructuras para centralizarla y facilitar
+                    su análisis.
+
+                </p>
+
+            </div>
+
+
+            <div class="service">
+
+                <span class="service-number">
+                    02
+                </span>
+
+                <h3>
+                    SQL & transformación
+                </h3>
+
+                <p>
+
+                    Desarrollo consultas, Views y estructuras T-SQL
+                    orientadas a preparar y organizar información
+                    para su consumo.
+
+                </p>
+
+            </div>
+
+
+            <div class="service">
+
+                <span class="service-number">
+                    03
+                </span>
+
+                <h3>
+                    Business Intelligence
+                </h3>
+
+                <p>
+
+                    Construyo dashboards e indicadores utilizando
+                    Power BI, DAX, Power Query y modelado de datos.
+
+                </p>
+
+            </div>
+
+
+            <div class="service">
+
+                <span class="service-number">
+                    04
+                </span>
+
+                <h3>
+                    Soluciones para el negocio
+                </h3>
+
+                <p>
+
+                    Convierto necesidades de usuarios, jefaturas y
+                    gerencia en herramientas de consulta y análisis.
+
+                </p>
+
+            </div>
+
 
         </div>
 
@@ -713,7 +1152,7 @@
         <div class="section-title">
 
             <span>
-                02 · Proyectos
+                03 · Proyectos
             </span>
 
             <h2>
@@ -722,9 +1161,9 @@
 
             <p>
 
-                Una selección de proyectos y soluciones en los que he
-                trabajado utilizando datos, SQL y herramientas de
-                Business Intelligence.
+                Proyectos y soluciones donde he aplicado conocimientos
+                de SQL, Power BI y Business Intelligence sobre información
+                empresarial y casos prácticos.
 
             </p>
 
@@ -753,14 +1192,15 @@
 
                 <p>
 
-                    Solución de Business Intelligence orientada al análisis
-                    y seguimiento de cobranzas, integrando información
-                    operativa para facilitar la revisión y toma de decisiones.
+                    Desarrollo de una solución de BI para centralizar
+                    información de cobranzas proveniente de distintas
+                    fuentes, facilitando el seguimiento para usuarios,
+                    jefaturas y gerencia.
 
                 </p>
 
                 <div class="tech">
-                    POWER BI · SQL SERVER · DAX
+                    POWER BI · SQL SERVER · DAX · POWER QUERY · RLS · GATEWAY
                 </div>
 
             </a>
@@ -813,7 +1253,7 @@
                 </div>
 
                 <h3>
-                    SQL Server
+                    SQL Server & Data Integration
                 </h3>
 
                 <p>
@@ -825,7 +1265,7 @@
                 </p>
 
                 <div class="tech">
-                    SQL SERVER · T-SQL · DATABASES
+                    SQL SERVER · T-SQL · MYSQL · DATABASES
                 </div>
 
             </a>
@@ -851,9 +1291,8 @@
 
                 <p>
 
-                    Proyecto propio enfocado en aplicar conocimientos
-                    de datos, SQL y Business Intelligence sobre un
-                    caso independiente.
+                    Proyecto independiente enfocado en aplicar conocimientos
+                    de SQL y Business Intelligence sobre un caso propio.
 
                 </p>
 
@@ -873,62 +1312,146 @@
          HABILIDADES
     ========================= -->
 
-    <section id="habilidades">
+    <section
+        class="skills-section"
+        id="habilidades"
+    >
 
         <div class="section-title">
 
             <span>
-                03 · Skills
+                04 · Skills
             </span>
 
             <h2>
-                Herramientas
+                Herramientas y conocimientos
             </h2>
+
+            <p>
+
+                Tecnologías que forman parte de mi experiencia y
+                desarrollo profesional.
+
+            </p>
 
         </div>
 
 
-        <div class="skills">
+        <div class="skill-groups">
 
-            <div class="skill">
-                Power BI
+
+            <!-- BI -->
+
+            <div class="skill-group">
+
+                <h3>
+                    Business Intelligence
+                </h3>
+
+                <div class="skills">
+
+                    <div class="skill">
+                        Power BI
+                    </div>
+
+                    <div class="skill">
+                        DAX
+                    </div>
+
+                    <div class="skill">
+                        Power Query
+                    </div>
+
+                    <div class="skill">
+                        Modelado de datos
+                    </div>
+
+                    <div class="skill">
+                        Power BI Gateway
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="skill">
-                DAX
+
+            <!-- DATABASES -->
+
+            <div class="skill-group">
+
+                <h3>
+                    Databases
+                </h3>
+
+                <div class="skills">
+
+                    <div class="skill">
+                        SQL Server
+                    </div>
+
+                    <div class="skill">
+                        T-SQL
+                    </div>
+
+                    <div class="skill">
+                        MySQL
+                    </div>
+
+                    <div class="skill">
+                        Views
+                    </div>
+
+                    <div class="skill">
+                        Stored Procedures
+                    </div>
+
+                    <div class="skill">
+                        CTE
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="skill">
-                Power Query
+
+            <!-- SYSTEMS -->
+
+            <div class="skill-group">
+
+                <h3>
+                    Systems & IT
+                </h3>
+
+                <div class="skills">
+
+                    <div class="skill">
+                        Microsoft 365
+                    </div>
+
+                    <div class="skill">
+                        Active Directory
+                    </div>
+
+                    <div class="skill">
+                        Soporte TI
+                    </div>
+
+                    <div class="skill">
+                        ERP
+                    </div>
+
+                    <div class="skill">
+                        AnyDesk
+                    </div>
+
+                    <div class="skill">
+                        Notion
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="skill">
-                SQL Server
-            </div>
-
-            <div class="skill">
-                T-SQL
-            </div>
-
-            <div class="skill">
-                MySQL
-            </div>
-
-            <div class="skill">
-                Power BI Gateway
-            </div>
-
-            <div class="skill">
-                Modelado de datos
-            </div>
-
-            <div class="skill">
-                Microsoft 365
-            </div>
-
-            <div class="skill">
-                Active Directory
-            </div>
 
         </div>
 
@@ -951,16 +1474,36 @@
         <p>
 
             Estoy interesado en seguir creciendo profesionalmente
-            en áreas de Sistemas, Business Intelligence y análisis de datos.
+            en áreas de Sistemas, Business Intelligence y análisis
+            de datos.
 
         </p>
 
-        <a
-            href="#"
-            class="btn btn-secondary"
-        >
-            LinkedIn
-        </a>
+
+        <div class="contact-buttons">
+
+            <!-- Reemplazar # por tu LinkedIn -->
+
+            <a
+                href="#"
+                class="btn btn-primary"
+                target="_blank"
+            >
+                LinkedIn
+            </a>
+
+
+            <!-- Reemplazar # por tu CV cuando lo subas -->
+
+            <a
+                href="#"
+                class="btn btn-secondary"
+                target="_blank"
+            >
+                Ver CV
+            </a>
+
+        </div>
 
     </section>
 
