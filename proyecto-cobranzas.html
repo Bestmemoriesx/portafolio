@@ -1,884 +1,816 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Dashboard de Cobranzas | Eduardo Chiara</title>
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #07111f;
-      color: #e8eef7;
-      line-height: 1.55;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .container {
-      width: min(1120px, 92%);
-      margin: auto;
-    }
-
-    /* NAV */
-
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(7, 17, 31, 0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-
-    .nav-content {
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font-size: 19px;
-      font-weight: 700;
-    }
-
-    .logo span {
-      color: #42a5ff;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 24px;
-      color: #9eafc2;
-      font-size: 13px;
-    }
-
-    .nav-links a:hover {
-      color: #42a5ff;
-    }
-
-    /* HERO */
-
-    .hero {
-      padding: 45px 0 20px;
-    }
-
-    .tag {
-      display: inline-block;
-      color: #55adff;
-      border: 1px solid rgba(66,165,255,.25);
-      background: rgba(66,165,255,.06);
-      border-radius: 20px;
-      padding: 6px 12px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .8px;
-      margin-bottom: 14px;
-    }
-
-    .hero h1 {
-      font-size: clamp(36px, 5vw, 56px);
-      line-height: 1.05;
-      margin-bottom: 12px;
-    }
-
-    .hero h1 span {
-      color: #42a5ff;
-    }
-
-    .hero p {
-      color: #98a9bc;
-      max-width: 780px;
-      font-size: 15px;
-    }
-
-    /* CARRUSEL */
-
-    .dashboard-section {
-      padding: 8px 0 35px;
-    }
-
-    .dashboard-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      margin-bottom: 13px;
-    }
-
-    .section-label {
-      color: #42a5ff;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    .dashboard-top h2 {
-      font-size: 23px;
-    }
-
-    .dashboard-top p {
-      color: #72849a;
-      font-size: 12px;
-    }
-
-    .carousel {
-      position: relative;
-      padding: 10px;
-      background: #0b192b;
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 16px;
-      box-shadow: 0 18px 55px rgba(0,0,0,.28);
-    }
-
-    .slides {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
-      border-radius: 10px;
-      background: #050c16;
-    }
-
-    .slide {
-      display: none;
-      width: 100%;
-      height: 100%;
-    }
-
-    .slide.active {
-      display: block;
-    }
-
-    .slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-    }
-
-    .slide-label {
-      position: absolute;
-      left: 18px;
-      bottom: 18px;
-      background: rgba(5,12,22,.86);
-      padding: 7px 11px;
-      border-radius: 7px;
-      font-size: 11px;
-      color: #d9e5f1;
-    }
-
-    .arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,.15);
-      background: rgba(5,12,22,.82);
-      color: white;
-      font-size: 22px;
-      cursor: pointer;
-      z-index: 5;
-    }
-
-    .arrow:hover {
-      background: #1677d2;
-    }
-
-    .prev {
-      left: 22px;
-    }
-
-    .next {
-      right: 22px;
-    }
-
-    .dots {
-      display: flex;
-      justify-content: center;
-      gap: 7px;
-      padding: 12px 0 2px;
-    }
-
-    .dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 10px;
-      background: #405267;
-      cursor: pointer;
-      transition: .2s;
-    }
-
-    .dot.active {
-      width: 22px;
-      background: #42a5ff;
-    }
-
-    /* SECCIONES */
-
-    .section {
-      padding: 34px 0;
-      border-top: 1px solid rgba(255,255,255,.055);
-    }
-
-    .section-title {
-      font-size: 27px;
-      margin-bottom: 10px;
-    }
-
-    /* CONTEXTO */
-
-    .context {
-      max-width: 920px;
-      color: #9aabbd;
-      font-size: 14px;
-    }
-
-    .context p {
-      margin-bottom: 13px;
-    }
-
-    .highlight {
-      color: #dce7f2;
-    }
-
-    /* DESARROLLO */
-
-    .development {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 13px;
-    }
-
-    .development-card {
-      background: #0b192b;
-      border: 1px solid rgba(255,255,255,.07);
-      border-radius: 12px;
-      padding: 19px;
-    }
-
-    .number {
-      color: #42a5ff;
-      font-size: 11px;
-      font-weight: 700;
-      margin-bottom: 9px;
-    }
-
-    .development-card h3 {
-      font-size: 16px;
-      margin-bottom: 9px;
-    }
-
-    .development-card p {
-      color: #8fa0b3;
-      font-size: 12px;
-    }
-
-    /* SOLUCIÓN */
-
-    .solution {
-      background: linear-gradient(
-        135deg,
-        rgba(18,87,145,.16),
-        rgba(11,25,43,.85)
-      );
-      border: 1px solid rgba(66,165,255,.14);
-      border-radius: 14px;
-      padding: 23px;
-    }
-
-    .solution p {
-      color: #9eafc0;
-      font-size: 14px;
-      max-width: 930px;
-    }
-
-    .impact {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .impact-card {
-      background: rgba(0,0,0,.18);
-      border-radius: 9px;
-      padding: 14px;
-    }
-
-    .impact-card strong {
-      display: block;
-      font-size: 13px;
-      margin-bottom: 4px;
-    }
-
-    .impact-card span {
-      color: #8497aa;
-      font-size: 12px;
-    }
-
-    /* TECNOLOGIAS */
-
-    .technologies {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-    }
-
-    .tech {
-      padding: 8px 13px;
-      border-radius: 7px;
-      background: #0b192b;
-      border: 1px solid rgba(255,255,255,.08);
-      color: #b7c6d6;
-      font-size: 12px;
-    }
-
-    /* FOOTER */
-
-    footer {
-      border-top: 1px solid rgba(255,255,255,.06);
-      text-align: center;
-      padding: 27px 0;
-      color: #718398;
-      font-size: 12px;
-    }
-
-    .back {
-      display: inline-block;
-      margin-top: 10px;
-      color: #42a5ff;
-    }
-
-    /* RESPONSIVE */
-
-    @media (max-width: 850px) {
-
-      .nav-links {
-        display: none;
-      }
-
-      .development {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .impact {
-        grid-template-columns: 1fr;
-      }
-
-      .dashboard-top {
-        display: block;
-      }
-
-      .dashboard-top p {
-        margin-top: 5px;
-      }
-    }
-
-    @media (max-width: 550px) {
-
-      .development {
-        grid-template-columns: 1fr;
-      }
-
-      .slides {
-        aspect-ratio: 16 / 10;
-      }
-
-      .arrow {
-        width: 34px;
-        height: 34px;
-      }
-
-      .prev {
-        left: 10px;
-      }
-
-      .next {
-        right: 10px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard de Cobranzas | Eduardo Chiara</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #07111f;
+            color: #e8eef7;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(7, 17, 31, 0.94);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #1b2b40;
+        }
+
+        .nav-container {
+            max-width: 1150px;
+            margin: auto;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .logo span {
+            color: #4da3ff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #aebdd0;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #4da3ff;
+        }
+
+        /* GENERAL */
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 0 25px;
+        }
+
+        section {
+            padding: 75px 0;
+        }
+
+        .section-title {
+            font-size: 30px;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+
+        .section-subtitle {
+            color: #8fa3ba;
+            max-width: 760px;
+            margin-bottom: 35px;
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 85px 0 55px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 7px 13px;
+            border: 1px solid #23476c;
+            border-radius: 20px;
+            color: #65b0ff;
+            background: #0b1b2d;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .hero h1 span {
+            color: #4da3ff;
+        }
+
+        .hero p {
+            color: #9cafc3;
+            font-size: 17px;
+            max-width: 720px;
+        }
+
+        /* CAROUSEL */
+
+        .carousel-section {
+            padding-top: 20px;
+            padding-bottom: 75px;
+        }
+
+        .carousel {
+            position: relative;
+            max-width: 1000px;
+            margin: auto;
+            overflow: hidden;
+            border: 1px solid #20334a;
+            border-radius: 16px;
+            background: #0b1726;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.45s ease;
+        }
+
+        .slide {
+            min-width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #081321;
+        }
+
+        .slide img {
+            width: 100%;
+            max-height: 590px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 42px;
+            height: 42px;
+            border: 1px solid #36506d;
+            border-radius: 50%;
+            background: rgba(7, 17, 31, 0.85);
+            color: #ffffff;
+            font-size: 22px;
+            cursor: pointer;
+            z-index: 5;
+            transition: 0.25s;
+        }
+
+        .carousel-btn:hover {
+            background: #12304d;
+            border-color: #4da3ff;
+        }
+
+        .prev {
+            left: 15px;
+        }
+
+        .next {
+            right: 15px;
+        }
+
+        .dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 15px;
+            background: #091522;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #34475d;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .dot.active {
+            width: 24px;
+            border-radius: 10px;
+            background: #4da3ff;
+        }
+
+        /* DESARROLLO */
+
+        .development-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .dev-card {
+            background: #0b1726;
+            border: 1px solid #1c3046;
+            border-radius: 14px;
+            padding: 28px;
+        }
+
+        .dev-card .number {
+            color: #4da3ff;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .dev-card h3 {
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .dev-card p {
+            color: #91a5bb;
+            font-size: 14px;
+        }
+
+        /* SOLUCIÓN E IMPACTO */
+
+        .solution-box {
+            border: 1px solid #1d3853;
+            background: linear-gradient(135deg, #0c1c2d, #0a1624);
+            border-radius: 16px;
+            padding: 35px;
+            margin-bottom: 30px;
+        }
+
+        .solution-box p {
+            color: #b5c3d3;
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .solution-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .solution-box strong {
+            color: #ffffff;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .impact-card {
+            background: #0b1726;
+            border: 1px solid #1c3046;
+            border-radius: 14px;
+            padding: 27px;
+            transition: 0.3s;
+        }
+
+        .impact-card:hover {
+            transform: translateY(-4px);
+            border-color: #315b82;
+        }
+
+        .impact-card h3 {
+            color: #ffffff;
+            font-size: 17px;
+            margin-bottom: 9px;
+        }
+
+        .impact-card p {
+            color: #8fa3ba;
+            font-size: 14px;
+        }
+
+        /* TECNOLOGÍAS */
+
+        .tech-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tech {
+            padding: 10px 15px;
+            border-radius: 8px;
+            background: #0c1b2b;
+            border: 1px solid #203750;
+            color: #b7c7d8;
+            font-size: 13px;
+        }
+
+        /* BACK */
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #65b0ff;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            color: #ffffff;
+        }
+
+        /* FOOTER */
+
+        footer {
+            border-top: 1px solid #1a2b3f;
+            padding: 30px 0;
+            text-align: center;
+            color: #71849a;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 800px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .impact-grid,
+            .development-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .solution-box {
+                padding: 25px;
+            }
+
+            .carousel-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 18px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-  <!-- NAVBAR -->
+    <!-- NAVBAR -->
 
-  <nav>
-    <div class="container nav-content">
+    <nav>
+        <div class="nav-container">
 
-      <a href="index.html" class="logo">
-        Eduardo<span>.</span>
-      </a>
+            <a href="index.html" class="logo">
+                Eduardo<span>.</span>
+            </a>
 
-      <div class="nav-links">
-        <a href="index.html#inicio">Inicio</a>
-        <a href="index.html#sobre-mi">Sobre mí</a>
-        <a href="index.html#proyectos">Proyectos</a>
-        <a href="index.html#habilidades">Habilidades</a>
-        <a href="index.html#contacto">Contacto</a>
-      </div>
+            <ul class="nav-links">
+                <li><a href="index.html#inicio">Inicio</a></li>
+                <li><a href="index.html#sobre-mi">Sobre mí</a></li>
+                <li><a href="index.html#proyectos">Proyectos</a></li>
+                <li><a href="index.html#habilidades">Habilidades</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+            </ul>
 
-    </div>
-  </nav>
-
-
-  <!-- HERO -->
-
-  <header class="hero">
-
-    <div class="container">
-
-      <div class="tag">
-        POWER BI · SQL SERVER · BUSINESS INTELLIGENCE
-      </div>
-
-      <h1>
-        Dashboard de <span>Cobranzas</span>
-      </h1>
-
-      <p>
-        Solución desarrollada para centralizar la información de cobranzas,
-        facilitar su análisis y optimizar el acceso a información actualizada
-        para las áreas involucradas.
-      </p>
-
-    </div>
-
-  </header>
-
-
-  <!-- CARRUSEL -->
-
-  <section class="dashboard-section">
-
-    <div class="container">
-
-      <div class="dashboard-top">
-
-        <div>
-          <div class="section-label">Proyecto</div>
-          <h2>Dashboard y desarrollo técnico</h2>
         </div>
-
-        <p>Power BI · SQL Server · Power Query</p>
-
-      </div>
+    </nav>
 
 
-      <div class="carousel">
+    <!-- HERO -->
 
-        <div class="slides">
+    <section class="hero">
+        <div class="container">
 
-          <div class="slide active">
-            <img src="img/cobranzas-01.png" alt="Dashboard de cobranzas">
-            <div class="slide-label">01 · Dashboard</div>
-          </div>
+            <a href="index.html#proyectos" class="back-link">
+                ← Volver a proyectos
+            </a>
 
-          <div class="slide">
-            <img src="img/cobranzas-02.png" alt="Dashboard de cobranzas">
-            <div class="slide-label">02 · Dashboard</div>
-          </div>
+            <div class="tag">
+                POWER BI · SQL SERVER · BUSINESS INTELLIGENCE
+            </div>
 
-          <div class="slide">
-            <img src="img/cobranzas-03.png" alt="Dashboard de cobranzas">
-            <div class="slide-label">03 · Dashboard</div>
-          </div>
+            <h1>
+                Dashboard de <span>Cobranzas</span>
+            </h1>
 
-          <div class="slide">
-            <img src="img/cobranzas-04.png" alt="SQL Server del proyecto">
-            <div class="slide-label">04 · SQL Server</div>
-          </div>
+            <p>
+                Solución de análisis y seguimiento de cobranzas desarrollada
+                para centralizar información, facilitar su consulta y mejorar
+                el control de la gestión.
+            </p>
 
-          <div class="slide">
-            <img src="img/cobranzas-05.png" alt="SQL Server del proyecto">
-            <div class="slide-label">05 · SQL Server</div>
-          </div>
-
-          <div class="slide">
-            <img src="img/cobranzas-06.png" alt="Código M de Power Query">
-            <div class="slide-label">06 · Power Query / M</div>
-          </div>
+        </div>
+    </section>
 
 
-          <button class="arrow prev" onclick="changeSlide(-1)">
-            ‹
-          </button>
+    <!-- CAROUSEL -->
 
-          <button class="arrow next" onclick="changeSlide(1)">
-            ›
-          </button>
+    <section class="carousel-section">
+
+        <div class="container">
+
+            <div class="carousel">
+
+                <div class="slides" id="slides">
+
+                    <div class="slide">
+                        <img src="img/cobranzas-01.png" alt="Dashboard de Cobranzas - Página 1">
+                    </div>
+
+                    <div class="slide">
+                        <img src="img/cobranzas-02.png" alt="Dashboard de Cobranzas - Página 2">
+                    </div>
+
+                    <div class="slide">
+                        <img src="img/cobranzas-03.png" alt="Dashboard de Cobranzas - Página 3">
+                    </div>
+
+                    <div class="slide">
+                        <img src="img/cobranzas-04.png" alt="Consulta SQL del proyecto">
+                    </div>
+
+                    <div class="slide">
+                        <img src="img/cobranzas-05.png" alt="Proceso SQL del proyecto">
+                    </div>
+
+                    <div class="slide">
+                        <img src="img/cobranzas-06.png" alt="Power Query y código M">
+                    </div>
+
+                </div>
+
+                <button class="carousel-btn prev" onclick="moveSlide(-1)">
+                    &#10094;
+                </button>
+
+                <button class="carousel-btn next" onclick="moveSlide(1)">
+                    &#10095;
+                </button>
+
+                <div class="dots" id="dots"></div>
+
+            </div>
 
         </div>
 
-
-        <div class="dots">
-
-          <span class="dot active" onclick="goToSlide(0)"></span>
-          <span class="dot" onclick="goToSlide(1)"></span>
-          <span class="dot" onclick="goToSlide(2)"></span>
-          <span class="dot" onclick="goToSlide(3)"></span>
-          <span class="dot" onclick="goToSlide(4)"></span>
-          <span class="dot" onclick="goToSlide(5)"></span>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
+    </section>
 
 
-  <!-- CONTEXTO -->
+    <!-- DESARROLLO -->
 
-  <section class="section">
+    <section>
 
-    <div class="container">
+        <div class="container">
 
-      <div class="section-label">
-        Contexto
-      </div>
+            <h2 class="section-title">
+                Desarrollo
+            </h2>
 
-      <h2 class="section-title">
-        Necesidad identificada
-      </h2>
+            <p class="section-subtitle">
+                Integración, preparación y organización de información para
+                construir una solución única de análisis.
+            </p>
 
-      <div class="context">
+            <div class="development-grid">
 
-        <p>
-          La información relacionada con las cobranzas se encontraba
-          distribuida en diferentes fuentes y consultas, por lo que se
-          requería una revisión manual en Excel para obtener una visión
-          general de la situación.
-        </p>
+                <div class="dev-card">
 
-        <p>
-          Esta distribución dificultaba disponer rápidamente de una visión
-          consolidada de <span class="highlight">montos pendientes,
-          vencimientos, clientes y diferentes situaciones de cobranza</span>.
-          Por este motivo, se centralizó la información de facturación,
-          se realizó la limpieza de los datos y se crearon columnas
-          adicionales para englobar los diferentes reportes en una sola
-          solución.
-        </p>
+                    <div class="number">
+                        01 · DATOS
+                    </div>
 
-      </div>
+                    <h3>
+                        Fuentes de información
+                    </h3>
 
-    </div>
+                    <p>
+                        Integración de información proveniente de Excel y SQL.
+                        La información utilizada en archivos Excel fue llevada
+                        a la base de datos para evitar dispersión y pérdida de información.
+                    </p>
 
-  </section>
+                </div>
 
 
-  <!-- DESARROLLO -->
+                <div class="dev-card">
 
-  <section class="section">
+                    <div class="number">
+                        02 · SQL
+                    </div>
 
-    <div class="container">
+                    <h3>
+                        Preparación y optimización
+                    </h3>
 
-      <div class="section-label">
-        Desarrollo
-      </div>
+                    <p>
+                        Creación de tablas temporales, tratamiento de valores
+                        nulos, diferencias de tipos de datos y extracción de
+                        información desde cadenas de texto. Se generó una vista
+                        optimizada mediante la integración de múltiples tablas.
+                    </p>
 
-      <h2 class="section-title">
-        Lo que se desarrolló
-      </h2>
-
-      <div class="development">
-
-
-        <div class="development-card">
-
-          <div class="number">
-            01 · DATOS
-          </div>
-
-          <h3>Fuentes</h3>
-
-          <p>
-            Se trabajó con información proveniente de Excel y SQL Server.
-            La información de Excel fue llevada a la base de datos para
-            mantenerla centralizada y evitar pérdida o dispersión de
-            información.
-          </p>
-
-        </div>
+                </div>
 
 
-        <div class="development-card">
+                <div class="dev-card">
 
-          <div class="number">
-            02 · SQL
-          </div>
+                    <div class="number">
+                        03 · ORGANIZACIÓN
+                    </div>
 
-          <h3>Preparación</h3>
+                    <h3>
+                        Unificación de información
+                    </h3>
 
-          <p>
-            Se utilizaron tablas temporales para agilizar las actualizaciones.
-            Se realizó limpieza de filas nulas, diferencias de tipos de datos
-            y extracción de cadenas de texto. Finalmente, se generó una vista
-            optimizada mediante JOIN entre una cantidad considerable de tablas.
-          </p>
+                    <p>
+                        Se integraron diferentes vistas utilizadas por jefaturas
+                        y gerencia en un único sistema, permitiendo utilizar la
+                        misma herramienta tanto para reuniones como para consultas
+                        de los usuarios.
+                    </p>
+
+                </div>
+
+
+                <div class="dev-card">
+
+                    <div class="number">
+                        04 · BI
+                    </div>
+
+                    <h3>
+                        Análisis y visualización
+                    </h3>
+
+                    <p>
+                        Creación de medidas y visualizaciones considerando las
+                        necesidades de cada usuario, junto con filtros y control
+                        de acceso por gerencia y jefatura.
+                    </p>
+
+                </div>
+
+            </div>
 
         </div>
 
-
-        <div class="development-card">
-
-          <div class="number">
-            03 · ORGANIZACIÓN
-          </div>
-
-          <h3>Información consolidada</h3>
-
-          <p>
-            Se integraron diferentes vistas utilizadas por jefaturas y
-            gerencia en un sistema común, de manera que la información pueda
-            utilizarse tanto en reuniones como para las consultas de los
-            usuarios.
-          </p>
-
-        </div>
+    </section>
 
 
-        <div class="development-card">
+    <!-- SOLUCIÓN E IMPACTO -->
 
-          <div class="number">
-            04 · BI
-          </div>
+    <section>
 
-          <h3>Visualización</h3>
+        <div class="container">
 
-          <p>
-            Se desarrollaron medidas e indicadores considerando las
-            necesidades de los usuarios, además de filtros y permisos por
-            gerencia para compartir la información correspondiente sin
-            exponer información de otras áreas.
-          </p>
+            <h2 class="section-title">
+                Solución e impacto
+            </h2>
 
-        </div>
+            <p class="section-subtitle">
+                Una herramienta orientada a centralizar el análisis y facilitar
+                el control de las cobranzas dentro de la empresa.
+            </p>
 
+            <div class="solution-box">
 
-      </div>
+                <p>
+                    Se construyó una <strong>herramienta de análisis sostenible</strong>
+                    para el control de las cobranzas, integrando la información
+                    en un único sistema de consulta.
+                </p>
 
-    </div>
+                <p>
+                    La conexión entre <strong>Power BI y la base de datos mediante
+                    Gateway</strong> permite mantener la información actualizada,
+                    facilitando el acceso a datos recientes y reduciendo la
+                    dependencia de procesos manuales.
+                </p>
 
-  </section>
+                <p>
+                    La información está disponible tanto para el
+                    <strong>uso gerencial</strong> como para la consulta de los
+                    diferentes usuarios de la empresa, incorporando
+                    <strong>RLS (Row-Level Security) por gerencia y jefatura</strong>
+                    para controlar el acceso según cada área.
+                </p>
 
+                <p>
+                    Como resultado, se disminuyó el tiempo destinado a la
+                    <strong>consulta y recopilación de información</strong>,
+                    contando con un sistema centralizado y optimizado para el
+                    <strong>seguimiento y control de las cobranzas</strong>.
+                </p>
 
-  <!-- SOLUCIÓN E IMPACTO -->
-
-  <section class="section">
-
-    <div class="container">
-
-      <div class="section-label">
-        Solución e impacto
-      </div>
-
-      <h2 class="section-title">
-        Centralizar el análisis
-      </h2>
-
-      <div class="solution">
-
-        <p>
-          Se construyó una herramienta de análisis que permite visualizar la
-          situación de las cobranzas de manera clara, interactiva y
-          actualizable. El dashboard reúne KPIs gerenciales y el detalle
-          necesario para la consulta de cada jefatura o gerencia.
-          <br><br>
-          La solución permite manejar la información de manera precisa y
-          mantenerla actualizada automáticamente desde la base de datos hacia
-          la nube mediante Power BI Gateway. Esto reduce el tiempo de consulta
-          de los usuarios y facilita el acceso a la información a través de
-          Teams.
-        </p>
+            </div>
 
 
-        <div class="impact">
+            <div class="impact-grid">
 
-          <div class="impact-card">
+                <div class="impact-card">
 
-            <strong>Información centralizada</strong>
+                    <h3>
+                        Información centralizada
+                    </h3>
 
-            <span>
-              Reportes de facturación consolidados en una única herramienta.
-            </span>
+                    <p>
+                        La información necesaria para el seguimiento de
+                        cobranzas se concentra en una única herramienta.
+                    </p>
 
-          </div>
-
-
-          <div class="impact-card">
-
-            <strong>Información actualizada</strong>
-
-            <span>
-              Actualización automática desde la base de datos mediante Gateway.
-            </span>
-
-          </div>
+                </div>
 
 
-          <div class="impact-card">
+                <div class="impact-card">
 
-            <strong>Acceso optimizado</strong>
+                    <h3>
+                        Actualización continua
+                    </h3>
 
-            <span>
-              Información disponible para los usuarios y áreas correspondientes
-              desde Teams.
-            </span>
+                    <p>
+                        Conexión mediante Power BI Gateway para mantener la
+                        información actualizada desde la base de datos.
+                    </p>
 
-          </div>
+                </div>
+
+
+                <div class="impact-card">
+
+                    <h3>
+                        Acceso controlado
+                    </h3>
+
+                    <p>
+                        RLS por gerencia y jefatura para gestionar el acceso
+                        a la información según cada área.
+                    </p>
+
+                </div>
+
+            </div>
 
         </div>
 
-      </div>
-
-    </div>
-
-  </section>
+    </section>
 
 
-  <!-- TECNOLOGÍAS -->
+    <!-- TECNOLOGÍAS -->
 
-  <section class="section">
+    <section>
 
-    <div class="container">
+        <div class="container">
 
-      <div class="section-label">
-        Tecnologías
-      </div>
+            <h2 class="section-title">
+                Tecnologías
+            </h2>
 
-      <h2 class="section-title">
-        Herramientas utilizadas
-      </h2>
+            <p class="section-subtitle">
+                Herramientas utilizadas durante el desarrollo de la solución.
+            </p>
 
-      <div class="technologies">
+            <div class="tech-grid">
 
-        <span class="tech">SQL Server</span>
-        <span class="tech">T-SQL</span>
-        <span class="tech">Power BI</span>
-        <span class="tech">Power Query</span>
-        <span class="tech">M</span>
-        <span class="tech">DAX</span>
-        <span class="tech">Power BI Gateway</span>
-        <span class="tech">Excel</span>
-        <span class="tech">Microsoft Teams</span>
+                <div class="tech">SQL Server</div>
+                <div class="tech">T-SQL</div>
+                <div class="tech">Power BI</div>
+                <div class="tech">Power Query</div>
+                <div class="tech">M</div>
+                <div class="tech">DAX</div>
+                <div class="tech">Power BI Gateway</div>
+                <div class="tech">Excel</div>
+                <div class="tech">Microsoft Teams</div>
 
-      </div>
+            </div>
 
-    </div>
+        </div>
 
-  </section>
-
-
-  <!-- FOOTER -->
-
-  <footer>
-
-    <div class="container">
-
-      <p>
-        Proyecto desarrollado por Eduardo Chiara
-      </p>
-
-      <a href="index.html#proyectos" class="back">
-        ← Volver al portafolio
-      </a>
-
-    </div>
-
-  </footer>
+    </section>
 
 
-  <script>
+    <!-- FOOTER -->
 
-    let currentSlide = 0;
+    <footer>
 
-    const slides = document.querySelectorAll(".slide");
-    const dots = document.querySelectorAll(".dot");
+        <div class="container">
+            Eduardo Chiara · Analista de Sistemas · Business Intelligence
+        </div>
 
-
-    function showSlide(index) {
-
-      if (index >= slides.length) {
-        currentSlide = 0;
-      }
-
-      else if (index < 0) {
-        currentSlide = slides.length - 1;
-      }
-
-      else {
-        currentSlide = index;
-      }
+    </footer>
 
 
-      slides.forEach((slide, i) => {
+    <!-- CAROUSEL SCRIPT -->
 
-        slide.classList.toggle(
-          "active",
-          i === currentSlide
-        );
+    <script>
 
-      });
+        const slides = document.getElementById("slides");
+        const dotsContainer = document.getElementById("dots");
 
+        const totalSlides = 6;
 
-      dots.forEach((dot, i) => {
-
-        dot.classList.toggle(
-          "active",
-          i === currentSlide
-        );
-
-      });
-
-    }
+        let currentSlide = 0;
 
 
-    function changeSlide(direction) {
-      showSlide(currentSlide + direction);
-    }
+        for (let i = 0; i < totalSlides; i++) {
+
+            const dot = document.createElement("div");
+
+            dot.classList.add("dot");
+
+            if (i === 0) {
+                dot.classList.add("active");
+            }
+
+            dot.addEventListener("click", () => {
+                currentSlide = i;
+                updateCarousel();
+            });
+
+            dotsContainer.appendChild(dot);
+        }
 
 
-    function goToSlide(index) {
-      showSlide(index);
-    }
+        function updateCarousel() {
+
+            slides.style.transform =
+                `translateX(-${currentSlide * 100}%)`;
+
+            document
+                .querySelectorAll(".dot")
+                .forEach((dot, index) => {
+
+                    dot.classList.toggle(
+                        "active",
+                        index === currentSlide
+                    );
+
+                });
+
+        }
 
 
-    document.addEventListener("keydown", function(event) {
+        function moveSlide(direction) {
 
-      if (event.key === "ArrowLeft") {
-        changeSlide(-1);
-      }
+            currentSlide += direction;
 
-      if (event.key === "ArrowRight") {
-        changeSlide(1);
-      }
+            if (currentSlide < 0) {
+                currentSlide = totalSlides - 1;
+            }
 
-    });
+            if (currentSlide >= totalSlides) {
+                currentSlide = 0;
+            }
 
-  </script>
+            updateCarousel();
+
+        }
+
+
+        document.addEventListener("keydown", function(event) {
+
+            if (event.key === "ArrowLeft") {
+                moveSlide(-1);
+            }
+
+            if (event.key === "ArrowRight") {
+                moveSlide(1);
+            }
+
+        });
+
+    </script>
 
 </body>
 </html>
