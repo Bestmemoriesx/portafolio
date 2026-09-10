@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SQL Server | Eduardo Chiara</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0b1120;
+            color: #e5e7eb;
+            line-height: 1.6;
+        }
+
+        nav {
+            width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(11, 17, 32, 0.94);
+            border-bottom: 1px solid #1e293b;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #94a3b8;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        nav a:hover {
+            color: #38bdf8;
+        }
+
+        .hero {
+            padding: 100px 8% 80px;
+
+            background:
+                radial-gradient(
+                    circle at 80% 20%,
+                    rgba(14, 165, 233, 0.12),
+                    transparent 30%
+                ),
+                #0b1120;
+        }
+
+        .hero-content {
+            max-width: 850px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 7px 14px;
+            border-radius: 20px;
+            background: #102a43;
+            color: #38bdf8;
+            border: 1px solid #164e63;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: clamp(40px, 6vw, 64px);
+            line-height: 1.05;
+            margin-bottom: 20px;
+            color: #f8fafc;
+        }
+
+        .highlight {
+            color: #38bdf8;
+        }
+
+        .hero p {
+            color: #94a3b8;
+            font-size: 18px;
+            max-width: 750px;
+        }
+
+        section {
+            padding: 80px 8%;
+        }
+
+        .section-title {
+            margin-bottom: 35px;
+        }
+
+        .section-title span {
+            color: #38bdf8;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .section-title h2 {
+            font-size: 34px;
+            margin-top: 8px;
+            color: #f8fafc;
+        }
+
+        .section-title p {
+            color: #94a3b8;
+            max-width: 750px;
+            margin-top: 10px;
+        }
+
+        .intro-box {
+            max-width: 900px;
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 18px;
+            padding: 30px;
+        }
+
+        .intro-box p {
+            color: #94a3b8;
+            font-size: 16px;
+        }
+
+        .intro-box strong {
+            color: #e2e8f0;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+            padding: 25px;
+            transition: 0.2s;
+        }
+
+        .skill-card:hover {
+            border-color: #0ea5e9;
+            transform: translateY(-3px);
+        }
+
+        .skill-icon {
+            font-size: 27px;
+            margin-bottom: 15px;
+        }
+
+        .skill-card h3 {
+            color: #f8fafc;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .skill-card p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .code-section {
+            background: #0f172a;
+            border-top: 1px solid #1e293b;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .code-block {
+            max-width: 1000px;
+            margin-bottom: 35px;
+            background: #080d18;
+            border: 1px solid #1e293b;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .code-header {
+            padding: 13px 18px;
+            background: #111827;
+            border-bottom: 1px solid #1e293b;
+            color: #38bdf8;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        pre {
+            padding: 22px;
+            overflow-x: auto;
+            color: #cbd5e1;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .comment {
+            color: #64748b;
+        }
+
+        .keyword {
+            color: #38bdf8;
+        }
+
+        .string {
+            color: #a5f3fc;
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .tech {
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: #111827;
+            border: 1px solid #263449;
+            color: #cbd5e1;
+            font-size: 13px;
+        }
+
+        .process {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .process-item {
+            padding: 25px;
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+        }
+
+        .process-number {
+            color: #38bdf8;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .process-item h3 {
+            color: #f8fafc;
+            font-size: 17px;
+            margin-bottom: 8px;
+        }
+
+        .process-item p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .note {
+            margin-top: 35px;
+            max-width: 850px;
+            padding: 18px 20px;
+            border-left: 3px solid #38bdf8;
+            background: #111827;
+            color: #94a3b8;
+            font-size: 14px;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .back {
+            padding-top: 20px;
+        }
+
+        .back a {
+            color: #38bdf8;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #080d18;
+            color: #64748b;
+            font-size: 13px;
+            border-top: 1px solid #172033;
+        }
+
+        @media (max-width: 800px) {
+
+            nav ul {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 70px;
+            }
+
+            section {
+                padding: 65px 6%;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav>
+
+        <div class="logo">
+            EC.
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="index.html">
+                    Inicio
+                </a>
+            </li>
+
+            <li>
+                <a href="index.html#sobre-mi">
+                    Sobre mí
+                </a>
+            </li>
+
+            <li>
+                <a href="index.html#proyectos">
+                    Proyectos
+                </a>
+            </li>
+
+            <li>
+                <a href="index.html#habilidades">
+                    Habilidades
+                </a>
+            </li>
+
+            <li>
+                <a href="index.html#contacto">
+                    Contacto
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <span class="tag">
+                SQL SERVER · T-SQL · DATA
+            </span>
+
+            <h1>
+                SQL Server
+                <span class="highlight">
+                    & Desarrollo
+                </span>
+            </h1>
+
+            <p>
+                Experiencia práctica desarrollando consultas y estructuras
+                SQL orientadas a obtener, transformar y organizar información
+                proveniente de sistemas empresariales.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- INTRO -->
+
+    <section>
+
+        <div class="section-title">
+
+            <span>
+                01 · Enfoque
+            </span>
+
+            <h2>
+                Trabajo con bases de datos
+            </h2>
+
+        </div>
+
+        <div class="intro-box">
+
+            <p>
+
+                Trabajo principalmente con
+
+                <strong>
+                    SQL Server y T-SQL
+                </strong>
+
+                para consultar y transformar información utilizada en
+                procesos empresariales.
+
+                He desarrollado consultas que combinan múltiples tablas,
+                bases de datos y fuentes de información, utilizando lógica
+                SQL para obtener resultados más completos y reutilizables.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- TECNICAS -->
+
+    <section>
+
+        <div class="section-title">
+
+            <span>
+                02 · Técnicas
+            </span>
+
+            <h2>
+                Lo que trabajo con SQL
+            </h2>
+
+            <p>
+                Algunas de las estructuras y técnicas que utilizo en el
+                desarrollo de consultas y soluciones SQL.
+            </p>
+
+        </div>
+
+
+        <div class="skills-grid">
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    🔗
+                </div>
+
+                <h3>
+                    JOIN
+                </h3>
+
+                <p>
+                    Cruce de información mediante INNER JOIN,
+                    LEFT JOIN y múltiples relaciones entre tablas.
+                </p>
+
+            </div>
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    🧩
+                </div>
+
+                <h3>
+                    CTE
+                </h3>
+
+                <p>
+                    Uso de Common Table Expressions para organizar
+                    consultas complejas y separar etapas de procesamiento.
+                </p>
+
+            </div>
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Funciones de ventana
+                </h3>
+
+                <p>
+                    Uso de ROW_NUMBER() y otras funciones para
+                    trabajar con agrupaciones, ordenamiento y registros.
+                </p>
+
+            </div>
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    🛠️
+                </div>
+
+                <h3>
+                    Views
+                </h3>
+
+                <p>
+                    Creación de vistas para encapsular consultas
+                    utilizadas de manera recurrente.
+                </p>
+
+            </div>
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    ⚙️
+                </div>
+
+                <h3>
+                    Stored Procedures
+                </h3>
+
+                <p>
+                    Desarrollo de procedimientos almacenados para
+                    centralizar lógica y facilitar ejecuciones repetitivas.
+                </p>
+
+            </div>
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    🔧
+                </div>
+
+                <h3>
+                    Functions
+                </h3>
+
+                <p>
+                    Creación y utilización de funciones para reutilizar
+                    lógica dentro de consultas y procesos.
+                </p>
+
+            </div>
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    🧹
+                </div>
+
+                <h3>
+                    Manejo de NULL
+                </h3>
+
+                <p>
+                    Uso de ISNULL y COALESCE para controlar valores
+                    nulos y mantener resultados consistentes.
+                </p>
+
+            </div>
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    🗃️
+                </div>
+
+                <h3>
+                    Múltiples bases de datos
+                </h3>
+
+                <p>
+                    Consultas que relacionan información almacenada
+                    en diferentes bases de datos.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- EJEMPLO SQL -->
+
+    <section class="code-section">
+
+        <div class="section-title">
+
+            <span>
+                03 · Ejemplo técnico
+            </span>
+
+            <h2>
+                Consulta SQL
+            </h2>
+
+            <p>
+                Ejemplo demostrativo de una consulta que combina información
+                de diferentes tablas y aplica transformación de datos.
+            </p>
+
+        </div>
+
+
+        <div class="code-block">
+
+            <div class="code-header">
+                consulta-ventas.sql
+            </div>
+
+<pre><code><span class="keyword">SELECT</span>
+    v.IdVenta,
+    v.Fecha,
+    c.Cliente,
+    v.Total,
+    <span class="keyword">ISNULL</span>(v.Estado, <span class="string">'SIN ESTADO'</span>) <span class="keyword">AS</span> Estado
+
+<span class="keyword">FROM</span> Ventas v
+
+<span class="keyword">LEFT JOIN</span> Clientes c
+    <span class="keyword">ON</span> c.IdCliente = v.IdCliente
+
+<span class="keyword">WHERE</span> v.Fecha &gt;= <span class="string">'2026-01-01'</span>
+
+<span class="keyword">ORDER BY</span> v.Fecha <span class="keyword">DESC</span>;</code></pre>
+
+        </div>
+
+
+        <div class="note">
+
+            Este código es un ejemplo demostrativo creado para el portafolio.
+            No corresponde a consultas ni estructuras internas de la empresa.
+
+        </div>
+
+    </section>
+
+
+    <!-- PROCESO -->
+
+    <section>
+
+        <div class="section-title">
+
+            <span>
+                04 · Forma de trabajo
+            </span>
+
+            <h2>
+                De la consulta al resultado
+            </h2>
+
+        </div>
+
+
+        <div class="process">
+
+
+            <div class="process-item">
+
+                <div class="process-number">
+                    01
+                </div>
+
+                <h3>
+                    Identificar información
+                </h3>
+
+                <p>
+                    Revisar qué datos se necesitan y de qué tablas
+                    o fuentes pueden obtenerse.
+                </p>
+
+            </div>
+
+
+            <div class="process-item">
+
+                <div class="process-number">
+                    02
+                </div>
+
+                <h3>
+                    Construir la consulta
+                </h3>
+
+                <p>
+                    Relacionar tablas y aplicar filtros, condiciones
+                    y lógica de transformación.
+                </p>
+
+            </div>
+
+
+            <div class="process-item">
+
+                <div class="process-number">
+                    03
+                </div>
+
+                <h3>
+                    Validar información
+                </h3>
+
+                <p>
+                    Revisar resultados, duplicados, valores nulos
+                    y consistencia de la información obtenida.
+                </p>
+
+            </div>
+
+
+            <div class="process-item">
+
+                <div class="process-number">
+                    04
+                </div>
+
+                <h3>
+                    Reutilizar
+                </h3>
+
+                <p>
+                    Cuando corresponde, convertir la lógica en Views,
+                    Stored Procedures o Functions.
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="tech-list">
+
+            <span class="tech">SQL Server</span>
+            <span class="tech">T-SQL</span>
+            <span class="tech">JOIN</span>
+            <span class="tech">CTE</span>
+            <span class="tech">ROW_NUMBER</span>
+            <span class="tech">Views</span>
+            <span class="tech">Stored Procedures</span>
+            <span class="tech">Functions</span>
+            <span class="tech">ISNULL</span>
+            <span class="tech">COALESCE</span>
+            <span class="tech">MySQL</span>
+
+        </div>
+
+    </section>
+
+
+    <!-- VOLVER -->
+
+    <section class="back">
+
+        <a href="index.html#proyectos">
+            ← Volver a proyectos
+        </a>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        © 2026 Eduardo Chiara · Analista de Sistemas
+
+    </footer>
+
+
+</body>
+
+</html>
