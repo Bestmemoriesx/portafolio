@@ -69,7 +69,7 @@
     /* HERO */
 
     .hero {
-        padding: 100px 8% 85px;
+        padding: 95px 8% 80px;
 
         background:
             radial-gradient(
@@ -110,17 +110,17 @@
     .hero p {
         color: #94a3b8;
         font-size: 18px;
-        max-width: 780px;
+        max-width: 820px;
     }
 
     /* GENERAL */
 
     section {
-        padding: 80px 8%;
+        padding: 70px 8%;
     }
 
     .section-title {
-        margin-bottom: 35px;
+        margin-bottom: 32px;
     }
 
     .section-title span {
@@ -131,94 +131,88 @@
     }
 
     .section-title h2 {
-        font-size: 34px;
+        font-size: 32px;
         margin-top: 8px;
         color: #f8fafc;
     }
 
     .section-title p {
         color: #94a3b8;
-        max-width: 780px;
+        max-width: 820px;
         margin-top: 10px;
     }
 
-    /* EJEMPLO TECNICO */
+    /* PRESENTACION */
 
-    .technical-section {
+    .presentation {
+        max-width: 950px;
+    }
+
+    .presentation p {
+        color: #94a3b8;
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+
+    .presentation strong {
+        color: #e2e8f0;
+    }
+
+    /* CODIGO */
+
+    .code-section {
         background: #0f172a;
         border-top: 1px solid #1e293b;
         border-bottom: 1px solid #1e293b;
     }
 
-    .technical-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 22px;
-        max-width: 1100px;
-    }
-
-    .technical-card {
-        background: #0b1422;
+    .code-block {
+        max-width: 1050px;
+        margin-bottom: 24px;
+        background: #080d18;
         border: 1px solid #1e293b;
-        border-radius: 16px;
-        overflow: hidden;
-        transition: 0.25s;
-    }
-
-    .technical-card:hover {
-        border-color: #0ea5e9;
-        transform: translateY(-3px);
-    }
-
-    .technical-image {
-        width: 100%;
-        height: 280px;
-        background: #070d17;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        border-radius: 14px;
         overflow: hidden;
     }
 
-    .technical-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-    }
-
-    .placeholder {
-        text-align: center;
-        color: #64748b;
-        padding: 30px;
-    }
-
-    .placeholder-icon {
-        font-size: 35px;
-        margin-bottom: 10px;
-    }
-
-    .placeholder p {
+    .code-header {
+        padding: 13px 18px;
+        background: #111827;
+        border-bottom: 1px solid #1e293b;
+        color: #38bdf8;
         font-size: 13px;
+        font-weight: bold;
     }
 
-    .technical-info {
+    pre {
         padding: 22px;
+        overflow-x: auto;
+        color: #cbd5e1;
+        font-size: 13px;
+        line-height: 1.7;
     }
 
-    .technical-info h3 {
-        color: #f8fafc;
-        font-size: 18px;
-        margin-bottom: 8px;
+    .keyword {
+        color: #38bdf8;
     }
 
-    .technical-info p {
+    .string {
+        color: #a5f3fc;
+    }
+
+    .comment {
+        color: #64748b;
+    }
+
+    .code-description {
+        max-width: 1050px;
+        margin-bottom: 30px;
         color: #94a3b8;
         font-size: 14px;
     }
 
-    .technical-note {
-        margin-top: 28px;
+    .note {
+        margin-top: 25px;
         max-width: 900px;
         padding: 18px 20px;
         border-left: 3px solid #38bdf8;
@@ -228,49 +222,36 @@
         border-radius: 0 10px 10px 0;
     }
 
-    /* SQL EN LA PRACTICA */
+    /* TECNICAS */
 
-    .practice-grid {
+    .techniques {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-        max-width: 1100px;
+        gap: 18px;
+        max-width: 1050px;
     }
 
-    .practice-card {
+    .technique {
         background: #111827;
         border: 1px solid #1e293b;
-        border-radius: 16px;
-        padding: 25px;
-        transition: 0.2s;
+        border-radius: 15px;
+        padding: 22px;
     }
 
-    .practice-card:hover {
-        border-color: #0ea5e9;
-        transform: translateY(-3px);
+    .technique h3 {
+        color: #f8fafc;
+        font-size: 17px;
+        margin-bottom: 7px;
     }
 
-    .practice-number {
+    .technique .tools {
         color: #38bdf8;
         font-size: 12px;
         font-weight: bold;
         margin-bottom: 10px;
     }
 
-    .practice-card h3 {
-        color: #f8fafc;
-        font-size: 18px;
-        margin-bottom: 8px;
-    }
-
-    .practice-tech {
-        color: #38bdf8;
-        font-size: 13px;
-        font-weight: bold;
-        margin-bottom: 12px;
-    }
-
-    .practice-card p {
+    .technique p {
         color: #94a3b8;
         font-size: 14px;
     }
@@ -283,37 +264,27 @@
         border-bottom: 1px solid #1e293b;
     }
 
-    .experience-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 22px;
-        max-width: 1100px;
-    }
-
-    .experience-card {
+    .experience-box {
+        max-width: 1050px;
         background: #0b1422;
         border: 1px solid #1e293b;
-        border-radius: 18px;
-        padding: 30px;
+        border-radius: 17px;
+        padding: 28px;
     }
 
-    .experience-label {
-        color: #38bdf8;
-        font-size: 12px;
-        font-weight: bold;
-        text-transform: uppercase;
-        margin-bottom: 12px;
-    }
-
-    .experience-card h3 {
+    .experience-box h3 {
         color: #f8fafc;
-        font-size: 21px;
+        font-size: 20px;
         margin-bottom: 12px;
     }
 
-    .experience-card p {
+    .experience-box p {
         color: #94a3b8;
         font-size: 15px;
+    }
+
+    .experience-box strong {
+        color: #e2e8f0;
     }
 
     /* TECNOLOGIAS */
@@ -321,12 +292,12 @@
     .tech-list {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 30px;
+        gap: 9px;
+        margin-top: 25px;
     }
 
     .tech {
-        padding: 8px 13px;
+        padding: 7px 12px;
         border-radius: 8px;
         background: #111827;
         border: 1px solid #263449;
@@ -375,17 +346,15 @@
         }
 
         section {
-            padding: 65px 6%;
+            padding: 60px 6%;
         }
 
-        .technical-grid,
-        .practice-grid,
-        .experience-grid {
+        .techniques {
             grid-template-columns: 1fr;
         }
 
-        .technical-image {
-            height: 240px;
+        pre {
+            font-size: 12px;
         }
     }
 
@@ -470,324 +439,286 @@
 </section>
 
 
-<!-- EJEMPLO TECNICO -->
-
-<section class="technical-section">
-
-    <div class="section-title">
-
-        <span>
-            01 · Evidencia técnica
-        </span>
-
-        <h2>
-            SQL aplicado en la práctica
-        </h2>
-
-        <p>
-            Algunos ejemplos de consultas, estructuras y soluciones
-            desarrolladas durante mi experiencia trabajando con información
-            empresarial.
-        </p>
-
-    </div>
-
-
-    <div class="technical-grid">
-
-
-        <!-- CAPTURA 1 -->
-
-        <div class="technical-card">
-
-            <div class="technical-image">
-
-                <!--
-                Reemplazar este bloque por una imagen real.
-
-                Ejemplo:
-                <img src="img/sql-01.png" alt="Consulta SQL">
-                -->
-
-                <div class="placeholder">
-
-                    <div class="placeholder-icon">
-                        🖥️
-                    </div>
-
-                    <p>
-                        Captura de consulta SQL
-                    </p>
-
-                </div>
-
-            </div>
-
-            <div class="technical-info">
-
-                <h3>
-                    Consultas y transformación
-                </h3>
-
-                <p>
-                    Consultas orientadas a obtener y organizar información
-                    mediante JOIN, filtros, condiciones y tratamiento de datos.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- CAPTURA 2 -->
-
-        <div class="technical-card">
-
-            <div class="technical-image">
-
-                <!--
-                Reemplazar por:
-                <img src="img/sql-02.png" alt="Vista SQL Server">
-                -->
-
-                <div class="placeholder">
-
-                    <div class="placeholder-icon">
-                        🗂️
-                    </div>
-
-                    <p>
-                        Captura de View / integración
-                    </p>
-
-                </div>
-
-            </div>
-
-            <div class="technical-info">
-
-                <h3>
-                    Integración entre tablas
-                </h3>
-
-                <p>
-                    Análisis de estructuras y relaciones para integrar
-                    información de diferentes tablas y bases de datos.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- CAPTURA 3 -->
-
-        <div class="technical-card">
-
-            <div class="technical-image">
-
-                <!--
-                Reemplazar por:
-                <img src="img/sql-03.png" alt="Stored Procedure SQL Server">
-                -->
-
-                <div class="placeholder">
-
-                    <div class="placeholder-icon">
-                        ⚙️
-                    </div>
-
-                    <p>
-                        Captura de Stored Procedure
-                    </p>
-
-                </div>
-
-            </div>
-
-            <div class="technical-info">
-
-                <h3>
-                    Automatización de consultas
-                </h3>
-
-                <p>
-                    Procedimientos almacenados y variables para preparar
-                    ejecuciones reutilizables y agilizar actividades repetitivas.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- CAPTURA 4 -->
-
-        <div class="technical-card">
-
-            <div class="technical-image">
-
-                <!--
-                Reemplazar por:
-                <img src="img/sql-04.png" alt="MySQL y OPENQUERY">
-                -->
-
-                <div class="placeholder">
-
-                    <div class="placeholder-icon">
-                        🔗
-                    </div>
-
-                    <p>
-                        Captura de integración MySQL
-                    </p>
-
-                </div>
-
-            </div>
-
-            <div class="technical-info">
-
-                <h3>
-                    Integración SQL Server + MySQL
-                </h3>
-
-                <p>
-                    Consultas e integración de información proveniente de
-                    MySQL mediante conexiones entre servidores y OPENQUERY.
-                </p>
-
-            </div>
-
-        </div>
-
-
-    </div>
-
-
-    <div class="technical-note">
-
-        Las capturas utilizadas en el portafolio deberán estar
-        previamente sanitizadas y no mostrar información confidencial,
-        credenciales, nombres sensibles ni datos internos de la empresa.
-
-    </div>
-
-</section>
-
-
-<!-- SQL EN LA PRACTICA -->
+<!-- PRESENTACION -->
 
 <section>
 
     <div class="section-title">
 
         <span>
-            02 · SQL en la práctica
+            01 · Experiencia
         </span>
 
         <h2>
-            Lo que trabajo día a día
+            Trabajo con información empresarial
+        </h2>
+
+    </div>
+
+
+    <div class="presentation">
+
+        <p>
+            Durante mi experiencia profesional he trabajado principalmente
+            con <strong>SQL Server y T-SQL</strong>, utilizando consultas
+            y estructuras SQL para obtener, transformar, validar y organizar
+            información utilizada por diferentes procesos y usuarios.
+        </p>
+
+        <p>
+            Parte del trabajo consiste en <strong>analizar las tablas y sus
+            relaciones</strong> para identificar cómo obtener la información
+            requerida, integrando datos mediante JOIN y consultas entre
+            diferentes bases de datos. A partir de este análisis también
+            desarrollo <strong>Views y Stored Procedures</strong> para
+            centralizar y reutilizar lógica.
+        </p>
+
+        <p>
+            En actividades repetitivas utilizo <strong>variables,
+            DECLARE y procedimientos almacenados</strong> para preparar
+            ejecuciones que permitan obtener información de manera más
+            rápida y consistente. También aplico estructuras como
+            <strong>ISNULL, COALESCE, CASE, CTE y ROW_NUMBER</strong>
+            según la necesidad del análisis.
+        </p>
+
+        <p>
+            Adicionalmente, he trabajado con <strong>MySQL</strong> y con
+            integración de información entre diferentes fuentes, incluyendo
+            consultas mediante <strong>OPENQUERY</strong>.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- EVIDENCIA TECNICA -->
+
+<section class="code-section">
+
+    <div class="section-title">
+
+        <span>
+            02 · Evidencia técnica
+        </span>
+
+        <h2>
+            Código SQL
         </h2>
 
         <p>
-            Principales herramientas y estructuras que utilizo para
-            consultar, analizar y preparar información.
+            Algunos ejemplos representativos de las estructuras y técnicas
+            que utilizo para trabajar con información.
         </p>
 
     </div>
 
 
-    <div class="practice-grid">
+    <!-- EJEMPLO 1 -->
+
+    <div class="code-block">
+
+        <div class="code-header">
+            consulta-integracion.sql
+        </div>
+```
+
+<pre><code><span class="keyword">SELECT</span>
+    v.IdVenta,
+    v.Fecha,
+    c.Cliente,
+    v.Total,
+    <span class="keyword">ISNULL</span>(v.Estado, <span class="string">'SIN ESTADO'</span>) <span class="keyword">AS</span> Estado
+
+<span class="keyword">FROM</span> Ventas v
+
+<span class="keyword">LEFT JOIN</span> Clientes c
+    <span class="keyword">ON</span> c.IdCliente = v.IdCliente
+
+<span class="keyword">WHERE</span> v.Fecha &gt;= <span class="string">'2026-01-01'</span>
+
+<span class="keyword">ORDER BY</span> v.Fecha <span class="keyword">DESC</span>;</code></pre>
+
+```
+    </div>
+
+    <div class="code-description">
+        Ejemplo demostrativo de integración entre tablas y tratamiento de
+        valores nulos mediante JOIN e ISNULL.
+    </div>
 
 
-        <div class="practice-card">
+    <!-- EJEMPLO 2 -->
 
-            <div class="practice-number">
-                01
-            </div>
+    <div class="code-block">
+
+        <div class="code-header">
+            procedimiento-repetitivo.sql
+        </div>
+```
+
+<pre><code><span class="keyword">DECLARE</span> @FechaInicio <span class="keyword">DATE</span> = <span class="string">'2026-01-01'</span>;
+<span class="keyword">DECLARE</span> @FechaFin <span class="keyword">DATE</span> = <span class="string">'2026-01-31'</span>;
+
+<span class="keyword">SELECT</span>
+    Fecha,
+    Cliente,
+    Total
+<span class="keyword">FROM</span> Ventas
+<span class="keyword">WHERE</span> Fecha <span class="keyword">BETWEEN</span> @FechaInicio <span class="keyword">AND</span> @FechaFin
+<span class="keyword">ORDER BY</span> Fecha <span class="keyword">DESC</span>;</code></pre>
+
+```
+    </div>
+
+    <div class="code-description">
+        Ejemplo de uso de variables y DECLARE para preparar consultas
+        reutilizables en actividades de consulta repetitiva.
+    </div>
+
+
+    <!-- EJEMPLO 3 -->
+
+    <div class="code-block">
+
+        <div class="code-header">
+            analisis-registros.sql
+        </div>
+```
+
+<pre><code><span class="keyword">WITH</span> Datos <span class="keyword">AS</span> (
+
+    <span class="keyword">SELECT</span>
+        Cliente,
+        Fecha,
+        Total,
+
+        <span class="keyword">ROW_NUMBER</span>() <span class="keyword">OVER</span>(
+            <span class="keyword">PARTITION BY</span> Cliente
+            <span class="keyword">ORDER BY</span> Fecha <span class="keyword">DESC</span>
+        ) <span class="keyword">AS</span> Orden
+
+    <span class="keyword">FROM</span> Ventas
+
+)
+
+<span class="keyword">SELECT</span> *
+<span class="keyword">FROM</span> Datos
+<span class="keyword">WHERE</span> Orden = 1;</code></pre>
+
+```
+    </div>
+
+    <div class="code-description">
+        Ejemplo de utilización de CTE y ROW_NUMBER para organizar y
+        analizar registros dentro de una consulta.
+    </div>
+
+
+    <div class="note">
+
+        Los ejemplos mostrados son demostrativos y han sido creados
+        específicamente para el portafolio. No corresponden a consultas,
+        estructuras ni información interna de la empresa.
+
+    </div>
+
+</section>
+
+
+<!-- TECNICAS -->
+
+<section>
+
+    <div class="section-title">
+
+        <span>
+            03 · Herramientas y estructuras
+        </span>
+
+        <h2>
+            Principales recursos utilizados
+        </h2>
+
+    </div>
+
+
+    <div class="techniques">
+
+
+        <div class="technique">
 
             <h3>
                 Consultas y operaciones
             </h3>
 
-            <div class="practice-tech">
+            <div class="tools">
                 DDL · DML · CRUD
             </div>
 
             <p>
-                Desarrollo y modificación de estructuras, consultas y
-                operaciones sobre información según los requerimientos
-                de los procesos y usuarios.
+                Trabajo con estructuras y operaciones de datos para
+                consultar, modificar y administrar información según
+                las necesidades de los procesos.
             </p>
 
         </div>
 
 
-        <div class="practice-card">
-
-            <div class="practice-number">
-                02
-            </div>
+        <div class="technique">
 
             <h3>
-                Análisis e integración
+                Relaciones e integración
             </h3>
 
-            <div class="practice-tech">
+            <div class="tools">
                 JOIN · VIEWS · MÚLTIPLES BASES
             </div>
 
             <p>
-                Análisis de tablas y relaciones para construir consultas
-                y vistas que integran información proveniente de diferentes
-                tablas y bases de datos.
+                Análisis de tablas y relaciones para integrar información
+                proveniente de diferentes tablas y bases de datos,
+                generando consultas y Views reutilizables.
             </p>
 
         </div>
 
 
-        <div class="practice-card">
-
-            <div class="practice-number">
-                03
-            </div>
+        <div class="technique">
 
             <h3>
-                Automatización
+                Procedimientos y automatización
             </h3>
 
-            <div class="practice-tech">
+            <div class="tools">
                 STORED PROCEDURES · DECLARE · VARIABLES
             </div>
 
             <p>
-                Desarrollo de procedimientos almacenados para actividades
-                repetitivas, utilizando variables y DECLARE para preparar
-                ejecuciones reutilizables y agilizar la obtención de información.
+                Desarrollo de procedimientos almacenados para tareas
+                repetitivas y utilización de variables para preparar
+                ejecuciones de consulta más rápidas y reutilizables.
             </p>
 
         </div>
 
 
-        <div class="practice-card">
-
-            <div class="practice-number">
-                04
-            </div>
+        <div class="technique">
 
             <h3>
                 Transformación y análisis
             </h3>
 
-            <div class="practice-tech">
+            <div class="tools">
                 ISNULL · COALESCE · CASE · CTE · ROW_NUMBER
             </div>
 
             <p>
-                Tratamiento de valores nulos, lógica condicional,
-                organización de consultas y análisis de registros mediante
-                estructuras y funciones de T-SQL.
+                Tratamiento de valores nulos, condiciones, organización
+                de consultas y análisis de registros utilizando diferentes
+                estructuras de T-SQL.
             </p>
 
         </div>
@@ -805,71 +736,34 @@
     <div class="section-title">
 
         <span>
-            03 · Experiencia aplicada
+            04 · Experiencia aplicada
         </span>
 
         <h2>
-            SQL en entornos empresariales
+            De SQL a Business Intelligence
         </h2>
-
-        <p>
-            Aplicación de SQL durante mi experiencia profesional para
-            resolver necesidades de información, soporte y análisis.
-        </p>
 
     </div>
 
 
-    <div class="experience-grid">
+    <div class="experience-box">
 
+        <h3>
+            Integración y preparación de información
+        </h3>
 
-        <div class="experience-card">
-
-            <div class="experience-label">
-                SQL SERVER · T-SQL
-            </div>
-
-            <h3>
-                Información empresarial
-            </h3>
-
-            <p>
-                Durante mi experiencia en la empresa he trabajado con
-                información proveniente de diferentes sistemas y bases
-                de datos. He analizado tablas y relaciones para construir
-                consultas, Views y Stored Procedures según las necesidades
-                de los usuarios y procesos internos.
-                <br><br>
-                También he utilizado JOIN, CTE, ROW_NUMBER, CASE,
-                ISNULL y COALESCE para transformar, organizar y validar
-                la información obtenida.
-            </p>
-
-        </div>
-
-
-        <div class="experience-card">
-
-            <div class="experience-label">
-                MYSQL · INTEGRACIÓN
-            </div>
-
-            <h3>
-                Información distribuida
-            </h3>
-
-            <p>
-                También he trabajado con información proveniente de MySQL,
-                realizando consultas e integraciones con SQL Server mediante
-                conexiones entre servidores y OPENQUERY.
-                <br><br>
-                Este trabajo me permitió consultar información distribuida
-                en diferentes fuentes y utilizarla posteriormente en procesos
-                de análisis y soluciones de Business Intelligence.
-            </p>
-
-        </div>
-
+        <p>
+            La experiencia con SQL forma parte de un flujo más amplio de
+            trabajo con datos. A partir de la información almacenada en
+            diferentes sistemas y bases de datos, realizo consultas,
+            transformaciones e integraciones que posteriormente pueden
+            utilizarse en procesos de análisis y Business Intelligence.
+            <br><br>
+            Este trabajo incluye información proveniente de
+            <strong>SQL Server y MySQL</strong>, análisis de estructuras,
+            integración entre bases de datos y preparación de información
+            para soluciones desarrolladas en <strong>Power BI</strong>.
+        </p>
 
     </div>
 
@@ -921,4 +815,3 @@
 </body>
 
 </html>
-
