@@ -1,817 +1,1510 @@
 <!DOCTYPE html>
-
 <html lang="es">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Server & Data Integration · Eduardo Chiara</title>
 
-<title>SQL Server | Eduardo Chiara</title>
+    <meta name="description"
+        content="Experiencia práctica con SQL Server, T-SQL, MySQL e integración de información entre bases de datos.">
 
-<style>
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    html {
-        scroll-behavior: smooth;
-    }
-
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-        background: #080f1c;
-        color: #e5e7eb;
-        line-height: 1.6;
-    }
-
-    nav {
-        width: 100%;
-        padding: 20px 8%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: rgba(8, 15, 28, 0.94);
-        border-bottom: 1px solid #1e293b;
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        backdrop-filter: blur(10px);
-    }
-
-    .logo {
-        font-size: 20px;
-        font-weight: bold;
-        color: #38bdf8;
-    }
-
-    nav ul {
-        display: flex;
-        gap: 28px;
-        list-style: none;
-    }
-
-    nav a {
-        text-decoration: none;
-        color: #94a3b8;
-        font-size: 14px;
-        transition: 0.2s;
-    }
-
-    nav a:hover {
-        color: #38bdf8;
-    }
-
-    /* HERO */
-
-    .hero {
-        padding: 95px 8% 80px;
-
-        background:
-            radial-gradient(
-                circle at 80% 20%,
-                rgba(14, 165, 233, 0.12),
-                transparent 30%
-            ),
-            #080f1c;
-    }
-
-    .hero-content {
-        max-width: 900px;
-    }
-
-    .tag {
-        display: inline-block;
-        padding: 7px 14px;
-        border-radius: 20px;
-        background: #102a43;
-        color: #38bdf8;
-        border: 1px solid #164e63;
-        font-size: 13px;
-        font-weight: bold;
-        margin-bottom: 20px;
-    }
-
-    h1 {
-        font-size: clamp(40px, 6vw, 64px);
-        line-height: 1.05;
-        margin-bottom: 22px;
-        color: #f8fafc;
-    }
-
-    .highlight {
-        color: #38bdf8;
-    }
-
-    .hero p {
-        color: #94a3b8;
-        font-size: 18px;
-        max-width: 820px;
-    }
-
-    /* GENERAL */
-
-    section {
-        padding: 70px 8%;
-    }
-
-    .section-title {
-        margin-bottom: 32px;
-    }
-
-    .section-title span {
-        color: #38bdf8;
-        font-size: 13px;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-
-    .section-title h2 {
-        font-size: 32px;
-        margin-top: 8px;
-        color: #f8fafc;
-    }
-
-    .section-title p {
-        color: #94a3b8;
-        max-width: 820px;
-        margin-top: 10px;
-    }
-
-    /* PRESENTACION */
-
-    .presentation {
-        max-width: 950px;
-    }
-
-    .presentation p {
-        color: #94a3b8;
-        font-size: 16px;
-        margin-bottom: 16px;
-    }
-
-    .presentation strong {
-        color: #e2e8f0;
-    }
-
-    /* CODIGO */
-
-    .code-section {
-        background: #0f172a;
-        border-top: 1px solid #1e293b;
-        border-bottom: 1px solid #1e293b;
-    }
-
-    .code-block {
-        max-width: 1050px;
-        margin-bottom: 24px;
-        background: #080d18;
-        border: 1px solid #1e293b;
-        border-radius: 14px;
-        overflow: hidden;
-    }
-
-    .code-header {
-        padding: 13px 18px;
-        background: #111827;
-        border-bottom: 1px solid #1e293b;
-        color: #38bdf8;
-        font-size: 13px;
-        font-weight: bold;
-    }
-
-    pre {
-        padding: 22px;
-        overflow-x: auto;
-        color: #cbd5e1;
-        font-size: 13px;
-        line-height: 1.7;
-    }
-
-    .keyword {
-        color: #38bdf8;
-    }
-
-    .string {
-        color: #a5f3fc;
-    }
-
-    .comment {
-        color: #64748b;
-    }
-
-    .code-description {
-        max-width: 1050px;
-        margin-bottom: 30px;
-        color: #94a3b8;
-        font-size: 14px;
-    }
-
-    .note {
-        margin-top: 25px;
-        max-width: 900px;
-        padding: 18px 20px;
-        border-left: 3px solid #38bdf8;
-        background: #111827;
-        color: #94a3b8;
-        font-size: 14px;
-        border-radius: 0 10px 10px 0;
-    }
-
-    /* TECNICAS */
-
-    .techniques {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 18px;
-        max-width: 1050px;
-    }
-
-    .technique {
-        background: #111827;
-        border: 1px solid #1e293b;
-        border-radius: 15px;
-        padding: 22px;
-    }
-
-    .technique h3 {
-        color: #f8fafc;
-        font-size: 17px;
-        margin-bottom: 7px;
-    }
-
-    .technique .tools {
-        color: #38bdf8;
-        font-size: 12px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-
-    .technique p {
-        color: #94a3b8;
-        font-size: 14px;
-    }
-
-    /* EXPERIENCIA */
-
-    .experience-section {
-        background: #0f172a;
-        border-top: 1px solid #1e293b;
-        border-bottom: 1px solid #1e293b;
-    }
-
-    .experience-box {
-        max-width: 1050px;
-        background: #0b1422;
-        border: 1px solid #1e293b;
-        border-radius: 17px;
-        padding: 28px;
-    }
-
-    .experience-box h3 {
-        color: #f8fafc;
-        font-size: 20px;
-        margin-bottom: 12px;
-    }
-
-    .experience-box p {
-        color: #94a3b8;
-        font-size: 15px;
-    }
-
-    .experience-box strong {
-        color: #e2e8f0;
-    }
-
-    /* TECNOLOGIAS */
-
-    .tech-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 9px;
-        margin-top: 25px;
-    }
-
-    .tech {
-        padding: 7px 12px;
-        border-radius: 8px;
-        background: #111827;
-        border: 1px solid #263449;
-        color: #cbd5e1;
-        font-size: 13px;
-    }
-
-    /* VOLVER */
-
-    .back {
-        padding-top: 25px;
-        padding-bottom: 35px;
-    }
-
-    .back a {
-        color: #38bdf8;
-        text-decoration: none;
-        font-size: 14px;
-    }
-
-    .back a:hover {
-        text-decoration: underline;
-    }
-
-    /* FOOTER */
-
-    footer {
-        text-align: center;
-        padding: 25px;
-        background: #080d18;
-        color: #64748b;
-        font-size: 13px;
-        border-top: 1px solid #172033;
-    }
-
-    /* RESPONSIVE */
-
-    @media (max-width: 800px) {
-
-        nav ul {
-            display: none;
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #080f1c;
+            color: #d7e2ef;
+            line-height: 1.7;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1100px, 92%);
+            margin: auto;
+        }
+
+        /* =========================
+           NAV
+        ========================= */
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(8, 15, 28, 0.94);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #1b2d42;
+        }
+
+        .nav-content {
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 17px;
+            font-weight: bold;
+            color: #f4f8fc;
+        }
+
+        .logo span {
+            color: #38bdf8;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            font-size: 14px;
+            color: #9eb0c5;
+        }
+
+        .nav-links a:hover {
+            color: #38bdf8;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
 
         .hero {
-            padding-top: 70px;
+            padding: 100px 0 75px;
+            border-bottom: 1px solid #142538;
         }
+
+        .eyebrow {
+            color: #38bdf8;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            color: #f5f9fd;
+            font-size: clamp(38px, 6vw, 64px);
+            line-height: 1.05;
+            margin-bottom: 22px;
+        }
+
+        .hero p {
+            max-width: 760px;
+            color: #9eb0c5;
+            font-size: 18px;
+        }
+
+        /* =========================
+           SECTIONS
+        ========================= */
 
         section {
-            padding: 60px 6%;
+            padding: 75px 0;
         }
 
-        .techniques {
-            grid-template-columns: 1fr;
+        .section-title {
+            margin-bottom: 35px;
+        }
+
+        .section-title span {
+            color: #38bdf8;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .section-title h2 {
+            margin-top: 7px;
+            color: #f4f8fc;
+            font-size: 30px;
+        }
+
+        /* =========================
+           PRESENTATION
+        ========================= */
+
+        .presentation {
+            max-width: 900px;
+        }
+
+        .presentation p {
+            color: #aebdcd;
+            font-size: 16px;
+        }
+
+        .presentation strong {
+            color: #e8f1f8;
+        }
+
+        /* =========================
+           CAROUSEL
+        ========================= */
+
+        .carousel {
+            position: relative;
+            max-width: 1050px;
+            margin: auto;
+            padding: 20px;
+            overflow: hidden;
+            border: 1px solid #20334a;
+            border-radius: 18px;
+            background: #0b1726;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.30);
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.45s ease;
+            width: 100%;
+        }
+
+        .slide {
+            min-width: 100%;
+            background: #07111e;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #1b2d42;
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 14px 18px;
+            background: #0d1c2d;
+            border-bottom: 1px solid #1b2d42;
+        }
+
+        .code-title {
+            color: #f0f6fb;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .code-label {
+            color: #38bdf8;
+            font-size: 11px;
+            letter-spacing: 1px;
+            white-space: nowrap;
         }
 
         pre {
+            margin: 0;
+            padding: 25px;
+            min-height: 360px;
+            overflow-x: auto;
+            color: #c9d7e5;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            white-space: pre;
+        }
+
+        .keyword {
+            color: #7dd3fc;
+        }
+
+        .function {
+            color: #a5f3fc;
+        }
+
+        .comment {
+            color: #6f8297;
+        }
+
+        .string {
+            color: #c4f1be;
+        }
+
+        .number {
+            color: #f9d58a;
+        }
+
+        /* =========================
+           CAROUSEL CONTROLS
+        ========================= */
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 42px;
+            height: 42px;
+            border: 1px solid #2b4661;
+            border-radius: 50%;
+            background: #0d1c2d;
+            color: #dce9f5;
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 5;
+        }
+
+        .carousel-btn:hover {
+            background: #13283d;
+            color: #38bdf8;
+        }
+
+        .prev {
+            left: 30px;
+        }
+
+        .next {
+            right: 30px;
+        }
+
+        .dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 18px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: none;
+            background: #31465d;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background: #38bdf8;
+            transform: scale(1.2);
+        }
+
+        /* =========================
+           RESOURCES
+        ========================= */
+
+        .resources {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .resource {
+            padding: 24px;
+            border: 1px solid #1b3046;
+            border-radius: 14px;
+            background: #0c1827;
+        }
+
+        .resource-number {
+            color: #38bdf8;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .resource h3 {
+            margin: 8px 0;
+            color: #f0f5fa;
+            font-size: 17px;
+        }
+
+        .resource p {
+            color: #91a4b8;
+            font-size: 14px;
+        }
+
+        /* =========================
+           EXPERIENCE
+        ========================= */
+
+        .experience-box {
+            padding: 30px;
+            border: 1px solid #24415c;
+            border-radius: 16px;
+            background: linear-gradient(
+                135deg,
+                #0c1a2a,
+                #0a1523
+            );
+        }
+
+        .experience-box p {
+            color: #aebdcd;
+            font-size: 15px;
+        }
+
+        .experience-box strong {
+            color: #eef6fc;
+        }
+
+        /* =========================
+           TECHNOLOGIES
+        ========================= */
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tech {
+            padding: 8px 13px;
+            border: 1px solid #29445e;
+            border-radius: 20px;
+            background: #0c1928;
+            color: #b9cadb;
             font-size: 12px;
         }
-    }
 
-</style>
-```
+        /* =========================
+           BACK
+        ========================= */
 
+        .back {
+            padding: 0 0 70px;
+        }
+
+        .back a {
+            display: inline-block;
+            padding: 11px 18px;
+            border: 1px solid #2b4661;
+            border-radius: 8px;
+            color: #bcd0e2;
+            font-size: 14px;
+        }
+
+        .back a:hover {
+            color: #38bdf8;
+            border-color: #38bdf8;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            padding: 30px 0;
+            border-top: 1px solid #142538;
+            text-align: center;
+            color: #667c92;
+            font-size: 13px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 75px 0 55px;
+            }
+
+            section {
+                padding: 55px 0;
+            }
+
+            .resources {
+                grid-template-columns: 1fr;
+            }
+
+            pre {
+                min-height: 390px;
+                font-size: 12px;
+                padding: 20px;
+            }
+
+            .carousel {
+                padding: 12px;
+            }
+
+            .prev {
+                left: 18px;
+            }
+
+            .next {
+                right: 18px;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .code-header {
+                padding: 12px;
+            }
+
+            .code-title {
+                font-size: 12px;
+            }
+
+            .code-label {
+                font-size: 9px;
+            }
+
+            pre {
+                padding: 16px;
+                font-size: 11px;
+            }
+
+            .carousel-btn {
+                width: 34px;
+                height: 34px;
+                font-size: 16px;
+            }
+
+            .prev {
+                left: 14px;
+            }
+
+            .next {
+                right: 14px;
+            }
+        }
+    </style>
 </head>
+
 
 <body>
 
-```
-<!-- NAVBAR -->
 
-<nav>
+    <!-- =========================
+         NAV
+    ========================= -->
 
-    <div class="logo">
-        EC.
-    </div>
+    <nav>
 
-    <ul>
+        <div class="container nav-content">
 
-        <li>
-            <a href="index.html">
-                Inicio
+            <a href="index.html" class="logo">
+                EDUARDO<span>.</span>
             </a>
-        </li>
 
-        <li>
-            <a href="index.html#sobre-mi">
-                Sobre mí
-            </a>
-        </li>
+            <ul class="nav-links">
 
-        <li>
-            <a href="index.html#proyectos">
-                Proyectos
-            </a>
-        </li>
+                <li>
+                    <a href="index.html#inicio">
+                        Inicio
+                    </a>
+                </li>
 
-        <li>
-            <a href="index.html#habilidades">
-                Habilidades
-            </a>
-        </li>
+                <li>
+                    <a href="index.html#sobre-mi">
+                        Sobre mí
+                    </a>
+                </li>
 
-        <li>
-            <a href="index.html#contacto">
-                Contacto
-            </a>
-        </li>
+                <li>
+                    <a href="index.html#proyectos">
+                        Proyectos
+                    </a>
+                </li>
 
-    </ul>
+                <li>
+                    <a href="index.html#habilidades">
+                        Habilidades
+                    </a>
+                </li>
 
-</nav>
+                <li>
+                    <a href="index.html#contacto">
+                        Contacto
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </nav>
 
 
-<!-- HERO -->
 
-<section class="hero">
+    <!-- =========================
+         HERO
+    ========================= -->
 
-    <div class="hero-content">
+    <header class="hero">
 
-        <span class="tag">
-            SQL SERVER · T-SQL · MYSQL
-        </span>
+        <div class="container">
 
-        <h1>
-            SQL Server
-            <span class="highlight">
+            <div class="eyebrow">
+                SQL SERVER · T-SQL · DATA INTEGRATION
+            </div>
+
+            <h1>
+                SQL Server<br>
                 & Desarrollo
-            </span>
-        </h1>
+            </h1>
 
-        <p>
-            Experiencia práctica trabajando con SQL Server, T-SQL y MySQL
-            para consultar, transformar e integrar información proveniente
-            de sistemas empresariales.
-        </p>
+            <p>
+                Experiencia práctica trabajando con información empresarial,
+                desarrollando consultas, Views, Stored Procedures e integración
+                entre bases de datos para obtener información más completa,
+                reutilizable y preparada para análisis.
+            </p>
 
-    </div>
-
-</section>
-
-
-<!-- PRESENTACION -->
-
-<section>
-
-    <div class="section-title">
-
-        <span>
-            01 · Experiencia
-        </span>
-
-        <h2>
-            Trabajo con información empresarial
-        </h2>
-
-    </div>
-
-
-    <div class="presentation">
-
-        <p>
-            Durante mi experiencia profesional he trabajado principalmente
-            con <strong>SQL Server y T-SQL</strong>, utilizando consultas
-            y estructuras SQL para obtener, transformar, validar y organizar
-            información utilizada por diferentes procesos y usuarios.
-        </p>
-
-        <p>
-            Parte del trabajo consiste en <strong>analizar las tablas y sus
-            relaciones</strong> para identificar cómo obtener la información
-            requerida, integrando datos mediante JOIN y consultas entre
-            diferentes bases de datos. A partir de este análisis también
-            desarrollo <strong>Views y Stored Procedures</strong> para
-            centralizar y reutilizar lógica.
-        </p>
-
-        <p>
-            En actividades repetitivas utilizo <strong>variables,
-            DECLARE y procedimientos almacenados</strong> para preparar
-            ejecuciones que permitan obtener información de manera más
-            rápida y consistente. También aplico estructuras como
-            <strong>ISNULL, COALESCE, CASE, CTE y ROW_NUMBER</strong>
-            según la necesidad del análisis.
-        </p>
-
-        <p>
-            Adicionalmente, he trabajado con <strong>MySQL</strong> y con
-            integración de información entre diferentes fuentes, incluyendo
-            consultas mediante <strong>OPENQUERY</strong>.
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- EVIDENCIA TECNICA -->
-
-<section class="code-section">
-
-    <div class="section-title">
-
-        <span>
-            02 · Evidencia técnica
-        </span>
-
-        <h2>
-            Código SQL
-        </h2>
-
-        <p>
-            Algunos ejemplos representativos de las estructuras y técnicas
-            que utilizo para trabajar con información.
-        </p>
-
-    </div>
-
-
-    <!-- EJEMPLO 1 -->
-
-    <div class="code-block">
-
-        <div class="code-header">
-            consulta-integracion.sql
         </div>
-```
 
-<pre><code><span class="keyword">SELECT</span>
-    v.IdVenta,
-    v.Fecha,
-    c.Cliente,
-    v.Total,
-    <span class="keyword">ISNULL</span>(v.Estado, <span class="string">'SIN ESTADO'</span>) <span class="keyword">AS</span> Estado
-
-<span class="keyword">FROM</span> Ventas v
-
-<span class="keyword">LEFT JOIN</span> Clientes c
-    <span class="keyword">ON</span> c.IdCliente = v.IdCliente
-
-<span class="keyword">WHERE</span> v.Fecha &gt;= <span class="string">'2026-01-01'</span>
-
-<span class="keyword">ORDER BY</span> v.Fecha <span class="keyword">DESC</span>;</code></pre>
-
-```
-    </div>
-
-    <div class="code-description">
-        Ejemplo demostrativo de integración entre tablas y tratamiento de
-        valores nulos mediante JOIN e ISNULL.
-    </div>
+    </header>
 
 
-    <!-- EJEMPLO 2 -->
 
-    <div class="code-block">
+    <!-- =========================
+         PRESENTACIÓN
+    ========================= -->
 
-        <div class="code-header">
-            procedimiento-repetitivo.sql
+    <section>
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <span>
+                    01 · PRESENTACIÓN
+                </span>
+
+                <h2>
+                    Trabajo con bases de datos
+                </h2>
+
+            </div>
+
+
+            <div class="presentation">
+
+                <p>
+                    En mi experiencia profesional he trabajado principalmente
+                    con <strong>SQL Server y T-SQL</strong>, analizando tablas,
+                    relaciones y estructuras de datos para construir consultas
+                    y soluciones utilizadas en procesos empresariales.
+                </p>
+
+                <br>
+
+                <p>
+                    Parte del trabajo consiste en relacionar información de
+                    <strong>diferentes tablas y bases de datos</strong>,
+                    preparar datos mediante lógica SQL y generar estructuras
+                    reutilizables como Views y Stored Procedures.
+                </p>
+
+                <br>
+
+                <p>
+                    También he trabajado con <strong>MySQL</strong> y consultas
+                    mediante <strong>OPENQUERY</strong>, integrando información
+                    entre diferentes fuentes cuando el proceso lo requiere.
+                </p>
+
+            </div>
+
         </div>
-```
 
-<pre><code><span class="keyword">DECLARE</span> @FechaInicio <span class="keyword">DATE</span> = <span class="string">'2026-01-01'</span>;
-<span class="keyword">DECLARE</span> @FechaFin <span class="keyword">DATE</span> = <span class="string">'2026-01-31'</span>;
+    </section>
+
+
+
+    <!-- =========================
+         EVIDENCIA TÉCNICA
+    ========================= -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <span>
+                    02 · EVIDENCIA TÉCNICA
+                </span>
+
+                <h2>
+                    Ejemplos de trabajo con SQL
+                </h2>
+
+            </div>
+
+
+            <div class="carousel">
+
+                <div class="slides" id="slides">
+
+
+                    <!-- =====================
+                         SLIDE 1
+                    ====================== -->
+
+                    <div class="slide">
+
+                        <div class="code-header">
+
+                            <span class="code-title">
+                                Consulta con múltiples tablas
+                            </span>
+
+                            <span class="code-label">
+                                JOIN · NULL · CASE
+                            </span>
+
+                        </div>
+
+
+<pre><code><span class="comment">-- Integración de información proveniente de distintas tablas</span>
 
 <span class="keyword">SELECT</span>
-    Fecha,
-    Cliente,
-    Total
-<span class="keyword">FROM</span> Ventas
-<span class="keyword">WHERE</span> Fecha <span class="keyword">BETWEEN</span> @FechaInicio <span class="keyword">AND</span> @FechaFin
-<span class="keyword">ORDER BY</span> Fecha <span class="keyword">DESC</span>;</code></pre>
+    v.IdVenta,
+    v.Fecha,
+    c.NombreCliente,
+    v.Total,
 
-```
-    </div>
+    <span class="function">ISNULL</span>(
+        c.TipoCliente,
+        <span class="string">'NO DEFINIDO'</span>
+    ) <span class="keyword">AS</span> TipoCliente,
 
-    <div class="code-description">
-        Ejemplo de uso de variables y DECLARE para preparar consultas
-        reutilizables en actividades de consulta repetitiva.
-    </div>
+    <span class="keyword">CASE</span>
+
+        <span class="keyword">WHEN</span> v.Total &gt; <span class="number">10000</span>
+            <span class="keyword">THEN</span> <span class="string">'ALTA'</span>
+
+        <span class="keyword">ELSE</span> <span class="string">'NORMAL'</span>
+
+    <span class="keyword">END</span> <span class="keyword">AS</span> NivelVenta
+
+<span class="keyword">FROM</span> Ventas.dbo.Ventas v
+
+<span class="keyword">LEFT JOIN</span> Clientes.dbo.Clientes c
+
+    <span class="keyword">ON</span> c.IdCliente = v.IdCliente
+
+<span class="keyword">LEFT JOIN</span> Productos.dbo.Productos p
+
+    <span class="keyword">ON</span> p.IdProducto = v.IdProducto
+
+<span class="keyword">WHERE</span> v.Estado = <span class="string">'ACTIVO'</span>;</code></pre>
+
+                    </div>
 
 
-    <!-- EJEMPLO 3 -->
 
-    <div class="code-block">
+                    <!-- =====================
+                         SLIDE 2
+                    ====================== -->
 
-        <div class="code-header">
-            analisis-registros.sql
-        </div>
-```
+                    <div class="slide">
 
-<pre><code><span class="keyword">WITH</span> Datos <span class="keyword">AS</span> (
+                        <div class="code-header">
+
+                            <span class="code-title">
+                                Creación de una View
+                            </span>
+
+                            <span class="code-label">
+                                VIEW · INTEGRACIÓN
+                            </span>
+
+                        </div>
+
+
+<pre><code><span class="comment">-- Vista preparada para reutilizar información</span>
+
+<span class="keyword">CREATE VIEW</span> dbo.vw_VentasIntegradas
+
+<span class="keyword">AS</span>
+
+<span class="keyword">SELECT</span>
+
+    v.IdVenta,
+    v.Fecha,
+    c.NombreCliente,
+    p.Descripcion <span class="keyword">AS</span> Producto,
+    v.Cantidad,
+    v.Total
+
+<span class="keyword">FROM</span> Ventas.dbo.Ventas v
+
+<span class="keyword">INNER JOIN</span> Clientes.dbo.Clientes c
+
+    <span class="keyword">ON</span> c.IdCliente = v.IdCliente
+
+<span class="keyword">INNER JOIN</span> Productos.dbo.Productos p
+
+    <span class="keyword">ON</span> p.IdProducto = v.IdProducto
+
+<span class="keyword">WHERE</span> v.Anulado = <span class="number">0</span>;</code></pre>
+
+                    </div>
+
+
+
+                    <!-- =====================
+                         SLIDE 3
+                    ====================== -->
+
+                    <div class="slide">
+
+                        <div class="code-header">
+
+                            <span class="code-title">
+                                Stored Procedure + variables
+                            </span>
+
+                            <span class="code-label">
+                                SP · DECLARE
+                            </span>
+
+                        </div>
+
+
+<pre><code><span class="comment">-- Consulta reutilizable para solicitudes recurrentes</span>
+
+<span class="keyword">CREATE OR ALTER PROCEDURE</span>
+dbo.usp_ConsultaVentas
+
+    @FechaInicio <span class="keyword">DATE</span>,
+    @FechaFin <span class="keyword">DATE</span>
+
+<span class="keyword">AS</span>
+
+<span class="keyword">BEGIN</span>
+
+    <span class="keyword">DECLARE</span>
+        @Estado <span class="keyword">VARCHAR</span>(<span class="number">20</span>);
+
+    <span class="keyword">SET</span>
+        @Estado = <span class="string">'ACTIVO'</span>;
 
     <span class="keyword">SELECT</span>
-        Cliente,
+
+        IdVenta,
+        Fecha,
+        Total
+
+    <span class="keyword">FROM</span> dbo.Ventas
+
+    <span class="keyword">WHERE</span>
+
+        Fecha <span class="keyword">BETWEEN</span>
+            @FechaInicio
+            <span class="keyword">AND</span>
+            @FechaFin
+
+        <span class="keyword">AND</span>
+
+        Estado = @Estado;
+
+<span class="keyword">END</span>;</code></pre>
+
+                    </div>
+
+
+
+                    <!-- =====================
+                         SLIDE 4
+                    ====================== -->
+
+                    <div class="slide">
+
+                        <div class="code-header">
+
+                            <span class="code-title">
+                                CTE y ROW_NUMBER
+                            </span>
+
+                            <span class="code-label">
+                                CTE · WINDOW FUNCTION
+                            </span>
+
+                        </div>
+
+
+<pre><code><span class="comment">-- Obtener el registro más reciente por cliente</span>
+
+<span class="keyword">WITH</span> UltimasVentas <span class="keyword">AS</span>
+
+(
+
+    <span class="keyword">SELECT</span>
+
+        IdCliente,
+        IdVenta,
         Fecha,
         Total,
 
-        <span class="keyword">ROW_NUMBER</span>() <span class="keyword">OVER</span>(
-            <span class="keyword">PARTITION BY</span> Cliente
-            <span class="keyword">ORDER BY</span> Fecha <span class="keyword">DESC</span>
+        <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span>
+
+        (
+
+            <span class="keyword">PARTITION BY</span>
+                IdCliente
+
+            <span class="keyword">ORDER BY</span>
+                Fecha <span class="keyword">DESC</span>
+
         ) <span class="keyword">AS</span> Orden
 
-    <span class="keyword">FROM</span> Ventas
+    <span class="keyword">FROM</span> dbo.Ventas
 
 )
 
-<span class="keyword">SELECT</span> *
-<span class="keyword">FROM</span> Datos
-<span class="keyword">WHERE</span> Orden = 1;</code></pre>
 
-```
-    </div>
+<span class="keyword">SELECT</span>
 
-    <div class="code-description">
-        Ejemplo de utilización de CTE y ROW_NUMBER para organizar y
-        analizar registros dentro de una consulta.
-    </div>
+    IdCliente,
+    IdVenta,
+    Fecha,
+    Total
 
+<span class="keyword">FROM</span> UltimasVentas
 
-    <div class="note">
+<span class="keyword">WHERE</span>
+    Orden = <span class="number">1</span>;</code></pre>
 
-        Los ejemplos mostrados son demostrativos y han sido creados
-        específicamente para el portafolio. No corresponden a consultas,
-        estructuras ni información interna de la empresa.
-
-    </div>
-
-</section>
+                    </div>
 
 
-<!-- TECNICAS -->
 
-<section>
+                    <!-- =====================
+                         SLIDE 5
+                    ====================== -->
 
-    <div class="section-title">
+                    <div class="slide">
 
-        <span>
-            03 · Herramientas y estructuras
-        </span>
+                        <div class="code-header">
 
-        <h2>
-            Principales recursos utilizados
-        </h2>
+                            <span class="code-title">
+                                Integración SQL Server + MySQL
+                            </span>
 
-    </div>
+                            <span class="code-label">
+                                OPENQUERY
+                            </span>
+
+                        </div>
 
 
-    <div class="techniques">
+<pre><code><span class="comment">-- Consulta a una fuente MySQL mediante Linked Server</span>
+
+<span class="keyword">SELECT</span>
+
+    IdProducto,
+    Codigo,
+    Descripcion,
+    Stock
+
+<span class="keyword">FROM OPENQUERY</span>(
+
+    MYSQLSERVER,
+
+    <span class="string">'
+        SELECT
+            IdProducto,
+            Codigo,
+            Descripcion,
+            Stock
+
+        FROM productos
+
+        WHERE estado = 1
+    '</span>
+
+);
 
 
-        <div class="technique">
+<span class="comment">
+-- La información puede combinarse posteriormente
+-- con tablas disponibles en SQL Server.
+</span></code></pre>
 
-            <h3>
-                Consultas y operaciones
-            </h3>
+                    </div>
 
-            <div class="tools">
-                DDL · DML · CRUD
+                </div>
+
+
+
+                <!-- =====================
+                     BOTONES
+                ====================== -->
+
+                <button
+                    class="carousel-btn prev"
+                    id="prev"
+                    aria-label="Anterior">
+                    ‹
+                </button>
+
+
+                <button
+                    class="carousel-btn next"
+                    id="next"
+                    aria-label="Siguiente">
+                    ›
+                </button>
+
+
+                <div
+                    class="dots"
+                    id="dots">
+                </div>
+
             </div>
-
-            <p>
-                Trabajo con estructuras y operaciones de datos para
-                consultar, modificar y administrar información según
-                las necesidades de los procesos.
-            </p>
 
         </div>
 
+    </section>
 
-        <div class="technique">
 
-            <h3>
-                Relaciones e integración
-            </h3>
 
-            <div class="tools">
-                JOIN · VIEWS · MÚLTIPLES BASES
+    <!-- =========================
+         RECURSOS SQL
+    ========================= -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <span>
+                    03 · PRINCIPALES RECURSOS
+                </span>
+
+                <h2>
+                    Lo que utilizo en SQL
+                </h2>
+
             </div>
 
-            <p>
-                Análisis de tablas y relaciones para integrar información
-                proveniente de diferentes tablas y bases de datos,
-                generando consultas y Views reutilizables.
-            </p>
+
+            <div class="resources">
+
+
+                <!-- CARD 1 -->
+
+                <div class="resource">
+
+                    <div class="resource-number">
+                        01
+                    </div>
+
+                    <h3>
+                        DDL · DML · CRUD
+                    </h3>
+
+                    <p>
+                        Creación y modificación de estructuras,
+                        inserción, actualización, eliminación
+                        y consulta de información.
+                    </p>
+
+                </div>
+
+
+
+                <!-- CARD 2 -->
+
+                <div class="resource">
+
+                    <div class="resource-number">
+                        02
+                    </div>
+
+                    <h3>
+                        JOIN · Views · Bases de datos
+                    </h3>
+
+                    <p>
+                        Análisis de tablas y relaciones para integrar
+                        información de diferentes estructuras
+                        y bases de datos.
+                    </p>
+
+                </div>
+
+
+
+                <!-- CARD 3 -->
+
+                <div class="resource">
+
+                    <div class="resource-number">
+                        03
+                    </div>
+
+                    <h3>
+                        Stored Procedures · DECLARE
+                    </h3>
+
+                    <p>
+                        Desarrollo de procedimientos reutilizables
+                        y variables para ejecutar consultas
+                        recurrentes de forma más rápida.
+                    </p>
+
+                </div>
+
+
+
+                <!-- CARD 4 -->
+
+                <div class="resource">
+
+                    <div class="resource-number">
+                        04
+                    </div>
+
+                    <h3>
+                        CTE · ROW_NUMBER
+                    </h3>
+
+                    <p>
+                        Organización de consultas complejas
+                        y uso de funciones de ventana para
+                        obtener resultados específicos.
+                    </p>
+
+                </div>
+
+
+
+                <!-- CARD 5 -->
+
+                <div class="resource">
+
+                    <div class="resource-number">
+                        05
+                    </div>
+
+                    <h3>
+                        ISNULL · COALESCE · CASE
+                    </h3>
+
+                    <p>
+                        Tratamiento de valores nulos y aplicación
+                        de lógica condicional para preparar
+                        la información.
+                    </p>
+
+                </div>
+
+
+
+                <!-- CARD 6 -->
+
+                <div class="resource">
+
+                    <div class="resource-number">
+                        06
+                    </div>
+
+                    <h3>
+                        MySQL · OPENQUERY
+                    </h3>
+
+                    <p>
+                        Consulta e integración de información
+                        entre SQL Server y fuentes MySQL
+                        mediante Linked Server.
+                    </p>
+
+                </div>
+
+            </div>
 
         </div>
 
+    </section>
 
-        <div class="technique">
 
-            <h3>
-                Procedimientos y automatización
-            </h3>
 
-            <div class="tools">
-                STORED PROCEDURES · DECLARE · VARIABLES
+    <!-- =========================
+         EXPERIENCIA
+    ========================= -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <span>
+                    04 · EXPERIENCIA APLICADA
+                </span>
+
+                <h2>
+                    SQL orientado a resolver necesidades reales
+                </h2>
+
             </div>
 
-            <p>
-                Desarrollo de procedimientos almacenados para tareas
-                repetitivas y utilización de variables para preparar
-                ejecuciones de consulta más rápidas y reutilizables.
-            </p>
+
+            <div class="experience-box">
+
+                <p>
+
+                    Durante mi experiencia profesional he utilizado
+                    <strong>
+                        SQL Server como parte del soporte, análisis
+                        y preparación de información empresarial
+                    </strong>.
+
+                    He trabajado con consultas que relacionan tablas
+                    de diferentes bases de datos, creación de Views
+                    y Stored Procedures, tratamiento de datos y consultas
+                    reutilizables para atender solicitudes recurrentes
+                    de información.
+
+                </p>
+
+
+                <br>
+
+
+                <p>
+
+                    También he trabajado con
+                    <strong>
+                        MySQL y OPENQUERY
+                    </strong>
+                    para consultar información de otras fuentes.
+
+                    Este trabajo me ha permitido utilizar SQL no solo
+                    para consultar datos, sino también para
+                    <strong>
+                        prepararlos y estructurarlos para soluciones
+                        de análisis y Business Intelligence
+                    </strong>.
+
+                </p>
+
+            </div>
 
         </div>
 
+    </section>
 
-        <div class="technique">
 
-            <h3>
-                Transformación y análisis
-            </h3>
 
-            <div class="tools">
-                ISNULL · COALESCE · CASE · CTE · ROW_NUMBER
+    <!-- =========================
+         TECNOLOGÍAS
+    ========================= -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <span>
+                    05 · TECNOLOGÍAS
+                </span>
+
+                <h2>
+                    Herramientas utilizadas
+                </h2>
+
             </div>
 
-            <p>
-                Tratamiento de valores nulos, condiciones, organización
-                de consultas y análisis de registros utilizando diferentes
-                estructuras de T-SQL.
-            </p>
+
+            <div class="tech-list">
+
+                <span class="tech">
+                    SQL SERVER
+                </span>
+
+                <span class="tech">
+                    T-SQL
+                </span>
+
+                <span class="tech">
+                    MYSQL
+                </span>
+
+                <span class="tech">
+                    OPENQUERY
+                </span>
+
+                <span class="tech">
+                    VIEWS
+                </span>
+
+                <span class="tech">
+                    STORED PROCEDURES
+                </span>
+
+                <span class="tech">
+                    CTE
+                </span>
+
+                <span class="tech">
+                    ROW_NUMBER
+                </span>
+
+                <span class="tech">
+                    JOIN
+                </span>
+
+                <span class="tech">
+                    DML
+                </span>
+
+                <span class="tech">
+                    DDL
+                </span>
+
+                <span class="tech">
+                    SQL PROFILER
+                </span>
+
+            </div>
 
         </div>
 
-
-    </div>
-
-</section>
+    </section>
 
 
-<!-- EXPERIENCIA -->
 
-<section class="experience-section">
+    <!-- =========================
+         VOLVER
+    ========================= -->
 
-    <div class="section-title">
+    <div class="container back">
 
-        <span>
-            04 · Experiencia aplicada
-        </span>
-
-        <h2>
-            De SQL a Business Intelligence
-        </h2>
+        <a href="index.html#proyectos">
+            ← Volver a proyectos
+        </a>
 
     </div>
 
 
-    <div class="experience-box">
 
-        <h3>
-            Integración y preparación de información
-        </h3>
+    <!-- =========================
+         FOOTER
+    ========================= -->
 
-        <p>
-            La experiencia con SQL forma parte de un flujo más amplio de
-            trabajo con datos. A partir de la información almacenada en
-            diferentes sistemas y bases de datos, realizo consultas,
-            transformaciones e integraciones que posteriormente pueden
-            utilizarse en procesos de análisis y Business Intelligence.
-            <br><br>
-            Este trabajo incluye información proveniente de
-            <strong>SQL Server y MySQL</strong>, análisis de estructuras,
-            integración entre bases de datos y preparación de información
-            para soluciones desarrolladas en <strong>Power BI</strong>.
-        </p>
+    <footer>
 
-    </div>
+        © 2026 Eduardo Chiara · Analista de Sistemas
+
+    </footer>
 
 
-    <div class="tech-list">
 
-        <span class="tech">SQL Server</span>
-        <span class="tech">T-SQL</span>
-        <span class="tech">MySQL</span>
-        <span class="tech">DDL</span>
-        <span class="tech">DML</span>
-        <span class="tech">CRUD</span>
-        <span class="tech">JOIN</span>
-        <span class="tech">Views</span>
-        <span class="tech">Stored Procedures</span>
-        <span class="tech">DECLARE</span>
-        <span class="tech">ISNULL</span>
-        <span class="tech">COALESCE</span>
-        <span class="tech">CASE</span>
-        <span class="tech">CTE</span>
-        <span class="tech">ROW_NUMBER</span>
-        <span class="tech">OPENQUERY</span>
+    <!-- =========================
+         JAVASCRIPT
+         CAROUSEL
+    ========================= -->
 
-    </div>
+    <script>
 
-</section>
+        const slides =
+            document.getElementById("slides");
+
+        const dotsContainer =
+            document.getElementById("dots");
+
+        const totalSlides =
+            document.querySelectorAll(".slide").length;
+
+        let currentSlide = 0;
 
 
-<!-- VOLVER -->
 
-<section class="back">
+        /* =========================
+           CREAR DOTS
+        ========================= */
 
-    <a href="index.html#proyectos">
-        ← Volver a proyectos
-    </a>
+        for (
+            let i = 0;
+            i < totalSlides;
+            i++
+        ) {
 
-</section>
+            const dot =
+                document.createElement("button");
+
+            dot.classList.add("dot");
+
+            if (i === 0) {
+
+                dot.classList.add("active");
+
+            }
+
+            dot.addEventListener(
+                "click",
+                () => {
+
+                    currentSlide = i;
+
+                    updateCarousel();
+
+                }
+            );
+
+            dotsContainer.appendChild(dot);
+
+        }
 
 
-<!-- FOOTER -->
 
-<footer>
+        const dots =
+            document.querySelectorAll(".dot");
 
-    © 2026 Eduardo Chiara · Analista de Sistemas
 
-</footer>
-```
+
+        /* =========================
+           ACTUALIZAR CARRUSEL
+        ========================= */
+
+        function updateCarousel() {
+
+            slides.style.transform =
+                `translateX(-${currentSlide * 100}%)`;
+
+
+            dots.forEach(
+                (dot, index) => {
+
+                    dot.classList.toggle(
+                        "active",
+                        index === currentSlide
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* =========================
+           SIGUIENTE
+        ========================= */
+
+        document
+            .getElementById("next")
+            .addEventListener(
+                "click",
+                () => {
+
+                    currentSlide++;
+
+                    if (
+                        currentSlide >= totalSlides
+                    ) {
+
+                        currentSlide = 0;
+
+                    }
+
+                    updateCarousel();
+
+                }
+            );
+
+
+
+        /* =========================
+           ANTERIOR
+        ========================= */
+
+        document
+            .getElementById("prev")
+            .addEventListener(
+                "click",
+                () => {
+
+                    currentSlide--;
+
+                    if (
+                        currentSlide < 0
+                    ) {
+
+                        currentSlide =
+                            totalSlides - 1;
+
+                    }
+
+                    updateCarousel();
+
+                }
+            );
+
+
+
+        /* =========================
+           TECLADO
+        ========================= */
+
+        document.addEventListener(
+            "keydown",
+            (event) => {
+
+                if (
+                    event.key === "ArrowRight"
+                ) {
+
+                    currentSlide++;
+
+                    if (
+                        currentSlide >= totalSlides
+                    ) {
+
+                        currentSlide = 0;
+
+                    }
+
+                    updateCarousel();
+
+                }
+
+
+                if (
+                    event.key === "ArrowLeft"
+                ) {
+
+                    currentSlide--;
+
+                    if (
+                        currentSlide < 0
+                    ) {
+
+                        currentSlide =
+                            totalSlides - 1;
+
+                    }
+
+                    updateCarousel();
+
+                }
+
+            }
+        );
+
+    </script>
 
 </body>
-
 </html>
