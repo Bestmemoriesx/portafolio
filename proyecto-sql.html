@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,6 +12,7 @@
         content="Experiencia práctica con SQL Server, T-SQL, MySQL e integración de información entre bases de datos.">
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
@@ -37,6 +40,7 @@
             margin: auto;
         }
 
+
         /* =========================
            NAV
         ========================= */
@@ -45,13 +49,16 @@
             position: sticky;
             top: 0;
             z-index: 100;
+
             background: rgba(8, 15, 28, 0.94);
             backdrop-filter: blur(10px);
+
             border-bottom: 1px solid #1b2d42;
         }
 
         .nav-content {
             min-height: 70px;
+
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -70,86 +77,234 @@
         .nav-links {
             display: flex;
             gap: 25px;
+
             list-style: none;
+
             font-size: 14px;
             color: #9eb0c5;
+        }
+
+        .nav-links a {
+            transition: color 0.2s ease;
         }
 
         .nav-links a:hover {
             color: #38bdf8;
         }
 
+
         /* =========================
            HERO
         ========================= */
 
         .hero {
-            padding: 100px 0 75px;
+            position: relative;
+
+            padding: 105px 0 85px;
+
+            overflow: hidden;
+
             border-bottom: 1px solid #142538;
+
+            background:
+                radial-gradient(
+                    circle at 80% 30%,
+                    rgba(56, 189, 248, 0.08),
+                    transparent 32%
+                ),
+                #080f1c;
         }
 
-        .eyebrow {
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 2px;
+            height: 100%;
+
+            background: linear-gradient(
+                to bottom,
+                transparent,
+                #38bdf8,
+                transparent
+            );
+
+            opacity: 0.7;
+        }
+
+        .hero-content {
+            max-width: 850px;
+        }
+
+        .hero-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            margin-bottom: 22px;
+
             color: #38bdf8;
-            font-size: 13px;
+
+            font-size: 12px;
             font-weight: bold;
+
             letter-spacing: 2px;
-            margin-bottom: 18px;
+        }
+
+        .hero-eyebrow span {
+            display: block;
+
+            width: 28px;
+            height: 1px;
+
+            background: #38bdf8;
         }
 
         .hero h1 {
             color: #f5f9fd;
-            font-size: clamp(38px, 6vw, 64px);
-            line-height: 1.05;
-            margin-bottom: 22px;
+
+            font-size: clamp(48px, 7vw, 76px);
+
+            line-height: 0.98;
+
+            letter-spacing: -2px;
+
+            margin-bottom: 28px;
+        }
+
+        .hero h1 strong {
+            display: block;
+
+            color: #38bdf8;
+
+            font-weight: 500;
         }
 
         .hero p {
             max-width: 760px;
+
             color: #9eb0c5;
-            font-size: 18px;
+
+            font-size: 17px;
+
+            line-height: 1.8;
         }
+
+        .hero-line {
+            width: 85px;
+            height: 2px;
+
+            margin-top: 30px;
+
+            background: #38bdf8;
+        }
+
 
         /* =========================
            SECTIONS
         ========================= */
 
         section {
-            padding: 75px 0;
+            padding: 70px 0;
         }
 
         .section-title {
-            margin-bottom: 35px;
+            margin-bottom: 32px;
         }
 
         .section-title span {
             color: #38bdf8;
-            font-size: 12px;
+
+            font-size: 11px;
             font-weight: bold;
-            letter-spacing: 2px;
+
+            letter-spacing: 1.8px;
         }
 
         .section-title h2 {
             margin-top: 7px;
+
             color: #f4f8fc;
+
             font-size: 30px;
+
+            line-height: 1.2;
         }
+
 
         /* =========================
-           PRESENTATION
+           PRESENTACIÓN
         ========================= */
 
-        .presentation {
-            max-width: 900px;
+        .presentation-section {
+            padding: 60px 0 55px;
         }
 
-        .presentation p {
-            color: #aebdcd;
-            font-size: 16px;
+        .presentation-card {
+            display: grid;
+
+            grid-template-columns: 180px 1fr;
+
+            gap: 45px;
+
+            padding: 32px 35px;
+
+            border: 1px solid #1d344b;
+
+            border-radius: 16px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0d1a2a,
+                    #0a1523
+                );
+
+            box-shadow:
+                0 15px 45px rgba(0, 0, 0, 0.18);
         }
 
-        .presentation strong {
-            color: #e8f1f8;
+        .presentation-label {
+            color: #38bdf8;
+
+            font-size: 11px;
+            font-weight: bold;
+
+            letter-spacing: 1.5px;
+
+            padding-top: 6px;
         }
+
+        .presentation-content h2 {
+            color: #f4f8fc;
+
+            font-size: 27px;
+
+            margin-bottom: 18px;
+        }
+
+        .presentation-text {
+            display: grid;
+
+            gap: 13px;
+        }
+
+        .presentation-text p {
+            color: #9eafc1;
+
+            font-size: 14px;
+
+            line-height: 1.75;
+        }
+
+        .presentation-text strong {
+            color: #e4edf5;
+        }
+
 
         /* =========================
            CAROUSEL
@@ -157,62 +312,102 @@
 
         .carousel {
             position: relative;
+
             max-width: 1050px;
+
             margin: auto;
-            padding: 20px;
+
+            padding: 18px;
+
             overflow: hidden;
+
             border: 1px solid #20334a;
+
             border-radius: 18px;
+
             background: #0b1726;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.30);
+
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.30);
         }
 
         .slides {
             display: flex;
-            transition: transform 0.45s ease;
+
             width: 100%;
+
+            transition:
+                transform 0.45s ease;
         }
 
         .slide {
             min-width: 100%;
+
             background: #07111e;
+
             border-radius: 12px;
+
             overflow: hidden;
+
             border: 1px solid #1b2d42;
         }
 
         .code-header {
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
+
             gap: 15px;
-            padding: 14px 18px;
+
+            padding: 11px 18px;
+
             background: #0d1c2d;
+
             border-bottom: 1px solid #1b2d42;
         }
 
         .code-title {
             color: #f0f6fb;
-            font-size: 14px;
+
+            font-size: 13px;
+
             font-weight: bold;
         }
 
         .code-label {
             color: #38bdf8;
-            font-size: 11px;
+
+            font-size: 10px;
+
             letter-spacing: 1px;
+
             white-space: nowrap;
         }
 
         pre {
             margin: 0;
-            padding: 25px;
-            min-height: 360px;
+
+            padding: 20px 25px;
+
+            min-height: 285px;
+            max-height: 285px;
+
             overflow-x: auto;
+            overflow-y: auto;
+
             color: #c9d7e5;
-            font-family: Consolas, "Courier New", monospace;
-            font-size: 13px;
-            line-height: 1.7;
+
+            font-family:
+                Consolas,
+                "Courier New",
+                monospace;
+
+            font-size: 12px;
+
+            line-height: 1.55;
+
             white-space: pre;
         }
 
@@ -236,58 +431,85 @@
             color: #f9d58a;
         }
 
+
         /* =========================
-           CAROUSEL CONTROLS
+           CAROUSEL BUTTONS
         ========================= */
 
         .carousel-btn {
             position: absolute;
+
             top: 50%;
+
             transform: translateY(-50%);
-            width: 42px;
-            height: 42px;
+
+            width: 40px;
+            height: 40px;
+
             border: 1px solid #2b4661;
+
             border-radius: 50%;
+
             background: #0d1c2d;
+
             color: #dce9f5;
+
             cursor: pointer;
+
             font-size: 20px;
+
             z-index: 5;
+
+            transition:
+                background 0.2s ease,
+                color 0.2s ease;
         }
 
         .carousel-btn:hover {
             background: #13283d;
+
             color: #38bdf8;
         }
 
         .prev {
-            left: 30px;
+            left: 28px;
         }
 
         .next {
-            right: 30px;
+            right: 28px;
         }
 
         .dots {
             display: flex;
+
             justify-content: center;
+
             gap: 8px;
-            margin-top: 18px;
+
+            margin-top: 16px;
         }
 
         .dot {
             width: 8px;
             height: 8px;
-            border-radius: 50%;
+
+            padding: 0;
+
             border: none;
+
+            border-radius: 50%;
+
             background: #31465d;
+
             cursor: pointer;
         }
 
         .dot.active {
             background: #38bdf8;
+
             transform: scale(1.2);
         }
+
 
         /* =========================
            RESOURCES
@@ -295,57 +517,89 @@
 
         .resources {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
         }
 
         .resource {
-            padding: 24px;
+            padding: 22px;
+
             border: 1px solid #1b3046;
+
             border-radius: 14px;
+
             background: #0c1827;
+
+            transition:
+                transform 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .resource:hover {
+            transform: translateY(-3px);
+
+            border-color: #28506e;
         }
 
         .resource-number {
             color: #38bdf8;
-            font-size: 12px;
+
+            font-size: 11px;
+
             font-weight: bold;
         }
 
         .resource h3 {
-            margin: 8px 0;
+            margin: 7px 0 8px;
+
             color: #f0f5fa;
-            font-size: 17px;
+
+            font-size: 16px;
         }
 
         .resource p {
             color: #91a4b8;
-            font-size: 14px;
+
+            font-size: 13px;
+
+            line-height: 1.65;
         }
+
 
         /* =========================
            EXPERIENCE
         ========================= */
 
         .experience-box {
-            padding: 30px;
+            padding: 28px 30px;
+
             border: 1px solid #24415c;
+
             border-radius: 16px;
-            background: linear-gradient(
-                135deg,
-                #0c1a2a,
-                #0a1523
-            );
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0c1a2a,
+                    #0a1523
+                );
         }
 
         .experience-box p {
             color: #aebdcd;
-            font-size: 15px;
+
+            font-size: 14px;
+
+            line-height: 1.75;
         }
 
         .experience-box strong {
             color: #eef6fc;
         }
+
 
         /* =========================
            TECHNOLOGIES
@@ -353,18 +607,26 @@
 
         .tech-list {
             display: flex;
+
             flex-wrap: wrap;
-            gap: 10px;
+
+            gap: 9px;
         }
 
         .tech {
-            padding: 8px 13px;
+            padding: 7px 12px;
+
             border: 1px solid #29445e;
+
             border-radius: 20px;
+
             background: #0c1928;
+
             color: #b9cadb;
-            font-size: 12px;
+
+            font-size: 11px;
         }
+
 
         /* =========================
            BACK
@@ -376,29 +638,45 @@
 
         .back a {
             display: inline-block;
-            padding: 11px 18px;
+
+            padding: 10px 17px;
+
             border: 1px solid #2b4661;
+
             border-radius: 8px;
+
             color: #bcd0e2;
-            font-size: 14px;
+
+            font-size: 13px;
+
+            transition:
+                color 0.2s ease,
+                border-color 0.2s ease;
         }
 
         .back a:hover {
             color: #38bdf8;
+
             border-color: #38bdf8;
         }
+
 
         /* =========================
            FOOTER
         ========================= */
 
         footer {
-            padding: 30px 0;
+            padding: 28px 0;
+
             border-top: 1px solid #142538;
+
             text-align: center;
+
             color: #667c92;
-            font-size: 13px;
+
+            font-size: 12px;
         }
+
 
         /* =========================
            RESPONSIVE
@@ -411,78 +689,125 @@
             }
 
             .hero {
-                padding: 75px 0 55px;
+                padding: 75px 0 60px;
+            }
+
+            .hero h1 {
+                font-size: 48px;
             }
 
             section {
                 padding: 55px 0;
             }
 
-            .resources {
-                grid-template-columns: 1fr;
+            .presentation-section {
+                padding: 45px 0;
             }
 
-            pre {
-                min-height: 390px;
-                font-size: 12px;
-                padding: 20px;
+            .presentation-card {
+                grid-template-columns: 1fr;
+
+                gap: 12px;
+
+                padding: 25px;
+            }
+
+            .presentation-label {
+                padding-top: 0;
+            }
+
+            .resources {
+                grid-template-columns: 1fr;
             }
 
             .carousel {
                 padding: 12px;
             }
 
+            pre {
+                min-height: 300px;
+                max-height: 300px;
+
+                padding: 18px;
+
+                font-size: 11px;
+            }
+
             .prev {
-                left: 18px;
+                left: 17px;
             }
 
             .next {
-                right: 18px;
+                right: 17px;
             }
+
         }
+
 
         @media (max-width: 500px) {
 
             .hero h1 {
-                font-size: 40px;
+                font-size: 42px;
+
+                letter-spacing: -1px;
             }
 
             .hero p {
-                font-size: 16px;
+                font-size: 15px;
+            }
+
+            .hero-eyebrow {
+                font-size: 10px;
+            }
+
+            .presentation-card {
+                padding: 22px;
+            }
+
+            .presentation-content h2 {
+                font-size: 24px;
             }
 
             .code-header {
-                padding: 12px;
+                padding: 10px 13px;
             }
 
             .code-title {
-                font-size: 12px;
+                font-size: 11px;
             }
 
             .code-label {
-                font-size: 9px;
+                font-size: 8px;
             }
 
             pre {
-                padding: 16px;
-                font-size: 11px;
+                min-height: 280px;
+                max-height: 280px;
+
+                padding: 15px;
+
+                font-size: 10px;
             }
 
             .carousel-btn {
                 width: 34px;
                 height: 34px;
+
                 font-size: 16px;
             }
 
             .prev {
-                left: 14px;
+                left: 13px;
             }
 
             .next {
-                right: 14px;
+                right: 13px;
             }
+
         }
+
     </style>
+
 </head>
 
 
@@ -549,21 +874,42 @@
 
         <div class="container">
 
-            <div class="eyebrow">
-                SQL SERVER · T-SQL · DATA INTEGRATION
+            <div class="hero-content">
+
+                <div class="hero-eyebrow">
+
+                    <span></span>
+
+                    SQL SERVER · T-SQL · DATA INTEGRATION
+
+                </div>
+
+
+                <h1>
+
+                    SQL Server
+
+                    <strong>
+                        &amp; Desarrollo
+                    </strong>
+
+                </h1>
+
+
+                <p>
+
+                    Experiencia práctica trabajando con información
+                    empresarial, desarrollando consultas, Views,
+                    Stored Procedures e integración entre bases de
+                    datos para obtener información más completa,
+                    reutilizable y preparada para análisis.
+
+                </p>
+
+
+                <div class="hero-line"></div>
+
             </div>
-
-            <h1>
-                SQL Server<br>
-                & Desarrollo
-            </h1>
-
-            <p>
-                Experiencia práctica trabajando con información empresarial,
-                desarrollando consultas, Views, Stored Procedures e integración
-                entre bases de datos para obtener información más completa,
-                reutilizable y preparada para análisis.
-            </p>
 
         </div>
 
@@ -575,48 +921,62 @@
          PRESENTACIÓN
     ========================= -->
 
-    <section>
+    <section class="presentation-section">
 
         <div class="container">
 
-            <div class="section-title">
+            <div class="presentation-card">
 
-                <span>
+                <div class="presentation-label">
+
                     01 · PRESENTACIÓN
-                </span>
 
-                <h2>
-                    Trabajo con bases de datos
-                </h2>
-
-            </div>
+                </div>
 
 
-            <div class="presentation">
+                <div class="presentation-content">
 
-                <p>
-                    En mi experiencia profesional he trabajado principalmente
-                    con <strong>SQL Server y T-SQL</strong>, analizando tablas,
-                    relaciones y estructuras de datos para construir consultas
-                    y soluciones utilizadas en procesos empresariales.
-                </p>
+                    <h2>
+                        Trabajo con bases de datos
+                    </h2>
 
-                <br>
 
-                <p>
-                    Parte del trabajo consiste en relacionar información de
-                    <strong>diferentes tablas y bases de datos</strong>,
-                    preparar datos mediante lógica SQL y generar estructuras
-                    reutilizables como Views y Stored Procedures.
-                </p>
+                    <div class="presentation-text">
 
-                <br>
+                        <p>
 
-                <p>
-                    También he trabajado con <strong>MySQL</strong> y consultas
-                    mediante <strong>OPENQUERY</strong>, integrando información
-                    entre diferentes fuentes cuando el proceso lo requiere.
-                </p>
+                            En mi experiencia profesional he trabajado
+                            principalmente con
+                            <strong>
+                                SQL Server y T-SQL
+                            </strong>,
+                            analizando tablas, relaciones y estructuras
+                            para construir consultas y soluciones
+                            utilizadas en procesos empresariales.
+
+                        </p>
+
+
+                        <p>
+
+                            He relacionado información de
+                            <strong>
+                                diferentes tablas y bases de datos
+                            </strong>,
+                            desarrollado Views y Stored Procedures,
+                            aplicado lógica SQL para preparar datos
+                            y trabajado también con
+                            <strong>
+                                MySQL y OPENQUERY
+                            </strong>
+                            para integrar información entre
+                            distintas fuentes.
+
+                        </p>
+
+                    </div>
+
+                </div>
 
             </div>
 
@@ -649,12 +1009,13 @@
 
             <div class="carousel">
 
-                <div class="slides" id="slides">
+                <div
+                    class="slides"
+                    id="slides"
+                >
 
 
-                    <!-- =====================
-                         SLIDE 1
-                    ====================== -->
+                    <!-- SLIDE 1 -->
 
                     <div class="slide">
 
@@ -678,29 +1039,23 @@
     v.Fecha,
     c.NombreCliente,
     v.Total,
-
     <span class="function">ISNULL</span>(
         c.TipoCliente,
         <span class="string">'NO DEFINIDO'</span>
     ) <span class="keyword">AS</span> TipoCliente,
 
     <span class="keyword">CASE</span>
-
         <span class="keyword">WHEN</span> v.Total &gt; <span class="number">10000</span>
             <span class="keyword">THEN</span> <span class="string">'ALTA'</span>
-
         <span class="keyword">ELSE</span> <span class="string">'NORMAL'</span>
-
     <span class="keyword">END</span> <span class="keyword">AS</span> NivelVenta
 
 <span class="keyword">FROM</span> Ventas.dbo.Ventas v
 
 <span class="keyword">LEFT JOIN</span> Clientes.dbo.Clientes c
-
     <span class="keyword">ON</span> c.IdCliente = v.IdCliente
 
 <span class="keyword">LEFT JOIN</span> Productos.dbo.Productos p
-
     <span class="keyword">ON</span> p.IdProducto = v.IdProducto
 
 <span class="keyword">WHERE</span> v.Estado = <span class="string">'ACTIVO'</span>;</code></pre>
@@ -709,9 +1064,7 @@
 
 
 
-                    <!-- =====================
-                         SLIDE 2
-                    ====================== -->
+                    <!-- SLIDE 2 -->
 
                     <div class="slide">
 
@@ -735,7 +1088,6 @@
 <span class="keyword">AS</span>
 
 <span class="keyword">SELECT</span>
-
     v.IdVenta,
     v.Fecha,
     c.NombreCliente,
@@ -746,11 +1098,9 @@
 <span class="keyword">FROM</span> Ventas.dbo.Ventas v
 
 <span class="keyword">INNER JOIN</span> Clientes.dbo.Clientes c
-
     <span class="keyword">ON</span> c.IdCliente = v.IdCliente
 
 <span class="keyword">INNER JOIN</span> Productos.dbo.Productos p
-
     <span class="keyword">ON</span> p.IdProducto = v.IdProducto
 
 <span class="keyword">WHERE</span> v.Anulado = <span class="number">0</span>;</code></pre>
@@ -759,9 +1109,7 @@
 
 
 
-                    <!-- =====================
-                         SLIDE 3
-                    ====================== -->
+                    <!-- SLIDE 3 -->
 
                     <div class="slide">
 
@@ -797,7 +1145,6 @@ dbo.usp_ConsultaVentas
         @Estado = <span class="string">'ACTIVO'</span>;
 
     <span class="keyword">SELECT</span>
-
         IdVenta,
         Fecha,
         Total
@@ -805,15 +1152,13 @@ dbo.usp_ConsultaVentas
     <span class="keyword">FROM</span> dbo.Ventas
 
     <span class="keyword">WHERE</span>
-
         Fecha <span class="keyword">BETWEEN</span>
             @FechaInicio
             <span class="keyword">AND</span>
             @FechaFin
 
         <span class="keyword">AND</span>
-
-        Estado = @Estado;
+            Estado = @Estado;
 
 <span class="keyword">END</span>;</code></pre>
 
@@ -821,9 +1166,7 @@ dbo.usp_ConsultaVentas
 
 
 
-                    <!-- =====================
-                         SLIDE 4
-                    ====================== -->
+                    <!-- SLIDE 4 -->
 
                     <div class="slide">
 
@@ -843,35 +1186,25 @@ dbo.usp_ConsultaVentas
 <pre><code><span class="comment">-- Obtener el registro más reciente por cliente</span>
 
 <span class="keyword">WITH</span> UltimasVentas <span class="keyword">AS</span>
-
 (
 
     <span class="keyword">SELECT</span>
-
         IdCliente,
         IdVenta,
         Fecha,
         Total,
 
         <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span>
-
         (
-
-            <span class="keyword">PARTITION BY</span>
-                IdCliente
-
-            <span class="keyword">ORDER BY</span>
-                Fecha <span class="keyword">DESC</span>
-
+            <span class="keyword">PARTITION BY</span> IdCliente
+            <span class="keyword">ORDER BY</span> Fecha <span class="keyword">DESC</span>
         ) <span class="keyword">AS</span> Orden
 
     <span class="keyword">FROM</span> dbo.Ventas
 
 )
 
-
 <span class="keyword">SELECT</span>
-
     IdCliente,
     IdVenta,
     Fecha,
@@ -886,16 +1219,14 @@ dbo.usp_ConsultaVentas
 
 
 
-                    <!-- =====================
-                         SLIDE 5
-                    ====================== -->
+                    <!-- SLIDE 5 -->
 
                     <div class="slide">
 
                         <div class="code-header">
 
                             <span class="code-title">
-                                Integración SQL Server + MySQL
+                                SQL Server + MySQL
                             </span>
 
                             <span class="code-label">
@@ -908,14 +1239,12 @@ dbo.usp_ConsultaVentas
 <pre><code><span class="comment">-- Consulta a una fuente MySQL mediante Linked Server</span>
 
 <span class="keyword">SELECT</span>
-
     IdProducto,
     Codigo,
     Descripcion,
     Stock
 
 <span class="keyword">FROM OPENQUERY</span>(
-
     MYSQLSERVER,
 
     <span class="string">'
@@ -929,9 +1258,7 @@ dbo.usp_ConsultaVentas
 
         WHERE estado = 1
     '</span>
-
 );
-
 
 <span class="comment">
 -- La información puede combinarse posteriormente
@@ -944,15 +1271,15 @@ dbo.usp_ConsultaVentas
 
 
 
-                <!-- =====================
-                     BOTONES
-                ====================== -->
+                <!-- CONTROLES -->
 
                 <button
                     class="carousel-btn prev"
                     id="prev"
                     aria-label="Anterior">
+
                     ‹
+
                 </button>
 
 
@@ -960,7 +1287,9 @@ dbo.usp_ConsultaVentas
                     class="carousel-btn next"
                     id="next"
                     aria-label="Siguiente">
+
                     ›
+
                 </button>
 
 
@@ -978,7 +1307,7 @@ dbo.usp_ConsultaVentas
 
 
     <!-- =========================
-         RECURSOS SQL
+         RECURSOS
     ========================= -->
 
     <section>
@@ -1001,8 +1330,6 @@ dbo.usp_ConsultaVentas
             <div class="resources">
 
 
-                <!-- CARD 1 -->
-
                 <div class="resource">
 
                     <div class="resource-number">
@@ -1021,9 +1348,6 @@ dbo.usp_ConsultaVentas
 
                 </div>
 
-
-
-                <!-- CARD 2 -->
 
                 <div class="resource">
 
@@ -1044,9 +1368,6 @@ dbo.usp_ConsultaVentas
                 </div>
 
 
-
-                <!-- CARD 3 -->
-
                 <div class="resource">
 
                     <div class="resource-number">
@@ -1058,16 +1379,13 @@ dbo.usp_ConsultaVentas
                     </h3>
 
                     <p>
-                        Desarrollo de procedimientos reutilizables
-                        y variables para ejecutar consultas
-                        recurrentes de forma más rápida.
+                        Procedimientos reutilizables y variables
+                        para ejecutar consultas recurrentes
+                        de forma más rápida.
                     </p>
 
                 </div>
 
-
-
-                <!-- CARD 4 -->
 
                 <div class="resource">
 
@@ -1081,15 +1399,12 @@ dbo.usp_ConsultaVentas
 
                     <p>
                         Organización de consultas complejas
-                        y uso de funciones de ventana para
-                        obtener resultados específicos.
+                        y funciones de ventana para obtener
+                        resultados específicos.
                     </p>
 
                 </div>
 
-
-
-                <!-- CARD 5 -->
 
                 <div class="resource">
 
@@ -1110,9 +1425,6 @@ dbo.usp_ConsultaVentas
                 </div>
 
 
-
-                <!-- CARD 6 -->
-
                 <div class="resource">
 
                     <div class="resource-number">
@@ -1125,8 +1437,7 @@ dbo.usp_ConsultaVentas
 
                     <p>
                         Consulta e integración de información
-                        entre SQL Server y fuentes MySQL
-                        mediante Linked Server.
+                        entre SQL Server y fuentes MySQL.
                     </p>
 
                 </div>
@@ -1154,7 +1465,7 @@ dbo.usp_ConsultaVentas
                 </span>
 
                 <h2>
-                    SQL orientado a resolver necesidades reales
+                    SQL orientado a necesidades reales
                 </h2>
 
             </div>
@@ -1169,12 +1480,11 @@ dbo.usp_ConsultaVentas
                         SQL Server como parte del soporte, análisis
                         y preparación de información empresarial
                     </strong>.
-
                     He trabajado con consultas que relacionan tablas
                     de diferentes bases de datos, creación de Views
-                    y Stored Procedures, tratamiento de datos y consultas
-                    reutilizables para atender solicitudes recurrentes
-                    de información.
+                    y Stored Procedures, tratamiento de datos y
+                    consultas reutilizables para atender solicitudes
+                    recurrentes de información.
 
                 </p>
 
@@ -1189,7 +1499,6 @@ dbo.usp_ConsultaVentas
                         MySQL y OPENQUERY
                     </strong>
                     para consultar información de otras fuentes.
-
                     Este trabajo me ha permitido utilizar SQL no solo
                     para consultar datos, sino también para
                     <strong>
@@ -1314,7 +1623,7 @@ dbo.usp_ConsultaVentas
 
     <!-- =========================
          JAVASCRIPT
-         CAROUSEL
+         CARRUSEL
     ========================= -->
 
     <script>
@@ -1332,9 +1641,7 @@ dbo.usp_ConsultaVentas
 
 
 
-        /* =========================
-           CREAR DOTS
-        ========================= */
+        /* CREAR INDICADORES */
 
         for (
             let i = 0;
@@ -1369,21 +1676,17 @@ dbo.usp_ConsultaVentas
         }
 
 
-
         const dots =
             document.querySelectorAll(".dot");
 
 
 
-        /* =========================
-           ACTUALIZAR CARRUSEL
-        ========================= */
+        /* ACTUALIZAR CARRUSEL */
 
         function updateCarousel() {
 
             slides.style.transform =
                 `translateX(-${currentSlide * 100}%)`;
-
 
             dots.forEach(
                 (dot, index) => {
@@ -1400,9 +1703,7 @@ dbo.usp_ConsultaVentas
 
 
 
-        /* =========================
-           SIGUIENTE
-        ========================= */
+        /* SIGUIENTE */
 
         document
             .getElementById("next")
@@ -1427,9 +1728,7 @@ dbo.usp_ConsultaVentas
 
 
 
-        /* =========================
-           ANTERIOR
-        ========================= */
+        /* ANTERIOR */
 
         document
             .getElementById("prev")
@@ -1455,9 +1754,7 @@ dbo.usp_ConsultaVentas
 
 
 
-        /* =========================
-           TECLADO
-        ========================= */
+        /* TECLADO */
 
         document.addEventListener(
             "keydown",
@@ -1507,4 +1804,5 @@ dbo.usp_ConsultaVentas
     </script>
 
 </body>
+
 </html>
