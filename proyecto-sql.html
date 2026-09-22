@@ -1197,33 +1197,37 @@ a:focus-visible {
 
                         <pre><span class="comment">-- Integración de información proveniente de distintas tablas</span>
 
-<span class="keyword">SELECT</span>
-    v.IdVenta,
-    v.Fecha,
-    c.NombreCliente,
-    v.Total,
+ -- //////// ACTUALIZAR CABECERA ////////////
+ DECLARE @TOT decimal(18,2), @SUB decimal(18,2),@IGV decimal(18,2),@codCoti char(15)
+ SET @codCoti = '00261175'		--se coloca numero cotizacion
+ SET @TOT = (SELECT SUM(ARTI_TOTA) FROM COTIZACION..DETCOTIZACION where COTI_NUME=@codCoti)
+ SET @SUB = @TOT /1.18
+ SET @IGV = @TOT - @SUB
+ update COTIZACION..COTIZACION set COTI_SUBT=@SUB,COTI_IGV=@IGV,COTI_TOTA=@TOT where COTI_NUME=@codCoti 
+ SELECT * FROM COTIZACION..COTIZACION where COTI_NUME=@codCoti
 
-    <span class="function">ISNULL</span>(
-        c.TipoCliente,
-        <span class="string">'NO DEFINIDO'</span>
-    ) <span class="keyword">AS</span> TipoCliente,
+ ------------------------------------------------------ DETALLE --------------------------------------------------------------
+ 
+ -- //////// ACTUALIZAR DETALLE //////////// 
+ DECLARE @PVEN decimal(18,2), @DTOT decimal(18,2),@PVENC decimal(18,2),@DCTO decimal(18,2),@codProducto char(10),@codCoti char(15),@cantidad int,@tipoCambio decimal(18,2)
+	set @tipoCambio = (select TIPO_CAMB_VENT from COTIZACION..TIPO_CAMBIO where format(TIPO_CAMB_FECH,'yyyy-MM-dd') = format(getdate(),'yyyy-MM-dd'))
+	
+	SET @codProducto = '085.778'	-- se coloca codigo producto 
+	SET @codCoti = '00261175'		-- se coloca numero cotizacion
+	SET @PVEN =    11500.00		--se coloca nuevo precio 
+	set @cantidad = (select top 1 ARTI_CANT from COTIZACION..DETCOTIZACION where ARTI_CODI=@codProducto and COTI_NUME=@codCoti)
+	SET @DTOT = @PVEN * @cantidad
+	SET @PVENC = @DTOT * @tipoCambio
+	SET @DCTO =30
+	update COTIZACION..DETCOTIZACION set ARTI_PVEN=@PVEN,ARTI_TOTA=@DTOT,ARTI_PVEN_CAMB=@PVENC,ARTI_DCTO=@DCTO,ARTI_CANT=@cantidad
+	where COTI_NUME=@codCoti 	and ARTI_CODI=@codProducto
+ SELECT * FROM COTIZACION..DETCOTIZACION where COTI_NUME=@codCoti
 
-    <span class="keyword">CASE</span>
-        <span class="keyword">WHEN</span> v.Total &gt; <span class="number">10000</span>
-            <span class="keyword">THEN</span> <span class="string">'ALTA'</span>
-        <span class="keyword">ELSE</span> <span class="string">'NORMAL'</span>
-    <span class="keyword">END AS</span> NivelVenta
 
-<span class="keyword">FROM</span> Ventas.dbo.Ventas v
-
-<span class="keyword">LEFT JOIN</span> Clientes.dbo.Clientes c
-    <span class="keyword">ON</span> c.IdCliente = v.IdCliente
-
-<span class="keyword">LEFT JOIN</span> Productos.dbo.Productos p
-    <span class="keyword">ON</span> p.IdProducto = v.IdProducto
-
-<span class="keyword">WHERE</span> v.Estado = <span class="string">'ACTIVO'</span>;</pre>
-
+ --cambiar igv a no incluye
+ select * from COTIZACION..COTIZACION where COTI_NUME='00261175'
+ update  COTIZACION..COTIZACION set COTI_TIPO_PREC='NO INCLUYE IGV' ,COTI_LUGA_ENTR='EXWORK'
+ where COTI_NUME='00261175'
                     </div>
 
                 </div>
