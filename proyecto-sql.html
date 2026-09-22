@@ -1343,188 +1343,194 @@ a:focus-visible {
                         </div>
 
 
-                        <pre><span class="comment">-- Vista preparada para reutilizar información</span>
+        
+<pre><span class="comment">-- Vista para consolidar información de cuentas por cobrar</span>
 
-```html
-<div class="sql-project">
-    <h3>Vista SQL para gestión de cuentas por cobrar</h3>
+<span class="keyword">CREATE VIEW</span> [dbo].[V_CUENTAS_POR_COBRAR]
+<span class="keyword">AS</span>
 
-    <p>
-        Desarrollo de una vista en SQL Server para consolidar información
-        de cuentas por cobrar, integrando datos de documentos, clientes,
-        vendedores, monedas, condiciones de pago y estados.
-    </p>
+<span class="keyword">SELECT</span>
+    a.EmpresaId,
+    a.SucursalId,
+    a.ClienteId,
+    a.AuxiliarId,
+    c.NombreAuxiliar,
+    a.TipoDocumento,
+    a.NumeroDocumento,
+    a.FechaEmision,
 
-    <div class="code-container">
-        <pre><code class="language-sql">
-CREATE VIEW [dbo].[V_CUENTAS_POR_COBRAR]
-AS
-SELECT
-    a.empresa_id,
-    a.sucursal_id,
-    a.cliente_id,
-    a.auxiliar_id,
-    c.nombre_auxiliar,
-    a.tipo_documento,
-    a.numero_documento,
-    a.fecha_emision,
+    a.FechaVencimiento
+        + <span class="function">ISNULL</span>(f.DiasGracia, <span class="number">0</span>) <span class="keyword">AS</span> FechaVencimiento,
 
-    a.fecha_vencimiento
-        + ISNULL(f.dias_gracia, 0) AS fecha_vencimiento,
+    e.DescripcionCondicion,
 
-    e.descripcion_condicion_pago,
-
-    DATEDIFF(
+    <span class="function">DATEDIFF</span>(
         DAY,
-        a.fecha_emision,
-        a.fecha_vencimiento + ISNULL(f.dias_gracia, 0)
-    ) AS dias_plazo,
+        a.FechaEmision,
+        a.FechaVencimiento + <span class="function">ISNULL</span>(f.DiasGracia, <span class="number">0</span>)
+    ) <span class="keyword">AS</span> DiasPlazo,
 
-    DATEDIFF(
+    <span class="function">DATEDIFF</span>(
         DAY,
-        a.fecha_vencimiento + ISNULL(f.dias_gracia, 0),
-        GETDATE()
-    ) AS dias_vencidos,
+        a.FechaVencimiento + <span class="function">ISNULL</span>(f.DiasGracia, <span class="number">0</span>),
+        <span class="function">GETDATE</span>()
+    ) <span class="keyword">AS</span> DiasVencidos,
 
-    a.tipo_moneda,
-    a.importe_documento,
-    a.importe_abonado,
+    a.TipoMoneda,
+    a.ImporteDocumento,
+    a.ImporteAbonado,
 
-    ABS(a.importe_cuenta)
-        - ABS(a.importe_abonado) AS saldo_documento,
+    <span class="function">ABS</span>(a.ImporteCuenta)
+        - <span class="function">ABS</span>(a.ImporteAbonado) <span class="keyword">AS</span> SaldoDocumento,
 
-    a.saldo_cuenta,
-    a.saldo_letras,
-    a.saldo_residual,
+    a.SaldoCuenta,
+    a.SaldoLetras,
+    a.SaldoResidual,
 
-    a.saldo_cuenta
-        + a.saldo_letras
-        + a.saldo_residual AS saldo_real,
+    a.SaldoCuenta
+        + a.SaldoLetras
+        + a.SaldoResidual <span class="keyword">AS</span> SaldoReal,
 
-    CASE a.tipo_moneda
-        WHEN 'PEN' THEN a.saldo_cuenta
-        ELSE dbo.fn_convertir_moneda(
-            a.saldo_cuenta,
-            GETDATE(),
-            'PEN'
-        )
-    END AS saldo_moneda_local,
+    a.ImporteRetencion,
+    a.ImporteIGV,
+    a.GlosaDocumento,
 
-    CASE a.tipo_moneda
-        WHEN 'USD' THEN a.saldo_cuenta
-        ELSE dbo.fn_convertir_moneda(
-            a.saldo_cuenta,
-            GETDATE(),
-            'USD'
-        )
-    END AS saldo_dolares,
+    <span class="keyword">CASE</span> a.TipoMoneda
+        <span class="keyword">WHEN</span> <span class="string">'PEN'</span>
+            <span class="keyword">THEN</span> a.SaldoCuenta
+        <span class="keyword">ELSE</span>
+            dbo.fn_ConvertirMoneda(
+                a.SaldoCuenta,
+                <span class="function">GETDATE</span>(),
+                <span class="string">'PEN'</span>
+            )
+    <span class="keyword">END AS</span> SaldoMonedaLocal,
 
-    CASE
-        WHEN b.estado_letra = '5'
-             AND d.clase_cuenta = '2'
-             AND a.glosa_documento LIKE '%descuento%'
-        THEN '6'
-        ELSE b.estado_letra
-    END AS estado_letra,
+    <span class="keyword">CASE</span> a.TipoMoneda
+        <span class="keyword">WHEN</span> <span class="string">'USD'</span>
+            <span class="keyword">THEN</span> a.SaldoCuenta
+        <span class="keyword">ELSE</span>
+            dbo.fn_ConvertirMoneda(
+                a.SaldoCuenta,
+                <span class="function">GETDATE</span>(),
+                <span class="string">'USD'</span>
+            )
+    <span class="keyword">END AS</span> SaldoDolares,
 
-    CASE
-        WHEN a.tipo_documento = 'LET'
-        THEN
-            CASE
-                WHEN b.estado_letra IN ('0', '5')
-                THEN RTRIM(ISNULL(k.descripcion_estado, ''))
+    <span class="keyword">CASE</span>
+        <span class="keyword">WHEN</span> b.EstadoDocumento = <span class="string">'5'</span>
+             <span class="keyword">AND</span> d.ClaseCuenta = <span class="string">'2'</span>
+             <span class="keyword">AND</span> a.GlosaDocumento <span class="keyword">LIKE</span> <span class="string">'%descuento%'</span>
+        <span class="keyword">THEN</span> <span class="string">'6'</span>
+        <span class="keyword">ELSE</span> b.EstadoDocumento
+    <span class="keyword">END AS</span> EstadoDocumento,
 
-                ELSE
-                    RTRIM(ISNULL(k.descripcion_estado, ''))
-                    + ' - '
-                    + RTRIM(ISNULL(j.descripcion_linea, ''))
-            END
-        ELSE ''
-    END AS descripcion_situacion,
+    <span class="keyword">CASE</span>
+        <span class="keyword">WHEN</span> a.TipoDocumento = <span class="string">'LET'</span>
+        <span class="keyword">THEN</span>
+            <span class="keyword">CASE</span>
+                <span class="keyword">WHEN</span> b.EstadoDocumento <span class="keyword">IN</span> (<span class="string">'0'</span>, <span class="string">'5'</span>)
+                <span class="keyword">THEN</span>
+                    <span class="function">RTRIM</span>(
+                        <span class="function">ISNULL</span>(k.DescripcionEstado, <span class="string">''</span>)
+                    )
+                <span class="keyword">ELSE</span>
+                    <span class="function">RTRIM</span>(
+                        <span class="function">ISNULL</span>(k.DescripcionEstado, <span class="string">''</span>)
+                    )
+                    + <span class="string">' - '</span>
+                    + <span class="function">RTRIM</span>(
+                        <span class="function">ISNULL</span>(j.DescripcionLinea, <span class="string">''</span>)
+                    )
+            <span class="keyword">END</span>
+        <span class="keyword">ELSE</span> <span class="string">''</span>
+    <span class="keyword">END AS</span> DescripcionSituacion,
 
-    ISNULL(v.nombre_vendedor, '') AS nombre_vendedor,
-    ISNULL(n.nombre_banco, '') AS nombre_banco,
+    <span class="function">ISNULL</span>(v.NombreVendedor, <span class="string">''</span>) <span class="keyword">AS</span> NombreVendedor,
+    <span class="function">ISNULL</span>(n.NombreBanco, <span class="string">''</span>) <span class="keyword">AS</span> NombreBanco,
 
-    b.fecha_descuento,
+    b.FechaDescuento,
 
-    CASE
-        WHEN b.fecha_descuento IS NOT NULL
-             AND b.fecha_descuento > a.fecha_emision
-        THEN b.fecha_descuento
-        ELSE a.fecha_emision
-    END AS fecha_inicio,
+    <span class="keyword">CASE</span>
+        <span class="keyword">WHEN</span> b.FechaDescuento <span class="keyword">IS NOT NULL</span>
+             <span class="keyword">AND</span> b.FechaDescuento &gt; a.FechaEmision
+        <span class="keyword">THEN</span> b.FechaDescuento
+        <span class="keyword">ELSE</span> a.FechaEmision
+    <span class="keyword">END AS</span> FechaInicio,
 
-    b.importe_comision,
+    b.ImporteComision,
 
-    CONVERT(
-        NUMERIC(10,2),
-        ROUND(
-            CASE
-                WHEN ISNULL(a.importe_documento, 0) <> 0
-                     AND ISNULL(b.importe_comision, 0) > 0
-                THEN
+    <span class="function">CONVERT</span>(
+        <span class="keyword">NUMERIC</span>(10,2),
+        <span class="function">ROUND</span>(
+            <span class="keyword">CASE</span>
+                <span class="keyword">WHEN</span> <span class="function">ISNULL</span>(a.ImporteDocumento, <span class="number">0</span>) &lt;&gt; <span class="number">0</span>
+                     <span class="keyword">AND</span> <span class="function">ISNULL</span>(b.ImporteComision, <span class="number">0</span>) &gt; <span class="number">0</span>
+                <span class="keyword">THEN</span>
                     (
-                        ABS(a.saldo_cuenta)
-                        * ISNULL(b.importe_comision, 0)
-                    ) / a.importe_documento
-                ELSE 0
-            END,
-            2
+                        <span class="function">ABS</span>(a.SaldoCuenta)
+                        * <span class="function">ISNULL</span>(b.ImporteComision, <span class="number">0</span>)
+                    ) / a.ImporteDocumento
+                <span class="keyword">ELSE</span> <span class="number">0</span>
+            <span class="keyword">END</span>,
+            <span class="number">2</span>
         )
-    ) AS comision_saldo
+    ) <span class="keyword">AS</span> ComisionSaldo
 
-FROM dbo.CUENTA_CORRIENTE a WITH (NOLOCK)
+<span class="keyword">FROM</span> dbo.CuentaCorriente a <span class="keyword">WITH</span> (NOLOCK)
 
-INNER JOIN dbo.CUENTAS_COBRAR b WITH (NOLOCK)
-    ON b.empresa_id = a.empresa_id
-    AND b.sucursal_id = a.sucursal_id
-    AND b.documento_id = a.documento_id
+<span class="keyword">INNER JOIN</span> dbo.CuentasCobrar b <span class="keyword">WITH</span> (NOLOCK)
+    <span class="keyword">ON</span> b.EmpresaId = a.EmpresaId
+    <span class="keyword">AND</span> b.SucursalId = a.SucursalId
+    <span class="keyword">AND</span> b.DocumentoId = a.DocumentoId
 
-INNER JOIN dbo.AUXILIARES c
-    ON c.empresa_id = a.empresa_id
-    AND c.auxiliar_id = a.auxiliar_id
+<span class="keyword">INNER JOIN</span> dbo.Auxiliares c
+    <span class="keyword">ON</span> c.EmpresaId = a.EmpresaId
+    <span class="keyword">AND</span> c.AuxiliarId = a.AuxiliarId
 
-INNER JOIN dbo.CUENTAS_CONTABLES d WITH (NOLOCK)
-    ON d.empresa_id = a.empresa_id
-    AND d.cuenta_id = a.cuenta_id
+<span class="keyword">INNER JOIN</span> dbo.CuentasContables d <span class="keyword">WITH</span> (NOLOCK)
+    <span class="keyword">ON</span> d.EmpresaId = a.EmpresaId
+    <span class="keyword">AND</span> d.CuentaId = a.CuentaId
 
-LEFT JOIN dbo.CONDICIONES_PAGO e WITH (NOLOCK)
-    ON e.condicion_id = a.condicion_pago_id
+<span class="keyword">LEFT JOIN</span> dbo.CondicionesPago e <span class="keyword">WITH</span> (NOLOCK)
+    <span class="keyword">ON</span> e.CondicionId = a.CondicionPagoId
 
-LEFT JOIN dbo.CLIENTES f WITH (NOLOCK)
-    ON f.empresa_id = a.empresa_id
-    AND f.auxiliar_id = a.auxiliar_id
+<span class="keyword">LEFT JOIN</span> dbo.Clientes f <span class="keyword">WITH</span> (NOLOCK)
+    <span class="keyword">ON</span> f.EmpresaId = a.EmpresaId
+    <span class="keyword">AND</span> f.AuxiliarId = a.AuxiliarId
 
-LEFT JOIN dbo.TIPOS_MONEDA h WITH (NOLOCK)
-    ON h.tipo_moneda = a.tipo_moneda
+<span class="keyword">LEFT JOIN</span> dbo.TiposMoneda h <span class="keyword">WITH</span> (NOLOCK)
+    <span class="keyword">ON</span> h.TipoMoneda = a.TipoMoneda
 
-LEFT JOIN dbo.LINEAS_CREDITO j WITH (NOLOCK)
-    ON j.empresa_id = b.empresa_id
-    AND j.linea_credito = b.linea_credito
+<span class="keyword">LEFT JOIN</span> dbo.LineasCredito j <span class="keyword">WITH</span> (NOLOCK)
+    <span class="keyword">ON</span> j.EmpresaId = b.EmpresaId
+    <span class="keyword">AND</span> j.LineaCredito = b.LineaCredito
 
-LEFT JOIN dbo.ESTADOS_LETRAS k WITH (NOLOCK)
-    ON k.estado_letra = b.estado_letra
+<span class="keyword">LEFT JOIN</span> dbo.EstadosDocumento k <span class="keyword">WITH</span> (NOLOCK)
+    <span class="keyword">ON</span> k.EstadoDocumento = b.EstadoDocumento
 
-LEFT JOIN dbo.VENDEDORES v WITH (NOLOCK)
-    ON v.empresa_id = b.empresa_id
-    AND v.vendedor_id = b.vendedor_id
+<span class="keyword">LEFT JOIN</span> dbo.Vendedores v <span class="keyword">WITH</span> (NOLOCK)
+    <span class="keyword">ON</span> v.EmpresaId = b.EmpresaId
+    <span class="keyword">AND</span> v.VendedorId = b.VendedorId
 
-LEFT JOIN dbo.BANCOS_CUENTAS m WITH (NOLOCK)
-    ON m.empresa_id = b.empresa_id
-    AND m.cuenta_bancaria = b.cuenta_bancaria
+<span class="keyword">LEFT JOIN</span> dbo.BancosCuentas m <span class="keyword">WITH</span> (NOLOCK)
+    <span class="keyword">ON</span> m.EmpresaId = b.EmpresaId
+    <span class="keyword">AND</span> m.CuentaBancaria = b.CuentaBancaria
 
-LEFT JOIN dbo.BANCOS n WITH (NOLOCK)
-    ON n.banco_id = m.banco_id
+<span class="keyword">LEFT JOIN</span> dbo.Bancos n <span class="keyword">WITH</span> (NOLOCK)
+    <span class="keyword">ON</span> n.BancoId = m.BancoId
 
-WHERE a.indicador_estado = '1'
-    AND (
-        ISNULL(a.saldo_cuenta, 0) <> 0
-        OR ISNULL(a.saldo_letras, 0) <> 0
-        OR ISNULL(a.saldo_residual, 0) <> 0
+<span class="keyword">WHERE</span>
+    a.IndicadorEstado = <span class="string">'1'</span>
+    <span class="keyword">AND</span> (
+        <span class="function">ISNULL</span>(a.SaldoCuenta, <span class="number">0</span>) &lt;&gt; <span class="number">0</span>
+        <span class="keyword">OR</span> <span class="function">ISNULL</span>(a.SaldoLetras, <span class="number">0</span>) &lt;&gt; <span class="number">0</span>
+        <span class="keyword">OR</span> <span class="function">ISNULL</span>(a.SaldoResidual, <span class="number">0</span>) &lt;&gt; <span class="number">0</span>
     )
-    AND a.tipo_pago = 'C';
-        </code></pre>
-    </div>
+    <span class="keyword">AND</span> a.TipoPago = <span class="string">'C'</span>;
+</pre>
+
+
 
     <div class="sql-tags">
         <span>SQL Server</span>
