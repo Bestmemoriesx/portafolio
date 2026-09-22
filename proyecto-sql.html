@@ -1284,27 +1284,200 @@ a:focus-visible {
 
                         <pre><span class="comment">-- Vista preparada para reutilizar información</span>
 
-<span class="keyword">CREATE VIEW</span> dbo.vw_VentasIntegradas
+```html
+<div class="sql-project">
+    <h3>Vista SQL para gestión de cuentas por cobrar</h3>
 
-<span class="keyword">AS</span>
+    <p>
+        Desarrollo de una vista en SQL Server para consolidar información
+        de cuentas por cobrar, integrando datos de documentos, clientes,
+        vendedores, monedas, condiciones de pago y estados.
+    </p>
 
-<span class="keyword">SELECT</span>
-    v.IdVenta,
-    v.Fecha,
-    c.NombreCliente,
-    p.Descripcion <span class="keyword">AS</span> Producto,
-    v.Cantidad,
-    v.Total
+    <div class="code-container">
+        <pre><code class="language-sql">
+CREATE VIEW [dbo].[V_CUENTAS_POR_COBRAR]
+AS
+SELECT
+    a.empresa_id,
+    a.sucursal_id,
+    a.cliente_id,
+    a.auxiliar_id,
+    c.nombre_auxiliar,
+    a.tipo_documento,
+    a.numero_documento,
+    a.fecha_emision,
 
-<span class="keyword">FROM</span> Ventas.dbo.Ventas v
+    a.fecha_vencimiento
+        + ISNULL(f.dias_gracia, 0) AS fecha_vencimiento,
 
-<span class="keyword">INNER JOIN</span> Clientes.dbo.Clientes c
-    <span class="keyword">ON</span> c.IdCliente = v.IdCliente
+    e.descripcion_condicion_pago,
 
-<span class="keyword">INNER JOIN</span> Productos.dbo.Productos p
-    <span class="keyword">ON</span> p.IdProducto = v.IdProducto
+    DATEDIFF(
+        DAY,
+        a.fecha_emision,
+        a.fecha_vencimiento + ISNULL(f.dias_gracia, 0)
+    ) AS dias_plazo,
 
-<span class="keyword">WHERE</span> v.Anulado = <span class="number">0</span>;</pre>
+    DATEDIFF(
+        DAY,
+        a.fecha_vencimiento + ISNULL(f.dias_gracia, 0),
+        GETDATE()
+    ) AS dias_vencidos,
+
+    a.tipo_moneda,
+    a.importe_documento,
+    a.importe_abonado,
+
+    ABS(a.importe_cuenta)
+        - ABS(a.importe_abonado) AS saldo_documento,
+
+    a.saldo_cuenta,
+    a.saldo_letras,
+    a.saldo_residual,
+
+    a.saldo_cuenta
+        + a.saldo_letras
+        + a.saldo_residual AS saldo_real,
+
+    CASE a.tipo_moneda
+        WHEN 'PEN' THEN a.saldo_cuenta
+        ELSE dbo.fn_convertir_moneda(
+            a.saldo_cuenta,
+            GETDATE(),
+            'PEN'
+        )
+    END AS saldo_moneda_local,
+
+    CASE a.tipo_moneda
+        WHEN 'USD' THEN a.saldo_cuenta
+        ELSE dbo.fn_convertir_moneda(
+            a.saldo_cuenta,
+            GETDATE(),
+            'USD'
+        )
+    END AS saldo_dolares,
+
+    CASE
+        WHEN b.estado_letra = '5'
+             AND d.clase_cuenta = '2'
+             AND a.glosa_documento LIKE '%descuento%'
+        THEN '6'
+        ELSE b.estado_letra
+    END AS estado_letra,
+
+    CASE
+        WHEN a.tipo_documento = 'LET'
+        THEN
+            CASE
+                WHEN b.estado_letra IN ('0', '5')
+                THEN RTRIM(ISNULL(k.descripcion_estado, ''))
+
+                ELSE
+                    RTRIM(ISNULL(k.descripcion_estado, ''))
+                    + ' - '
+                    + RTRIM(ISNULL(j.descripcion_linea, ''))
+            END
+        ELSE ''
+    END AS descripcion_situacion,
+
+    ISNULL(v.nombre_vendedor, '') AS nombre_vendedor,
+    ISNULL(n.nombre_banco, '') AS nombre_banco,
+
+    b.fecha_descuento,
+
+    CASE
+        WHEN b.fecha_descuento IS NOT NULL
+             AND b.fecha_descuento > a.fecha_emision
+        THEN b.fecha_descuento
+        ELSE a.fecha_emision
+    END AS fecha_inicio,
+
+    b.importe_comision,
+
+    CONVERT(
+        NUMERIC(10,2),
+        ROUND(
+            CASE
+                WHEN ISNULL(a.importe_documento, 0) <> 0
+                     AND ISNULL(b.importe_comision, 0) > 0
+                THEN
+                    (
+                        ABS(a.saldo_cuenta)
+                        * ISNULL(b.importe_comision, 0)
+                    ) / a.importe_documento
+                ELSE 0
+            END,
+            2
+        )
+    ) AS comision_saldo
+
+FROM dbo.CUENTA_CORRIENTE a WITH (NOLOCK)
+
+INNER JOIN dbo.CUENTAS_COBRAR b WITH (NOLOCK)
+    ON b.empresa_id = a.empresa_id
+    AND b.sucursal_id = a.sucursal_id
+    AND b.documento_id = a.documento_id
+
+INNER JOIN dbo.AUXILIARES c
+    ON c.empresa_id = a.empresa_id
+    AND c.auxiliar_id = a.auxiliar_id
+
+INNER JOIN dbo.CUENTAS_CONTABLES d WITH (NOLOCK)
+    ON d.empresa_id = a.empresa_id
+    AND d.cuenta_id = a.cuenta_id
+
+LEFT JOIN dbo.CONDICIONES_PAGO e WITH (NOLOCK)
+    ON e.condicion_id = a.condicion_pago_id
+
+LEFT JOIN dbo.CLIENTES f WITH (NOLOCK)
+    ON f.empresa_id = a.empresa_id
+    AND f.auxiliar_id = a.auxiliar_id
+
+LEFT JOIN dbo.TIPOS_MONEDA h WITH (NOLOCK)
+    ON h.tipo_moneda = a.tipo_moneda
+
+LEFT JOIN dbo.LINEAS_CREDITO j WITH (NOLOCK)
+    ON j.empresa_id = b.empresa_id
+    AND j.linea_credito = b.linea_credito
+
+LEFT JOIN dbo.ESTADOS_LETRAS k WITH (NOLOCK)
+    ON k.estado_letra = b.estado_letra
+
+LEFT JOIN dbo.VENDEDORES v WITH (NOLOCK)
+    ON v.empresa_id = b.empresa_id
+    AND v.vendedor_id = b.vendedor_id
+
+LEFT JOIN dbo.BANCOS_CUENTAS m WITH (NOLOCK)
+    ON m.empresa_id = b.empresa_id
+    AND m.cuenta_bancaria = b.cuenta_bancaria
+
+LEFT JOIN dbo.BANCOS n WITH (NOLOCK)
+    ON n.banco_id = m.banco_id
+
+WHERE a.indicador_estado = '1'
+    AND (
+        ISNULL(a.saldo_cuenta, 0) <> 0
+        OR ISNULL(a.saldo_letras, 0) <> 0
+        OR ISNULL(a.saldo_residual, 0) <> 0
+    )
+    AND a.tipo_pago = 'C';
+        </code></pre>
+    </div>
+
+    <div class="sql-tags">
+        <span>SQL Server</span>
+        <span>T-SQL</span>
+        <span>Views</span>
+        <span>JOINs</span>
+        <span>CASE</span>
+        <span>DATEDIFF</span>
+        <span>ISNULL</span>
+        <span>Funciones</span>
+    </div>
+</div>
+```
+</span>;</pre>
 
                     </div>
 
