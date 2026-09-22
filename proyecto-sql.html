@@ -1,7 +1,9 @@
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -1000,6 +1002,7 @@ a:focus-visible {
 }
 
 </style>
+
 </head>
 
 
@@ -1052,7 +1055,7 @@ a:focus-visible {
 
 
 <!-- =========================
-     HERO + PRESENTACIÓN
+     HERO
 ========================= -->
 
 <header class="hero">
@@ -1060,24 +1063,14 @@ a:focus-visible {
     <div class="container hero-content">
 
         <div class="hero-eyebrow">
-
             <span></span>
-
             SQL SERVER · T-SQL · DATA INTEGRATION
-
         </div>
 
-
         <h1>
-
             SQL Server
-
-            <strong>
-                & Desarrollo
-            </strong>
-
+            <strong>& Desarrollo</strong>
         </h1>
-
 
         <p>
 
@@ -1102,7 +1095,6 @@ a:focus-visible {
 
         </p>
 
-
         <div class="hero-line"></div>
 
     </div>
@@ -1110,9 +1102,8 @@ a:focus-visible {
 </header>
 
 
-
 <!-- =========================
-     02 · EVIDENCIA TÉCNICA
+     02 · EVIDENCIA
 ========================= -->
 
 <section id="evidencia">
@@ -1142,7 +1133,9 @@ a:focus-visible {
             <div class="slides" id="slides">
 
 
-                <!-- SLIDE 1 -->
+                <!-- =========================
+                     SLIDE 1
+                ========================= -->
 
                 <div class="slide">
 
@@ -1157,13 +1150,13 @@ a:focus-visible {
                             </div>
 
                             <span class="code-title">
-                                Integración de tablas
+                                Actualización de datos
                             </span>
 
                         </div>
 
                         <span class="code-label">
-                            SQL SERVER
+                            T-SQL
                         </span>
 
                     </div>
@@ -1172,34 +1165,10 @@ a:focus-visible {
                     <div class="code-body">
 
                         <div class="line-numbers">
-1<br>
-2<br>
-3<br>
-4<br>
-5<br>
-6<br>
-7<br>
-8<br>
-9<br>
-10<br>
-11<br>
-12<br>
-13<br>
-14<br>
-15<br>
-16<br>
-17<br>
-18<br>
-19<br>
-20
+1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20
                         </div>
 
-
-                       
-
-<pre><span class="comment">-- Actualización de cabecera y detalle de una cotización</span>
-
-<span class="comment">-- //////// ACTUALIZAR CABECERA ////////////</span>
+                        <pre><span class="comment">-- Actualización de cabecera y detalle de una cotización</span>
 
 <span class="keyword">DECLARE</span> @TOTAL <span class="keyword">DECIMAL</span>(18,2),
         @SUBTOTAL <span class="keyword">DECIMAL</span>(18,2),
@@ -1227,66 +1196,6 @@ a:focus-visible {
 <span class="keyword">SELECT</span> *
 <span class="keyword">FROM</span> dbo.Cotizacion
 <span class="keyword">WHERE</span> COTIZACION_ID = @COD_COTIZACION
-
-
-<span class="comment">------------------------------------------------------
--- DETALLE
-------------------------------------------------------</span>
-
-<span class="comment">-- //////// ACTUALIZAR DETALLE ////////////</span>
-
-<span class="keyword">DECLARE</span> @PRECIO <span class="keyword">DECIMAL</span>(18,2),
-        @TOTAL_DETALLE <span class="keyword">DECIMAL</span>(18,2),
-        @PRECIO_CONVERTIDO <span class="keyword">DECIMAL</span>(18,2),
-        @DESCUENTO <span class="keyword">DECIMAL</span>(18,2),
-        @COD_PRODUCTO <span class="keyword">CHAR</span>(10),
-        @CANTIDAD <span class="keyword">INT</span>,
-        @TIPO_CAMBIO <span class="keyword">DECIMAL</span>(18,2)
-
-<span class="keyword">SET</span> @TIPO_CAMBIO = (
-    <span class="keyword">SELECT TOP</span> <span class="number">1</span> TIPO_CAMBIO
-    <span class="keyword">FROM</span> dbo.TiposCambio
-    <span class="keyword">WHERE</span> <span class="function">CONVERT</span>(<span class="keyword">DATE</span>, FECHA_CAMBIO)
-        = <span class="function">CONVERT</span>(<span class="keyword">DATE</span>, <span class="function">GETDATE</span>())
-)
-
-<span class="keyword">SET</span> @COD_PRODUCTO = <span class="string">'PROD-001'</span>
-<span class="keyword">SET</span> @COD_COTIZACION = <span class="string">'COT-000123'</span>
-<span class="keyword">SET</span> @PRECIO = <span class="number">11500.00</span>
-
-<span class="keyword">SET</span> @CANTIDAD = (
-    <span class="keyword">SELECT TOP</span> <span class="number">1</span> CANTIDAD
-    <span class="keyword">FROM</span> dbo.DetalleCotizacion
-    <span class="keyword">WHERE</span> PRODUCTO_ID = @COD_PRODUCTO
-      <span class="keyword">AND</span> COTIZACION_ID = @COD_COTIZACION
-)
-
-<span class="keyword">SET</span> @TOTAL_DETALLE = @PRECIO * @CANTIDAD
-<span class="keyword">SET</span> @PRECIO_CONVERTIDO = @TOTAL_DETALLE * @TIPO_CAMBIO
-<span class="keyword">SET</span> @DESCUENTO = <span class="number">30</span>
-
-<span class="keyword">UPDATE</span> dbo.DetalleCotizacion
-<span class="keyword">SET</span>
-    PRECIO_UNITARIO = @PRECIO,
-    IMPORTE_TOTAL = @TOTAL_DETALLE,
-    IMPORTE_CONVERTIDO = @PRECIO_CONVERTIDO,
-    DESCUENTO = @DESCUENTO,
-    CANTIDAD = @CANTIDAD
-<span class="keyword">WHERE</span> COTIZACION_ID = @COD_COTIZACION
-  <span class="keyword">AND</span> PRODUCTO_ID = @COD_PRODUCTO
-
-<span class="keyword">SELECT</span> *
-<span class="keyword">FROM</span> dbo.DetalleCotizacion
-<span class="keyword">WHERE</span> COTIZACION_ID = @COD_COTIZACION
-
-
-<span class="comment">-- Actualizar condiciones de la cotización</span>
-
-<span class="keyword">UPDATE</span> dbo.Cotizacion
-<span class="keyword">SET</span>
-    TIPO_PRECIO = <span class="string">'NO INCLUYE IMPUESTO'</span>,
-    LUGAR_ENTREGA = <span class="string">'ALMACEN'</span>
-<span class="keyword">WHERE</span> COTIZACION_ID = @COD_COTIZACION
 </pre>
 
                     </div>
@@ -1294,7 +1203,9 @@ a:focus-visible {
                 </div>
 
 
-                <!-- SLIDE 2 -->
+                <!-- =========================
+                     SLIDE 2
+                ========================= -->
 
                 <div class="slide">
 
@@ -1324,27 +1235,10 @@ a:focus-visible {
                     <div class="code-body">
 
                         <div class="line-numbers">
-1<br>
-2<br>
-3<br>
-4<br>
-5<br>
-6<br>
-7<br>
-8<br>
-9<br>
-10<br>
-11<br>
-12<br>
-13<br>
-14<br>
-15<br>
-16
+1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20
                         </div>
 
-
-        
-<pre><span class="comment">-- Vista para consolidar información de cuentas por cobrar</span>
+                        <pre><span class="comment">-- Vista para consolidar información de cuentas por cobrar</span>
 
 <span class="keyword">CREATE VIEW</span> [dbo].[V_CUENTAS_POR_COBRAR]
 <span class="keyword">AS</span>
@@ -1360,19 +1254,19 @@ a:focus-visible {
     a.FechaEmision,
 
     a.FechaVencimiento
-        + <span class="function">ISNULL</span>(f.DiasGracia, <span class="number">0</span>) <span class="keyword">AS</span> FechaVencimiento,
-
-    e.DescripcionCondicion,
+        + <span class="function">ISNULL</span>(f.DiasGracia, <span class="number">0</span>)
+        <span class="keyword">AS</span> FechaVencimiento,
 
     <span class="function">DATEDIFF</span>(
         DAY,
         a.FechaEmision,
-        a.FechaVencimiento + <span class="function">ISNULL</span>(f.DiasGracia, <span class="number">0</span>)
+        a.FechaVencimiento
+        + <span class="function">ISNULL</span>(f.DiasGracia, <span class="number">0</span>)
     ) <span class="keyword">AS</span> DiasPlazo,
 
     <span class="function">DATEDIFF</span>(
         DAY,
-        a.FechaVencimiento + <span class="function">ISNULL</span>(f.DiasGracia, <span class="number">0</span>),
+        a.FechaVencimiento,
         <span class="function">GETDATE</span>()
     ) <span class="keyword">AS</span> DiasVencidos,
 
@@ -1381,177 +1275,67 @@ a:focus-visible {
     a.ImporteAbonado,
 
     <span class="function">ABS</span>(a.ImporteCuenta)
-        - <span class="function">ABS</span>(a.ImporteAbonado) <span class="keyword">AS</span> SaldoDocumento,
+        - <span class="function">ABS</span>(a.ImporteAbonado)
+        <span class="keyword">AS</span> SaldoDocumento,
 
     a.SaldoCuenta,
     a.SaldoLetras,
     a.SaldoResidual,
 
-    a.SaldoCuenta
-        + a.SaldoLetras
-        + a.SaldoResidual <span class="keyword">AS</span> SaldoReal,
-
-    a.ImporteRetencion,
-    a.ImporteIGV,
-    a.GlosaDocumento,
-
     <span class="keyword">CASE</span> a.TipoMoneda
+
         <span class="keyword">WHEN</span> <span class="string">'PEN'</span>
             <span class="keyword">THEN</span> a.SaldoCuenta
+
         <span class="keyword">ELSE</span>
             dbo.fn_ConvertirMoneda(
                 a.SaldoCuenta,
                 <span class="function">GETDATE</span>(),
                 <span class="string">'PEN'</span>
             )
+
     <span class="keyword">END AS</span> SaldoMonedaLocal,
 
-    <span class="keyword">CASE</span> a.TipoMoneda
-        <span class="keyword">WHEN</span> <span class="string">'USD'</span>
-            <span class="keyword">THEN</span> a.SaldoCuenta
-        <span class="keyword">ELSE</span>
-            dbo.fn_ConvertirMoneda(
-                a.SaldoCuenta,
-                <span class="function">GETDATE</span>(),
-                <span class="string">'USD'</span>
-            )
-    <span class="keyword">END AS</span> SaldoDolares,
+    <span class="function">ISNULL</span>(
+        v.NombreVendedor,
+        <span class="string">''</span>
+    ) <span class="keyword">AS</span> NombreVendedor
 
-    <span class="keyword">CASE</span>
-        <span class="keyword">WHEN</span> b.EstadoDocumento = <span class="string">'5'</span>
-             <span class="keyword">AND</span> d.ClaseCuenta = <span class="string">'2'</span>
-             <span class="keyword">AND</span> a.GlosaDocumento <span class="keyword">LIKE</span> <span class="string">'%descuento%'</span>
-        <span class="keyword">THEN</span> <span class="string">'6'</span>
-        <span class="keyword">ELSE</span> b.EstadoDocumento
-    <span class="keyword">END AS</span> EstadoDocumento,
+<span class="keyword">FROM</span> dbo.CuentaCorriente a
 
-    <span class="keyword">CASE</span>
-        <span class="keyword">WHEN</span> a.TipoDocumento = <span class="string">'LET'</span>
-        <span class="keyword">THEN</span>
-            <span class="keyword">CASE</span>
-                <span class="keyword">WHEN</span> b.EstadoDocumento <span class="keyword">IN</span> (<span class="string">'0'</span>, <span class="string">'5'</span>)
-                <span class="keyword">THEN</span>
-                    <span class="function">RTRIM</span>(
-                        <span class="function">ISNULL</span>(k.DescripcionEstado, <span class="string">''</span>)
-                    )
-                <span class="keyword">ELSE</span>
-                    <span class="function">RTRIM</span>(
-                        <span class="function">ISNULL</span>(k.DescripcionEstado, <span class="string">''</span>)
-                    )
-                    + <span class="string">' - '</span>
-                    + <span class="function">RTRIM</span>(
-                        <span class="function">ISNULL</span>(j.DescripcionLinea, <span class="string">''</span>)
-                    )
-            <span class="keyword">END</span>
-        <span class="keyword">ELSE</span> <span class="string">''</span>
-    <span class="keyword">END AS</span> DescripcionSituacion,
-
-    <span class="function">ISNULL</span>(v.NombreVendedor, <span class="string">''</span>) <span class="keyword">AS</span> NombreVendedor,
-    <span class="function">ISNULL</span>(n.NombreBanco, <span class="string">''</span>) <span class="keyword">AS</span> NombreBanco,
-
-    b.FechaDescuento,
-
-    <span class="keyword">CASE</span>
-        <span class="keyword">WHEN</span> b.FechaDescuento <span class="keyword">IS NOT NULL</span>
-             <span class="keyword">AND</span> b.FechaDescuento &gt; a.FechaEmision
-        <span class="keyword">THEN</span> b.FechaDescuento
-        <span class="keyword">ELSE</span> a.FechaEmision
-    <span class="keyword">END AS</span> FechaInicio,
-
-    b.ImporteComision,
-
-    <span class="function">CONVERT</span>(
-        <span class="keyword">NUMERIC</span>(10,2),
-        <span class="function">ROUND</span>(
-            <span class="keyword">CASE</span>
-                <span class="keyword">WHEN</span> <span class="function">ISNULL</span>(a.ImporteDocumento, <span class="number">0</span>) &lt;&gt; <span class="number">0</span>
-                     <span class="keyword">AND</span> <span class="function">ISNULL</span>(b.ImporteComision, <span class="number">0</span>) &gt; <span class="number">0</span>
-                <span class="keyword">THEN</span>
-                    (
-                        <span class="function">ABS</span>(a.SaldoCuenta)
-                        * <span class="function">ISNULL</span>(b.ImporteComision, <span class="number">0</span>)
-                    ) / a.ImporteDocumento
-                <span class="keyword">ELSE</span> <span class="number">0</span>
-            <span class="keyword">END</span>,
-            <span class="number">2</span>
-        )
-    ) <span class="keyword">AS</span> ComisionSaldo
-
-<span class="keyword">FROM</span> dbo.CuentaCorriente a <span class="keyword">WITH</span> (NOLOCK)
-
-<span class="keyword">INNER JOIN</span> dbo.CuentasCobrar b <span class="keyword">WITH</span> (NOLOCK)
+<span class="keyword">INNER JOIN</span> dbo.CuentasCobrar b
     <span class="keyword">ON</span> b.EmpresaId = a.EmpresaId
-    <span class="keyword">AND</span> b.SucursalId = a.SucursalId
     <span class="keyword">AND</span> b.DocumentoId = a.DocumentoId
 
 <span class="keyword">INNER JOIN</span> dbo.Auxiliares c
     <span class="keyword">ON</span> c.EmpresaId = a.EmpresaId
     <span class="keyword">AND</span> c.AuxiliarId = a.AuxiliarId
 
-<span class="keyword">INNER JOIN</span> dbo.CuentasContables d <span class="keyword">WITH</span> (NOLOCK)
-    <span class="keyword">ON</span> d.EmpresaId = a.EmpresaId
-    <span class="keyword">AND</span> d.CuentaId = a.CuentaId
-
-<span class="keyword">LEFT JOIN</span> dbo.CondicionesPago e <span class="keyword">WITH</span> (NOLOCK)
-    <span class="keyword">ON</span> e.CondicionId = a.CondicionPagoId
-
-<span class="keyword">LEFT JOIN</span> dbo.Clientes f <span class="keyword">WITH</span> (NOLOCK)
+<span class="keyword">LEFT JOIN</span> dbo.Clientes f
     <span class="keyword">ON</span> f.EmpresaId = a.EmpresaId
     <span class="keyword">AND</span> f.AuxiliarId = a.AuxiliarId
 
-<span class="keyword">LEFT JOIN</span> dbo.TiposMoneda h <span class="keyword">WITH</span> (NOLOCK)
-    <span class="keyword">ON</span> h.TipoMoneda = a.TipoMoneda
-
-<span class="keyword">LEFT JOIN</span> dbo.LineasCredito j <span class="keyword">WITH</span> (NOLOCK)
-    <span class="keyword">ON</span> j.EmpresaId = b.EmpresaId
-    <span class="keyword">AND</span> j.LineaCredito = b.LineaCredito
-
-<span class="keyword">LEFT JOIN</span> dbo.EstadosDocumento k <span class="keyword">WITH</span> (NOLOCK)
-    <span class="keyword">ON</span> k.EstadoDocumento = b.EstadoDocumento
-
-<span class="keyword">LEFT JOIN</span> dbo.Vendedores v <span class="keyword">WITH</span> (NOLOCK)
+<span class="keyword">LEFT JOIN</span> dbo.Vendedores v
     <span class="keyword">ON</span> v.EmpresaId = b.EmpresaId
     <span class="keyword">AND</span> v.VendedorId = b.VendedorId
-
-<span class="keyword">LEFT JOIN</span> dbo.BancosCuentas m <span class="keyword">WITH</span> (NOLOCK)
-    <span class="keyword">ON</span> m.EmpresaId = b.EmpresaId
-    <span class="keyword">AND</span> m.CuentaBancaria = b.CuentaBancaria
-
-<span class="keyword">LEFT JOIN</span> dbo.Bancos n <span class="keyword">WITH</span> (NOLOCK)
-    <span class="keyword">ON</span> n.BancoId = m.BancoId
 
 <span class="keyword">WHERE</span>
     a.IndicadorEstado = <span class="string">'1'</span>
     <span class="keyword">AND</span> (
         <span class="function">ISNULL</span>(a.SaldoCuenta, <span class="number">0</span>) &lt;&gt; <span class="number">0</span>
-        <span class="keyword">OR</span> <span class="function">ISNULL</span>(a.SaldoLetras, <span class="number">0</span>) &lt;&gt; <span class="number">0</span>
-        <span class="keyword">OR</span> <span class="function">ISNULL</span>(a.SaldoResidual, <span class="number">0</span>) &lt;&gt; <span class="number">0</span>
-    )
-    <span class="keyword">AND</span> a.TipoPago = <span class="string">'C'</span>;
+        <span class="keyword">OR</span>
+        <span class="function">ISNULL</span>(a.SaldoLetras, <span class="number">0</span>) &lt;&gt; <span class="number">0</span>
+    );
 </pre>
-
-
-
-    <div class="sql-tags">
-        <span>SQL Server</span>
-        <span>T-SQL</span>
-        <span>Views</span>
-        <span>JOINs</span>
-        <span>CASE</span>
-        <span>DATEDIFF</span>
-        <span>ISNULL</span>
-        <span>Funciones</span>
-    </div>
-</div>
-```
-</span>;</pre>
 
                     </div>
 
                 </div>
 
 
-                <!-- SLIDE 3 -->
+                <!-- =========================
+                     SLIDE 3
+                ========================= -->
 
                 <div class="slide">
 
@@ -1566,7 +1350,7 @@ a:focus-visible {
                             </div>
 
                             <span class="code-title">
-                                Procedimientos y variables
+                                Procedimientos y funciones
                             </span>
 
                         </div>
@@ -1581,33 +1365,10 @@ a:focus-visible {
                     <div class="code-body">
 
                         <div class="line-numbers">
-1<br>
-2<br>
-3<br>
-4<br>
-5<br>
-6<br>
-7<br>
-8<br>
-9<br>
-10<br>
-11<br>
-12<br>
-13<br>
-14<br>
-15<br>
-16<br>
-17<br>
-18<br>
-19<br>
-20
+1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20
                         </div>
 
-
-                        <pre><span class="comment">-- Consulta reutilizable para solicitudes recurrentes</span>
-
-
-<pre><span class="comment">-- Creación de usuario con control transaccional</span>
+                        <pre><span class="comment">-- Creación de usuario con control transaccional</span>
 
 <span class="keyword">CREATE PROCEDURE</span> sp_CrearUsuario
 (
@@ -1628,8 +1389,6 @@ a:focus-visible {
             Documento,
             Nombre,
             Apellido,
-            Telefono,
-            Direccion,
             Estado
         )
         <span class="keyword">VALUES</span>
@@ -1637,8 +1396,6 @@ a:focus-visible {
             @documento,
             @nombre,
             @apellido,
-            <span class="string">''</span>,
-            <span class="string">''</span>,
             <span class="string">'ACTIVO'</span>
         )
 
@@ -1650,7 +1407,6 @@ a:focus-visible {
             Estado,
             RolId,
             FechaCreacion,
-            UltimoAcceso,
             Documento
         )
         <span class="keyword">VALUES</span>
@@ -1661,7 +1417,6 @@ a:focus-visible {
             <span class="number">1</span>,
             <span class="number">3</span>,
             <span class="function">GETDATE</span>(),
-            <span class="keyword">NULL</span>,
             @documento
         )
 
@@ -1677,17 +1432,13 @@ a:focus-visible {
     <span class="keyword">END CATCH</span>
 
 <span class="keyword">END</span>
-</pre>
 
-                            
--- Cálculo del stock disponible por producto y almacén
 
-<span class="keyword">CREATE FUNCTION</span> [dbo].[fn_StockDisponible]
+<span class="comment">-- Función para calcular stock disponible</span>
+
+<span class="keyword">CREATE FUNCTION</span> dbo.fn_StockDisponible
 (
     @empresa <span class="keyword">CHAR</span>(2),
-    @sucursal <span class="keyword">CHAR</span>(2),
-    @anio <span class="keyword">CHAR</span>(4),
-    @mes <span class="keyword">CHAR</span>(2),
     @almacen <span class="keyword">CHAR</span>(4),
     @producto <span class="keyword">CHAR</span>(13)
 )
@@ -1698,16 +1449,12 @@ a:focus-visible {
 <span class="keyword">BEGIN</span>
 
     <span class="keyword">DECLARE</span> @stockDisponible <span class="keyword">NUMERIC</span>(16,3)
-    <span class="keyword">DECLARE</span> @stockReservado <span class="keyword">NUMERIC</span>(16,3)
     <span class="keyword">DECLARE</span> @stockFisico <span class="keyword">NUMERIC</span>(16,3)
-    <span class="keyword">DECLARE</span> @reservaCotizacion <span class="keyword">NUMERIC</span>(16,3)
+    <span class="keyword">DECLARE</span> @stockReservado <span class="keyword">NUMERIC</span>(16,3)
 
     <span class="keyword">SET</span> @stockFisico =
         dbo.fn_StockFisicoAlmacen(
             @empresa,
-            @sucursal,
-            @anio,
-            @mes,
             @almacen,
             @producto
         )
@@ -1715,42 +1462,28 @@ a:focus-visible {
     <span class="keyword">SET</span> @stockReservado =
         dbo.fn_StockReservado(
             @empresa,
-            @sucursal,
             @almacen,
-            @producto,
-            @anio,
-            @mes
-        )
-
-    <span class="keyword">SET</span> @reservaCotizacion =
-        dbo.fn_ReservaCotizacion(
-            @empresa,
-            @almacen,
-            @producto,
-            @anio,
-            @mes
+            @producto
         )
 
     <span class="keyword">SET</span> @stockDisponible =
         <span class="function">ISNULL</span>(@stockFisico, <span class="number">0</span>)
-        - <span class="function">ISNULL</span>(@stockReservado, <span class="number">0</span>)
-        - <span class="function">ISNULL</span>(@reservaCotizacion, <span class="number">0</span>)
+        -
+        <span class="function">ISNULL</span>(@stockReservado, <span class="number">0</span>)
 
     <span class="keyword">RETURN</span> @stockDisponible
 
 <span class="keyword">END</span>
 </pre>
 
-
-
-;</pre>
-
                     </div>
 
                 </div>
 
 
-                <!-- SLIDE 4 -->
+                <!-- =========================
+                     SLIDE 4
+                ========================= -->
 
                 <div class="slide">
 
@@ -1765,13 +1498,13 @@ a:focus-visible {
                             </div>
 
                             <span class="code-title">
-                                Análisis con funciones de ventana
+                                Inventario y trazabilidad
                             </span>
 
                         </div>
 
                         <span class="code-label">
-                            CTE · ROW_NUMBER
+                            VIEW
                         </span>
 
                     </div>
@@ -1780,67 +1513,117 @@ a:focus-visible {
                     <div class="code-body">
 
                         <div class="line-numbers">
-1<br>
-2<br>
-3<br>
-4<br>
-5<br>
-6<br>
-7<br>
-8<br>
-9<br>
-10<br>
-11<br>
-12<br>
-13<br>
-14<br>
-15<br>
-16<br>
-17<br>
-18<br>
-19<br>
-20
+1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20
                         </div>
 
+                        <pre><span class="comment">-- Vista para consolidar información de inventario</span>
+<span class="comment">-- Permite consultar productos con lote, serie o referencia</span>
 
-                        <pre><span class="comment">-- Obtener el registro más reciente por cliente</span>
+<span class="keyword">CREATE VIEW</span> dbo.V_ActivosInventario
+<span class="keyword">AS</span>
 
-<span class="keyword">WITH</span> UltimasVentas <span class="keyword">AS</span>
-(
+<span class="keyword">SELECT DISTINCT</span>
 
-    <span class="keyword">SELECT</span>
-        IdCliente,
-        IdVenta,
-        Fecha,
-        Total,
+    A.EmpresaId <span class="keyword">AS</span> Empresa,
+    A.ProductoId <span class="keyword">AS</span> CodigoProducto,
+    I.NombreProducto,
+    L.DescripcionTipoInventario <span class="keyword">AS</span> TipoInventario,
+    J.DescripcionMarca <span class="keyword">AS</span> Marca,
+    I.Modelo,
+    K.DescripcionFamilia <span class="keyword">AS</span> Familia,
 
-        <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span>
-        (
-            <span class="keyword">PARTITION BY</span> IdCliente
-            <span class="keyword">ORDER BY</span> Fecha <span class="keyword">DESC</span>
-        ) <span class="keyword">AS</span> Orden
+    <span class="keyword">CASE</span>
+        <span class="keyword">WHEN</span> A.TipoRegistro = <span class="string">'1'</span>
+            <span class="keyword">THEN</span> <span class="string">'LOTE'</span>
 
-    <span class="keyword">FROM</span> dbo.Ventas
+        <span class="keyword">WHEN</span> A.TipoRegistro = <span class="string">'2'</span>
+            <span class="keyword">THEN</span> <span class="string">'SERIE'</span>
 
-)
+        <span class="keyword">WHEN</span> A.TipoRegistro = <span class="string">'3'</span>
+            <span class="keyword">THEN</span> <span class="string">'REFERENCIA'</span>
 
-<span class="keyword">SELECT</span>
-    IdCliente,
-    IdVenta,
-    Fecha,
-    Total
+        <span class="keyword">ELSE</span>
+            <span class="string">'SIN INDICADOR'</span>
+    <span class="keyword">END AS</span> Indicador,
 
-<span class="keyword">FROM</span> UltimasVentas
+    <span class="keyword">CASE</span>
+        <span class="keyword">WHEN</span> A.TipoRegistro = <span class="string">'1'</span>
+            <span class="keyword">THEN</span> D.NumeroLote
+
+        <span class="keyword">WHEN</span> A.TipoRegistro = <span class="string">'2'</span>
+            <span class="keyword">THEN</span> B.NumeroSerie
+
+        <span class="keyword">WHEN</span> A.TipoRegistro = <span class="string">'3'</span>
+            <span class="keyword">THEN</span> F.NumeroReferencia
+
+        <span class="keyword">ELSE</span>
+            <span class="string">'SIN INDICADOR'</span>
+    <span class="keyword">END AS</span> Identificador,
+
+    <span class="keyword">CASE</span>
+        <span class="keyword">WHEN</span> A.TipoRegistro = <span class="string">'1'</span>
+            <span class="keyword">THEN</span> D.SaldoLote
+
+        <span class="keyword">WHEN</span> A.TipoRegistro = <span class="string">'2'</span>
+            <span class="keyword">THEN</span> B.SaldoSerie
+
+        <span class="keyword">WHEN</span> A.TipoRegistro = <span class="string">'3'</span>
+            <span class="keyword">THEN</span> F.SaldoReferencia
+
+        <span class="keyword">ELSE</span>
+            A.SaldoProducto
+    <span class="keyword">END AS</span> Saldo
+
+<span class="keyword">FROM</span> dbo.SaldosProductos A
+
+<span class="keyword">LEFT JOIN</span> dbo.SaldosSeries B
+    <span class="keyword">ON</span> A.EmpresaId = B.EmpresaId
+    <span class="keyword">AND</span> A.ProductoId = B.ProductoId
+
+<span class="keyword">LEFT JOIN</span> dbo.ProductosSeries C
+    <span class="keyword">ON</span> B.EmpresaId = C.EmpresaId
+    <span class="keyword">AND</span> B.ProductoId = C.ProductoId
+
+<span class="keyword">LEFT JOIN</span> dbo.SaldosLotes D
+    <span class="keyword">ON</span> A.EmpresaId = D.EmpresaId
+    <span class="keyword">AND</span> A.ProductoId = D.ProductoId
+
+<span class="keyword">LEFT JOIN</span> dbo.LotesProductos E
+    <span class="keyword">ON</span> D.ProductoId = E.ProductoId
+
+<span class="keyword">LEFT JOIN</span> dbo.SaldosReferencias F
+    <span class="keyword">ON</span> A.EmpresaId = F.EmpresaId
+    <span class="keyword">AND</span> A.ProductoId = F.ProductoId
+
+<span class="keyword">LEFT JOIN</span> dbo.Almacenes H
+    <span class="keyword">ON</span> A.EmpresaId = H.EmpresaId
+
+<span class="keyword">LEFT JOIN</span> dbo.Productos I
+    <span class="keyword">ON</span> A.EmpresaId = I.EmpresaId
+    <span class="keyword">AND</span> A.ProductoId = I.ProductoId
+
+<span class="keyword">LEFT JOIN</span> dbo.Marcas J
+    <span class="keyword">ON</span> I.EmpresaId = J.EmpresaId
+
+<span class="keyword">LEFT JOIN</span> dbo.FamiliasProductos K
+    <span class="keyword">ON</span> I.EmpresaId = K.EmpresaId
+
+<span class="keyword">LEFT JOIN</span> dbo.TiposInventario L
+    <span class="keyword">ON</span> I.TipoInventarioId = L.TipoInventarioId
 
 <span class="keyword">WHERE</span>
-    Orden = <span class="number">1</span>;</pre>
+    A.EmpresaId = <span class="string">'01'</span>
+    <span class="keyword">AND</span> I.TipoInventarioId = <span class="string">'10'</span>;
+</pre>
 
                     </div>
 
                 </div>
 
 
-                <!-- SLIDE 5 -->
+                <!-- =========================
+                     SLIDE 5
+                ========================= -->
 
                 <div class="slide">
 
@@ -1870,25 +1653,8 @@ a:focus-visible {
                     <div class="code-body">
 
                         <div class="line-numbers">
-1<br>
-2<br>
-3<br>
-4<br>
-5<br>
-6<br>
-7<br>
-8<br>
-9<br>
-10<br>
-11<br>
-12<br>
-13<br>
-14<br>
-15<br>
-16<br>
-17
+1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15
                         </div>
-
 
                         <pre><span class="comment">-- Consulta a una fuente MySQL mediante Linked Server</span>
 
@@ -1915,7 +1681,8 @@ a:focus-visible {
 );
 
 <span class="comment">-- La información puede combinarse posteriormente</span>
-<span class="comment">-- con tablas disponibles en SQL Server.</span></pre>
+<span class="comment">-- con tablas disponibles en SQL Server.</span>
+</pre>
 
                     </div>
 
@@ -1924,6 +1691,8 @@ a:focus-visible {
 
             </div>
 
+
+            <!-- CONTROLES -->
 
             <div class="carousel-controls">
 
@@ -1935,12 +1704,10 @@ a:focus-visible {
                     ‹
                 </button>
 
-
                 <div
                     class="dots"
                     id="dots"
                 ></div>
-
 
                 <button
                     class="carousel-btn"
@@ -1959,9 +1726,8 @@ a:focus-visible {
 </section>
 
 
-
 <!-- =========================
-     03 · PRINCIPALES RECURSOS
+     03 · RECURSOS
 ========================= -->
 
 <section id="recursos">
@@ -1987,7 +1753,6 @@ a:focus-visible {
 
 
         <div class="resources">
-
 
             <div class="resource-card">
 
@@ -2097,7 +1862,6 @@ a:focus-visible {
 
             </div>
 
-
         </div>
 
     </div>
@@ -2105,9 +1869,8 @@ a:focus-visible {
 </section>
 
 
-
 <!-- =========================
-     04 · EXPERIENCIA APLICADA
+     04 · EXPERIENCIA
 ========================= -->
 
 <section id="experiencia">
@@ -2133,7 +1896,6 @@ a:focus-visible {
                 ENTORNO PROFESIONAL
             </div>
 
-
             <p>
                 En mi experiencia profesional utilizo
                 <strong>SQL Server</strong> para soporte, análisis y preparación
@@ -2143,7 +1905,6 @@ a:focus-visible {
                 estructuras reutilizables para atender solicitudes de usuarios
                 y procesos internos.
             </p>
-
 
             <p>
                 También he trabajado con <strong>MySQL y OPENQUERY</strong>
@@ -2157,7 +1918,6 @@ a:focus-visible {
     </div>
 
 </section>
-
 
 
 <!-- =========================
@@ -2183,60 +1943,24 @@ a:focus-visible {
 
         <div class="technologies">
 
-            <span class="tech">
-                SQL SERVER
-            </span>
-
-            <span class="tech">
-                T-SQL
-            </span>
-
-            <span class="tech">
-                VIEWS
-            </span>
-
-            <span class="tech">
-                STORED PROCEDURES
-            </span>
-
-            <span class="tech">
-                JOIN
-            </span>
-
-            <span class="tech">
-                CTE
-            </span>
-
-            <span class="tech">
-                ROW_NUMBER
-            </span>
-
-            <span class="tech">
-                MYSQL
-            </span>
-
-            <span class="tech">
-                OPENQUERY
-            </span>
-
-            <span class="tech">
-                DML
-            </span>
-
-            <span class="tech">
-                DDL
-            </span>
-
-            <span class="tech">
-                SQL PROFILER
-            </span>
+            <span class="tech">SQL SERVER</span>
+            <span class="tech">T-SQL</span>
+            <span class="tech">VIEWS</span>
+            <span class="tech">STORED PROCEDURES</span>
+            <span class="tech">JOIN</span>
+            <span class="tech">CTE</span>
+            <span class="tech">ROW_NUMBER</span>
+            <span class="tech">MYSQL</span>
+            <span class="tech">OPENQUERY</span>
+            <span class="tech">DML</span>
+            <span class="tech">DDL</span>
+            <span class="tech">SQL PROFILER</span>
 
         </div>
 
     </div>
 
 </section>
-
 
 
 <!-- =========================
@@ -2252,7 +1976,6 @@ a:focus-visible {
 </div>
 
 
-
 <!-- =========================
      FOOTER
 ========================= -->
@@ -2262,7 +1985,6 @@ a:focus-visible {
     © 2026 Eduardo Chiara · Analista de Sistemas
 
 </footer>
-
 
 
 <!-- =========================
@@ -2289,7 +2011,9 @@ const dotsContainer =
 let current = 0;
 
 
-/* Crear indicadores */
+/* =========================
+   CREAR INDICADORES
+========================= */
 
 slideItems.forEach((_, index) => {
 
@@ -2319,7 +2043,9 @@ const dots =
     document.querySelectorAll(".dot");
 
 
-/* Actualizar carrusel */
+/* =========================
+   ACTUALIZAR CARRUSEL
+========================= */
 
 function updateCarousel() {
 
@@ -2338,7 +2064,9 @@ function updateCarousel() {
 }
 
 
-/* Siguiente */
+/* =========================
+   SIGUIENTE
+========================= */
 
 next.addEventListener("click", () => {
 
@@ -2353,7 +2081,9 @@ next.addEventListener("click", () => {
 });
 
 
-/* Anterior */
+/* =========================
+   ANTERIOR
+========================= */
 
 prev.addEventListener("click", () => {
 
@@ -2368,7 +2098,9 @@ prev.addEventListener("click", () => {
 });
 
 
-/* Teclado */
+/* =========================
+   TECLADO
+========================= */
 
 document.addEventListener("keydown", (event) => {
 
@@ -2404,3 +2136,4 @@ document.addEventListener("keydown", (event) => {
 
 </body>
 </html>
+
