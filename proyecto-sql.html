@@ -1195,39 +1195,100 @@ a:focus-visible {
                         </div>
 
 
-                        <pre><span class="comment">-- Integración de información proveniente de distintas tablas</span>
+                       
 
- -- //////// ACTUALIZAR CABECERA ////////////
- DECLARE @TOT decimal(18,2), @SUB decimal(18,2),@IGV decimal(18,2),@codCoti char(15)
- SET @codCoti = '00261175'		--se coloca numero cotizacion
- SET @TOT = (SELECT SUM(ARTI_TOTA) FROM COTIZACION..DETCOTIZACION where COTI_NUME=@codCoti)
- SET @SUB = @TOT /1.18
- SET @IGV = @TOT - @SUB
- update COTIZACION..COTIZACION set COTI_SUBT=@SUB,COTI_IGV=@IGV,COTI_TOTA=@TOT where COTI_NUME=@codCoti 
- SELECT * FROM COTIZACION..COTIZACION where COTI_NUME=@codCoti
+<pre><span class="comment">-- Actualización de cabecera y detalle de una cotización</span>
 
- ------------------------------------------------------ DETALLE --------------------------------------------------------------
- 
- -- //////// ACTUALIZAR DETALLE //////////// 
- DECLARE @PVEN decimal(18,2), @DTOT decimal(18,2),@PVENC decimal(18,2),@DCTO decimal(18,2),@codProducto char(10),@codCoti char(15),@cantidad int,@tipoCambio decimal(18,2)
-	set @tipoCambio = (select TIPO_CAMB_VENT from COTIZACION..TIPO_CAMBIO where format(TIPO_CAMB_FECH,'yyyy-MM-dd') = format(getdate(),'yyyy-MM-dd'))
-	
-	SET @codProducto = '085.778'	-- se coloca codigo producto 
-	SET @codCoti = '00261175'		-- se coloca numero cotizacion
-	SET @PVEN =    11500.00		--se coloca nuevo precio 
-	set @cantidad = (select top 1 ARTI_CANT from COTIZACION..DETCOTIZACION where ARTI_CODI=@codProducto and COTI_NUME=@codCoti)
-	SET @DTOT = @PVEN * @cantidad
-	SET @PVENC = @DTOT * @tipoCambio
-	SET @DCTO =30
-	update COTIZACION..DETCOTIZACION set ARTI_PVEN=@PVEN,ARTI_TOTA=@DTOT,ARTI_PVEN_CAMB=@PVENC,ARTI_DCTO=@DCTO,ARTI_CANT=@cantidad
-	where COTI_NUME=@codCoti 	and ARTI_CODI=@codProducto
- SELECT * FROM COTIZACION..DETCOTIZACION where COTI_NUME=@codCoti
+<span class="comment">-- //////// ACTUALIZAR CABECERA ////////////</span>
+
+<span class="keyword">DECLARE</span> @TOTAL <span class="keyword">DECIMAL</span>(18,2),
+        @SUBTOTAL <span class="keyword">DECIMAL</span>(18,2),
+        @IMPUESTO <span class="keyword">DECIMAL</span>(18,2),
+        @COD_COTIZACION <span class="keyword">CHAR</span>(15)
+
+<span class="keyword">SET</span> @COD_COTIZACION = <span class="string">'COT-000123'</span>
+
+<span class="keyword">SET</span> @TOTAL = (
+    <span class="keyword">SELECT</span> <span class="function">SUM</span>(DET_IMPORTE)
+    <span class="keyword">FROM</span> dbo.DetalleCotizacion
+    <span class="keyword">WHERE</span> COTIZACION_ID = @COD_COTIZACION
+)
+
+<span class="keyword">SET</span> @SUBTOTAL = @TOTAL / <span class="number">1.18</span>
+<span class="keyword">SET</span> @IMPUESTO = @TOTAL - @SUBTOTAL
+
+<span class="keyword">UPDATE</span> dbo.Cotizacion
+<span class="keyword">SET</span>
+    COT_SUBTOTAL = @SUBTOTAL,
+    COT_IMPUESTO = @IMPUESTO,
+    COT_TOTAL = @TOTAL
+<span class="keyword">WHERE</span> COTIZACION_ID = @COD_COTIZACION
+
+<span class="keyword">SELECT</span> *
+<span class="keyword">FROM</span> dbo.Cotizacion
+<span class="keyword">WHERE</span> COTIZACION_ID = @COD_COTIZACION
 
 
- --cambiar igv a no incluye
- select * from COTIZACION..COTIZACION where COTI_NUME='00261175'
- update  COTIZACION..COTIZACION set COTI_TIPO_PREC='NO INCLUYE IGV' ,COTI_LUGA_ENTR='EXWORK'
- where COTI_NUME='00261175'
+<span class="comment">------------------------------------------------------
+-- DETALLE
+------------------------------------------------------</span>
+
+<span class="comment">-- //////// ACTUALIZAR DETALLE ////////////</span>
+
+<span class="keyword">DECLARE</span> @PRECIO <span class="keyword">DECIMAL</span>(18,2),
+        @TOTAL_DETALLE <span class="keyword">DECIMAL</span>(18,2),
+        @PRECIO_CONVERTIDO <span class="keyword">DECIMAL</span>(18,2),
+        @DESCUENTO <span class="keyword">DECIMAL</span>(18,2),
+        @COD_PRODUCTO <span class="keyword">CHAR</span>(10),
+        @CANTIDAD <span class="keyword">INT</span>,
+        @TIPO_CAMBIO <span class="keyword">DECIMAL</span>(18,2)
+
+<span class="keyword">SET</span> @TIPO_CAMBIO = (
+    <span class="keyword">SELECT TOP</span> <span class="number">1</span> TIPO_CAMBIO
+    <span class="keyword">FROM</span> dbo.TiposCambio
+    <span class="keyword">WHERE</span> <span class="function">CONVERT</span>(<span class="keyword">DATE</span>, FECHA_CAMBIO)
+        = <span class="function">CONVERT</span>(<span class="keyword">DATE</span>, <span class="function">GETDATE</span>())
+)
+
+<span class="keyword">SET</span> @COD_PRODUCTO = <span class="string">'PROD-001'</span>
+<span class="keyword">SET</span> @COD_COTIZACION = <span class="string">'COT-000123'</span>
+<span class="keyword">SET</span> @PRECIO = <span class="number">11500.00</span>
+
+<span class="keyword">SET</span> @CANTIDAD = (
+    <span class="keyword">SELECT TOP</span> <span class="number">1</span> CANTIDAD
+    <span class="keyword">FROM</span> dbo.DetalleCotizacion
+    <span class="keyword">WHERE</span> PRODUCTO_ID = @COD_PRODUCTO
+      <span class="keyword">AND</span> COTIZACION_ID = @COD_COTIZACION
+)
+
+<span class="keyword">SET</span> @TOTAL_DETALLE = @PRECIO * @CANTIDAD
+<span class="keyword">SET</span> @PRECIO_CONVERTIDO = @TOTAL_DETALLE * @TIPO_CAMBIO
+<span class="keyword">SET</span> @DESCUENTO = <span class="number">30</span>
+
+<span class="keyword">UPDATE</span> dbo.DetalleCotizacion
+<span class="keyword">SET</span>
+    PRECIO_UNITARIO = @PRECIO,
+    IMPORTE_TOTAL = @TOTAL_DETALLE,
+    IMPORTE_CONVERTIDO = @PRECIO_CONVERTIDO,
+    DESCUENTO = @DESCUENTO,
+    CANTIDAD = @CANTIDAD
+<span class="keyword">WHERE</span> COTIZACION_ID = @COD_COTIZACION
+  <span class="keyword">AND</span> PRODUCTO_ID = @COD_PRODUCTO
+
+<span class="keyword">SELECT</span> *
+<span class="keyword">FROM</span> dbo.DetalleCotizacion
+<span class="keyword">WHERE</span> COTIZACION_ID = @COD_COTIZACION
+
+
+<span class="comment">-- Actualizar condiciones de la cotización</span>
+
+<span class="keyword">UPDATE</span> dbo.Cotizacion
+<span class="keyword">SET</span>
+    TIPO_PRECIO = <span class="string">'NO INCLUYE IMPUESTO'</span>,
+    LUGAR_ENTREGA = <span class="string">'ALMACEN'</span>
+<span class="keyword">WHERE</span> COTIZACION_ID = @COD_COTIZACION
+</pre>
+
                     </div>
 
                 </div>
