@@ -1606,39 +1606,144 @@ a:focus-visible {
 
                         <pre><span class="comment">-- Consulta reutilizable para solicitudes recurrentes</span>
 
-<span class="keyword">CREATE OR ALTER PROCEDURE</span>
-dbo.usp_ConsultaVentas
 
-    @FechaInicio DATE,
-    @FechaFin DATE
+<pre><span class="comment">-- Creación de usuario con control transaccional</span>
 
+<span class="keyword">CREATE PROCEDURE</span> sp_CrearUsuario
+(
+    @nombre <span class="keyword">VARCHAR</span>(150),
+    @apellido <span class="keyword">VARCHAR</span>(150),
+    @documento <span class="keyword">CHAR</span>(15),
+    @correo <span class="keyword">VARCHAR</span>(250)
+)
 <span class="keyword">AS</span>
-
 <span class="keyword">BEGIN</span>
 
-    <span class="keyword">DECLARE</span>
-        @Estado VARCHAR(<span class="number">20</span>);
+    <span class="keyword">BEGIN TRY</span>
 
-    <span class="keyword">SET</span>
-        @Estado = <span class="string">'ACTIVO'</span>;
+        <span class="keyword">BEGIN TRANSACTION</span>
 
-    <span class="keyword">SELECT</span>
-        IdVenta,
-        Fecha,
-        Total
+        <span class="keyword">INSERT INTO</span> dbo.Personas
+        (
+            Documento,
+            Nombre,
+            Apellido,
+            Telefono,
+            Direccion,
+            Estado
+        )
+        <span class="keyword">VALUES</span>
+        (
+            @documento,
+            @nombre,
+            @apellido,
+            <span class="string">''</span>,
+            <span class="string">''</span>,
+            <span class="string">'ACTIVO'</span>
+        )
 
-    <span class="keyword">FROM</span> dbo.Ventas
+        <span class="keyword">INSERT INTO</span> dbo.Usuarios
+        (
+            Correo,
+            CodigoEmpresa,
+            PasswordHash,
+            Estado,
+            RolId,
+            FechaCreacion,
+            UltimoAcceso,
+            Documento
+        )
+        <span class="keyword">VALUES</span>
+        (
+            @correo,
+            <span class="string">'EMPRESA01'</span>,
+            <span class="string">'[HASH_PROTEGIDO]'</span>,
+            <span class="number">1</span>,
+            <span class="number">3</span>,
+            <span class="function">GETDATE</span>(),
+            <span class="keyword">NULL</span>,
+            @documento
+        )
 
-    <span class="keyword">WHERE</span>
-        Fecha <span class="keyword">BETWEEN</span>
-            @FechaInicio
-            <span class="keyword">AND</span>
-            @FechaFin
+        <span class="keyword">COMMIT TRANSACTION</span>
 
-        <span class="keyword">AND</span>
-            Estado = @Estado;
+    <span class="keyword">END TRY</span>
 
-<span class="keyword">END</span>;</pre>
+    <span class="keyword">BEGIN CATCH</span>
+
+        <span class="keyword">ROLLBACK TRANSACTION</span>
+        <span class="keyword">THROW</span>
+
+    <span class="keyword">END CATCH</span>
+
+<span class="keyword">END</span>
+</pre>
+
+                            
+-- Cálculo del stock disponible por producto y almacén
+
+<span class="keyword">CREATE FUNCTION</span> [dbo].[fn_StockDisponible]
+(
+    @empresa <span class="keyword">CHAR</span>(2),
+    @sucursal <span class="keyword">CHAR</span>(2),
+    @anio <span class="keyword">CHAR</span>(4),
+    @mes <span class="keyword">CHAR</span>(2),
+    @almacen <span class="keyword">CHAR</span>(4),
+    @producto <span class="keyword">CHAR</span>(13)
+)
+
+<span class="keyword">RETURNS NUMERIC</span>(16,3)
+
+<span class="keyword">AS</span>
+<span class="keyword">BEGIN</span>
+
+    <span class="keyword">DECLARE</span> @stockDisponible <span class="keyword">NUMERIC</span>(16,3)
+    <span class="keyword">DECLARE</span> @stockReservado <span class="keyword">NUMERIC</span>(16,3)
+    <span class="keyword">DECLARE</span> @stockFisico <span class="keyword">NUMERIC</span>(16,3)
+    <span class="keyword">DECLARE</span> @reservaCotizacion <span class="keyword">NUMERIC</span>(16,3)
+
+    <span class="keyword">SET</span> @stockFisico =
+        dbo.fn_StockFisicoAlmacen(
+            @empresa,
+            @sucursal,
+            @anio,
+            @mes,
+            @almacen,
+            @producto
+        )
+
+    <span class="keyword">SET</span> @stockReservado =
+        dbo.fn_StockReservado(
+            @empresa,
+            @sucursal,
+            @almacen,
+            @producto,
+            @anio,
+            @mes
+        )
+
+    <span class="keyword">SET</span> @reservaCotizacion =
+        dbo.fn_ReservaCotizacion(
+            @empresa,
+            @almacen,
+            @producto,
+            @anio,
+            @mes
+        )
+
+    <span class="keyword">SET</span> @stockDisponible =
+        <span class="function">ISNULL</span>(@stockFisico, <span class="number">0</span>)
+        - <span class="function">ISNULL</span>(@stockReservado, <span class="number">0</span>)
+        - <span class="function">ISNULL</span>(@reservaCotizacion, <span class="number">0</span>)
+
+    <span class="keyword">RETURN</span> @stockDisponible
+
+<span class="keyword">END</span>
+</pre>
+
+
+
+;</pre>
 
                     </div>
 
